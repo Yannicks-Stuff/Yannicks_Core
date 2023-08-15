@@ -2,6 +2,9 @@ namespace Yannick.Physic.SI;
 
 public enum Prefix
 {
+    Yocto = -24,
+    Zepto = -21,
+    Atto = -18,
     Femto = -15,
     Pico = -12,
     Nano = -9,
@@ -16,5 +19,8 @@ public enum Prefix
     Mega = 6,
     Giga = 9,
     Tera = 12,
-    Peta = 15
+    Peta = 15,
+    Exa = 18,
+    Zetta = 21,
+    Yotta = 24
 }

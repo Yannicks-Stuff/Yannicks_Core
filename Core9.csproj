@@ -35,4 +35,12 @@
       <Folder Include="VM\YARV\" />
     </ItemGroup>
 
+    <ItemGroup>
+        <Content Include="obj\Core9.csproj.nuget.dgspec.json"/>
+        <Content Include="obj\Debug\net8.0\Core9.assets.cache"/>
+        <Content Include="obj\project.assets.json"/>
+        <Content Include="obj\project.nuget.cache"/>
+        <Content Include="obj\rider.project.restore.info"/>
+    </ItemGroup>
+
 </Project>

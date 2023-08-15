@@ -20,8 +20,9 @@ public static class Converter
     /// Converts a value with the specified prefix to a value with the target prefix (e.g., converting meters to centimeters).
     /// </summary>
     /// <param name="value">The value to convert.</param>
+    /// <param name="current">The current prefix for the conversion</param>
     /// <param name="target">The target prefix for the conversion.</param>
     /// <returns>The value converted to the target prefix.</returns>
-    public static decimal Convert(decimal value, Prefix target)
-        => BaseValue(value, target) / 10m.Pow((int)target);
+    public static decimal Convert(decimal value, Prefix current, Prefix target)
+        => BaseValue(value, current) / 10m.Pow((int)target);
 }
