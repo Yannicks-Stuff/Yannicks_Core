@@ -23,7 +23,7 @@
     <ItemGroup>
       <Folder Include="Chemistry\" />
       <Folder Include="Crypto\" />
-      <Folder Include="Extensions\" />
+        <Folder Include="Extensions\ArrayExtensions\GenericExtensions\"/>
       <Folder Include="IO\" />
       <Folder Include="Lang\" />
       <Folder Include="Mathematic\" />
