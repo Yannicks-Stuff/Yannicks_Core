@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Yannick</RootNamespace>
+        <Version>0.1</Version>
+        <Authors>Yannick Kutil</Authors>
+        <Company>Yannicks Firma</Company>
+        <LangVersion>default</LangVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <Optimize>true</Optimize>
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Chemistry\" />
+      <Folder Include="Crypto\" />
+      <Folder Include="Extensions\" />
+      <Folder Include="IO\" />
+      <Folder Include="Lang\" />
+      <Folder Include="Mathematic\" />
+      <Folder Include="Native\OS\" />
+      <Folder Include="Network\Protocol\" />
+      <Folder Include="VM\CLR\" />
+      <Folder Include="VM\CVM\" />
+      <Folder Include="VM\JVM\" />
+      <Folder Include="VM\YARV\" />
+    </ItemGroup>
+
+</Project>
