@@ -5,729 +5,729 @@ using Yannick.Extensions.EnumExtensions;
 using Yannick.Lang.Attribute;
 using Unit = Yannick.Physic.SI.Converter;
 
-namespace Yannick.Physic.SI.Length;
+namespace Yannick.Physic.SI.Electricity;
 
 /// <summary>
-/// Represent the si unit for length
+/// Represent the si unit for electricity
 /// </summary>
 [Serializable]
 [StructLayout(LayoutKind.Sequential)]
-public readonly struct Meter : INone
+public readonly struct Ampere : INone
 {
     internal readonly decimal m_value; // Do not rename (binary serialization)
 
-    public Meter(decimal val, Prefix from = Prefix.None)
+    public Ampere(decimal val, Prefix from = Prefix.None)
     {
         m_value = from == Prefix.None ? val : Unit.BaseValue(val, from);
     }
 
     public decimal Convert(Prefix target) => Unit.Convert(m_value, INone.Prefix, target);
 
-    public static implicit operator Meter(decimal val) => new(val);
+    public static implicit operator Ampere(decimal val) => new(val);
 
-    public static implicit operator Meter<IYotta>(Meter m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Yotta));
-    public static implicit operator Meter<IZetta>(Meter m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Zetta));
-    public static implicit operator Meter<IExa>(Meter m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Exa));
-    public static implicit operator Meter<IPeta>(Meter m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Peta));
-    public static implicit operator Meter<ITera>(Meter m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Tera));
-    public static implicit operator Meter<IGiga>(Meter m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Giga));
-    public static implicit operator Meter<IMega>(Meter m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Mega));
-    public static implicit operator Meter<IKilo>(Meter m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Kilo));
-    public static implicit operator Meter<IHecto>(Meter m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Hecto));
-    public static implicit operator Meter<IDeca>(Meter m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Deca));
-    public static implicit operator Meter<INone>(Meter m) => new(m.m_value);
-    public static implicit operator Meter<IDeci>(Meter m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Deci));
-    public static implicit operator Meter<ICenti>(Meter m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Centi));
-    public static implicit operator Meter<IMilli>(Meter m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Milli));
-    public static implicit operator Meter<IMicro>(Meter m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Micro));
-    public static implicit operator Meter<INano>(Meter m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Nano));
-    public static implicit operator Meter<IPico>(Meter m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Pico));
-    public static implicit operator Meter<IFemto>(Meter m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Femto));
-    public static implicit operator Meter<IAtto>(Meter m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Atto));
-    public static implicit operator Meter<IZepto>(Meter m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Zepto));
-    public static implicit operator Meter<IYocto>(Meter m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Yocto));
+    public static implicit operator Ampere<IYotta>(Ampere m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Yotta));
+    public static implicit operator Ampere<IZetta>(Ampere m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Zetta));
+    public static implicit operator Ampere<IExa>(Ampere m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Exa));
+    public static implicit operator Ampere<IPeta>(Ampere m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Peta));
+    public static implicit operator Ampere<ITera>(Ampere m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Tera));
+    public static implicit operator Ampere<IGiga>(Ampere m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Giga));
+    public static implicit operator Ampere<IMega>(Ampere m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Mega));
+    public static implicit operator Ampere<IKilo>(Ampere m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Kilo));
+    public static implicit operator Ampere<IHecto>(Ampere m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Hecto));
+    public static implicit operator Ampere<IDeca>(Ampere m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Deca));
+    public static implicit operator Ampere<INone>(Ampere m) => new(m.m_value);
+    public static implicit operator Ampere<IDeci>(Ampere m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Deci));
+    public static implicit operator Ampere<ICenti>(Ampere m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Centi));
+    public static implicit operator Ampere<IMilli>(Ampere m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Milli));
+    public static implicit operator Ampere<IMicro>(Ampere m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Micro));
+    public static implicit operator Ampere<INano>(Ampere m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Nano));
+    public static implicit operator Ampere<IPico>(Ampere m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Pico));
+    public static implicit operator Ampere<IFemto>(Ampere m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Femto));
+    public static implicit operator Ampere<IAtto>(Ampere m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Atto));
+    public static implicit operator Ampere<IZepto>(Ampere m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Zepto));
+    public static implicit operator Ampere<IYocto>(Ampere m) => new(Unit.Convert(m.m_value, Prefix.None, Prefix.Yocto));
 
 
     #region PLUS
 
-    public static Meter operator +(Meter a, Meter<IYotta> i)
+    public static Ampere operator +(Ampere a, Ampere<IYotta> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Yotta, INone.Prefix);
 
-    public static Meter operator +(Meter a, Meter<IZetta> i)
+    public static Ampere operator +(Ampere a, Ampere<IZetta> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Zetta, INone.Prefix);
 
-    public static Meter operator +(Meter a, Meter<IExa> i)
+    public static Ampere operator +(Ampere a, Ampere<IExa> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Exa, INone.Prefix);
 
-    public static Meter operator +(Meter a, Meter<IPeta> i)
+    public static Ampere operator +(Ampere a, Ampere<IPeta> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Peta, INone.Prefix);
 
-    public static Meter operator +(Meter a, Meter<ITera> i)
+    public static Ampere operator +(Ampere a, Ampere<ITera> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Tera, INone.Prefix);
 
-    public static Meter operator +(Meter a, Meter<IGiga> i)
+    public static Ampere operator +(Ampere a, Ampere<IGiga> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Giga, INone.Prefix);
 
-    public static Meter operator +(Meter a, Meter<IMega> i)
+    public static Ampere operator +(Ampere a, Ampere<IMega> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Mega, INone.Prefix);
 
-    public static Meter operator +(Meter a, Meter<IKilo> i)
+    public static Ampere operator +(Ampere a, Ampere<IKilo> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Kilo, INone.Prefix);
 
-    public static Meter operator +(Meter a, Meter<IHecto> i)
+    public static Ampere operator +(Ampere a, Ampere<IHecto> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Hecto, INone.Prefix);
 
-    public static Meter operator +(Meter a, Meter<IDeca> i)
+    public static Ampere operator +(Ampere a, Ampere<IDeca> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Deca, INone.Prefix);
 
-    public static Meter operator +(Meter a, Meter<INone> i)
+    public static Ampere operator +(Ampere a, Ampere<INone> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.None, INone.Prefix);
 
-    public static Meter operator +(Meter a, Meter<IDeci> i)
+    public static Ampere operator +(Ampere a, Ampere<IDeci> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Deci, INone.Prefix);
 
-    public static Meter operator +(Meter a, Meter<ICenti> i)
+    public static Ampere operator +(Ampere a, Ampere<ICenti> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Centi, INone.Prefix);
 
-    public static Meter operator +(Meter a, Meter<IMilli> i)
+    public static Ampere operator +(Ampere a, Ampere<IMilli> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Milli, INone.Prefix);
 
-    public static Meter operator +(Meter a, Meter<IMicro> i)
+    public static Ampere operator +(Ampere a, Ampere<IMicro> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Micro, INone.Prefix);
 
-    public static Meter operator +(Meter a, Meter<INano> i)
+    public static Ampere operator +(Ampere a, Ampere<INano> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Nano, INone.Prefix);
 
-    public static Meter operator +(Meter a, Meter<IPico> i)
+    public static Ampere operator +(Ampere a, Ampere<IPico> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Pico, INone.Prefix);
 
-    public static Meter operator +(Meter a, Meter<IFemto> i)
+    public static Ampere operator +(Ampere a, Ampere<IFemto> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Femto, INone.Prefix);
 
-    public static Meter operator +(Meter a, Meter<IAtto> i)
+    public static Ampere operator +(Ampere a, Ampere<IAtto> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Atto, INone.Prefix);
 
-    public static Meter operator +(Meter a, Meter<IZepto> i)
+    public static Ampere operator +(Ampere a, Ampere<IZepto> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Zepto, INone.Prefix);
 
     #endregion
 
     #region MINUS
 
-    public static Meter operator -(Meter a, Meter<IYotta> i)
+    public static Ampere operator -(Ampere a, Ampere<IYotta> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Yotta, INone.Prefix);
 
-    public static Meter operator -(Meter a, Meter<IZetta> i)
+    public static Ampere operator -(Ampere a, Ampere<IZetta> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Zetta, INone.Prefix);
 
-    public static Meter operator -(Meter a, Meter<IExa> i)
+    public static Ampere operator -(Ampere a, Ampere<IExa> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Exa, INone.Prefix);
 
-    public static Meter operator -(Meter a, Meter<IPeta> i)
+    public static Ampere operator -(Ampere a, Ampere<IPeta> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Peta, INone.Prefix);
 
-    public static Meter operator -(Meter a, Meter<ITera> i)
+    public static Ampere operator -(Ampere a, Ampere<ITera> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Tera, INone.Prefix);
 
-    public static Meter operator -(Meter a, Meter<IGiga> i)
+    public static Ampere operator -(Ampere a, Ampere<IGiga> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Giga, INone.Prefix);
 
-    public static Meter operator -(Meter a, Meter<IMega> i)
+    public static Ampere operator -(Ampere a, Ampere<IMega> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Mega, INone.Prefix);
 
-    public static Meter operator -(Meter a, Meter<IKilo> i)
+    public static Ampere operator -(Ampere a, Ampere<IKilo> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Kilo, INone.Prefix);
 
-    public static Meter operator -(Meter a, Meter<IHecto> i)
+    public static Ampere operator -(Ampere a, Ampere<IHecto> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Hecto, INone.Prefix);
 
-    public static Meter operator -(Meter a, Meter<IDeca> i)
+    public static Ampere operator -(Ampere a, Ampere<IDeca> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Deca, INone.Prefix);
 
-    public static Meter operator -(Meter a, Meter<INone> i)
+    public static Ampere operator -(Ampere a, Ampere<INone> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.None, INone.Prefix);
 
-    public static Meter operator -(Meter a, Meter<IDeci> i)
+    public static Ampere operator -(Ampere a, Ampere<IDeci> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Deci, INone.Prefix);
 
-    public static Meter operator -(Meter a, Meter<ICenti> i)
+    public static Ampere operator -(Ampere a, Ampere<ICenti> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Centi, INone.Prefix);
 
-    public static Meter operator -(Meter a, Meter<IMilli> i)
+    public static Ampere operator -(Ampere a, Ampere<IMilli> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Milli, INone.Prefix);
 
-    public static Meter operator -(Meter a, Meter<IMicro> i)
+    public static Ampere operator -(Ampere a, Ampere<IMicro> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Micro, INone.Prefix);
 
-    public static Meter operator -(Meter a, Meter<INano> i)
+    public static Ampere operator -(Ampere a, Ampere<INano> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Nano, INone.Prefix);
 
-    public static Meter operator -(Meter a, Meter<IPico> i)
+    public static Ampere operator -(Ampere a, Ampere<IPico> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Pico, INone.Prefix);
 
-    public static Meter operator -(Meter a, Meter<IFemto> i)
+    public static Ampere operator -(Ampere a, Ampere<IFemto> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Femto, INone.Prefix);
 
-    public static Meter operator -(Meter a, Meter<IAtto> i)
+    public static Ampere operator -(Ampere a, Ampere<IAtto> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Atto, INone.Prefix);
 
-    public static Meter operator -(Meter a, Meter<IZepto> i)
+    public static Ampere operator -(Ampere a, Ampere<IZepto> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Zepto, INone.Prefix);
 
     #endregion
 
     #region MULTI
 
-    public static Meter operator *(Meter a, Meter<IYotta> i)
+    public static Ampere operator *(Ampere a, Ampere<IYotta> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Yotta, INone.Prefix);
 
-    public static Meter operator *(Meter a, Meter<IZetta> i)
+    public static Ampere operator *(Ampere a, Ampere<IZetta> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Zetta, INone.Prefix);
 
-    public static Meter operator *(Meter a, Meter<IExa> i)
+    public static Ampere operator *(Ampere a, Ampere<IExa> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Exa, INone.Prefix);
 
-    public static Meter operator *(Meter a, Meter<IPeta> i)
+    public static Ampere operator *(Ampere a, Ampere<IPeta> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Peta, INone.Prefix);
 
-    public static Meter operator *(Meter a, Meter<ITera> i)
+    public static Ampere operator *(Ampere a, Ampere<ITera> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Tera, INone.Prefix);
 
-    public static Meter operator *(Meter a, Meter<IGiga> i)
+    public static Ampere operator *(Ampere a, Ampere<IGiga> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Giga, INone.Prefix);
 
-    public static Meter operator *(Meter a, Meter<IMega> i)
+    public static Ampere operator *(Ampere a, Ampere<IMega> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Mega, INone.Prefix);
 
-    public static Meter operator *(Meter a, Meter<IKilo> i)
+    public static Ampere operator *(Ampere a, Ampere<IKilo> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Kilo, INone.Prefix);
 
-    public static Meter operator *(Meter a, Meter<IHecto> i)
+    public static Ampere operator *(Ampere a, Ampere<IHecto> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Hecto, INone.Prefix);
 
-    public static Meter operator *(Meter a, Meter<IDeca> i)
+    public static Ampere operator *(Ampere a, Ampere<IDeca> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Deca, INone.Prefix);
 
-    public static Meter operator *(Meter a, Meter<INone> i)
+    public static Ampere operator *(Ampere a, Ampere<INone> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.None, INone.Prefix);
 
-    public static Meter operator *(Meter a, Meter<IDeci> i)
+    public static Ampere operator *(Ampere a, Ampere<IDeci> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Deci, INone.Prefix);
 
-    public static Meter operator *(Meter a, Meter<ICenti> i)
+    public static Ampere operator *(Ampere a, Ampere<ICenti> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Centi, INone.Prefix);
 
-    public static Meter operator *(Meter a, Meter<IMilli> i)
+    public static Ampere operator *(Ampere a, Ampere<IMilli> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Milli, INone.Prefix);
 
-    public static Meter operator *(Meter a, Meter<IMicro> i)
+    public static Ampere operator *(Ampere a, Ampere<IMicro> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Micro, INone.Prefix);
 
-    public static Meter operator *(Meter a, Meter<INano> i)
+    public static Ampere operator *(Ampere a, Ampere<INano> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Nano, INone.Prefix);
 
-    public static Meter operator *(Meter a, Meter<IPico> i)
+    public static Ampere operator *(Ampere a, Ampere<IPico> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Pico, INone.Prefix);
 
-    public static Meter operator *(Meter a, Meter<IFemto> i)
+    public static Ampere operator *(Ampere a, Ampere<IFemto> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Femto, INone.Prefix);
 
-    public static Meter operator *(Meter a, Meter<IAtto> i)
+    public static Ampere operator *(Ampere a, Ampere<IAtto> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Atto, INone.Prefix);
 
-    public static Meter operator *(Meter a, Meter<IZepto> i)
+    public static Ampere operator *(Ampere a, Ampere<IZepto> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Zepto, INone.Prefix);
 
     #endregion
 
     #region DIV
 
-    public static Meter operator /(Meter a, Meter<IYotta> i)
+    public static Ampere operator /(Ampere a, Ampere<IYotta> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Yotta, INone.Prefix);
 
-    public static Meter operator /(Meter a, Meter<IZetta> i)
+    public static Ampere operator /(Ampere a, Ampere<IZetta> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Zetta, INone.Prefix);
 
-    public static Meter operator /(Meter a, Meter<IExa> i)
+    public static Ampere operator /(Ampere a, Ampere<IExa> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Exa, INone.Prefix);
 
-    public static Meter operator /(Meter a, Meter<IPeta> i)
+    public static Ampere operator /(Ampere a, Ampere<IPeta> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Peta, INone.Prefix);
 
-    public static Meter operator /(Meter a, Meter<ITera> i)
+    public static Ampere operator /(Ampere a, Ampere<ITera> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Tera, INone.Prefix);
 
-    public static Meter operator /(Meter a, Meter<IGiga> i)
+    public static Ampere operator /(Ampere a, Ampere<IGiga> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Giga, INone.Prefix);
 
-    public static Meter operator /(Meter a, Meter<IMega> i)
+    public static Ampere operator /(Ampere a, Ampere<IMega> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Mega, INone.Prefix);
 
-    public static Meter operator /(Meter a, Meter<IKilo> i)
+    public static Ampere operator /(Ampere a, Ampere<IKilo> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Kilo, INone.Prefix);
 
-    public static Meter operator /(Meter a, Meter<IHecto> i)
+    public static Ampere operator /(Ampere a, Ampere<IHecto> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Hecto, INone.Prefix);
 
-    public static Meter operator /(Meter a, Meter<IDeca> i)
+    public static Ampere operator /(Ampere a, Ampere<IDeca> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Deca, INone.Prefix);
 
-    public static Meter operator /(Meter a, Meter<INone> i)
+    public static Ampere operator /(Ampere a, Ampere<INone> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.None, INone.Prefix);
 
-    public static Meter operator /(Meter a, Meter<IDeci> i)
+    public static Ampere operator /(Ampere a, Ampere<IDeci> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Deci, INone.Prefix);
 
-    public static Meter operator /(Meter a, Meter<ICenti> i)
+    public static Ampere operator /(Ampere a, Ampere<ICenti> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Centi, INone.Prefix);
 
-    public static Meter operator /(Meter a, Meter<IMilli> i)
+    public static Ampere operator /(Ampere a, Ampere<IMilli> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Milli, INone.Prefix);
 
-    public static Meter operator /(Meter a, Meter<IMicro> i)
+    public static Ampere operator /(Ampere a, Ampere<IMicro> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Micro, INone.Prefix);
 
-    public static Meter operator /(Meter a, Meter<INano> i)
+    public static Ampere operator /(Ampere a, Ampere<INano> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Nano, INone.Prefix);
 
-    public static Meter operator /(Meter a, Meter<IPico> i)
+    public static Ampere operator /(Ampere a, Ampere<IPico> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Pico, INone.Prefix);
 
-    public static Meter operator /(Meter a, Meter<IFemto> i)
+    public static Ampere operator /(Ampere a, Ampere<IFemto> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Femto, INone.Prefix);
 
-    public static Meter operator /(Meter a, Meter<IAtto> i)
+    public static Ampere operator /(Ampere a, Ampere<IAtto> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Atto, INone.Prefix);
 
-    public static Meter operator /(Meter a, Meter<IZepto> i)
+    public static Ampere operator /(Ampere a, Ampere<IZepto> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Zepto, INone.Prefix);
 
     #endregion
 
     #region PERCENT
 
-    public static Meter operator %(Meter a, Meter<IYotta> i)
+    public static Ampere operator %(Ampere a, Ampere<IYotta> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Yotta, INone.Prefix);
 
-    public static Meter operator %(Meter a, Meter<IZetta> i)
+    public static Ampere operator %(Ampere a, Ampere<IZetta> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Zetta, INone.Prefix);
 
-    public static Meter operator %(Meter a, Meter<IExa> i)
+    public static Ampere operator %(Ampere a, Ampere<IExa> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Exa, INone.Prefix);
 
-    public static Meter operator %(Meter a, Meter<IPeta> i)
+    public static Ampere operator %(Ampere a, Ampere<IPeta> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Peta, INone.Prefix);
 
-    public static Meter operator %(Meter a, Meter<ITera> i)
+    public static Ampere operator %(Ampere a, Ampere<ITera> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Tera, INone.Prefix);
 
-    public static Meter operator %(Meter a, Meter<IGiga> i)
+    public static Ampere operator %(Ampere a, Ampere<IGiga> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Giga, INone.Prefix);
 
-    public static Meter operator %(Meter a, Meter<IMega> i)
+    public static Ampere operator %(Ampere a, Ampere<IMega> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Mega, INone.Prefix);
 
-    public static Meter operator %(Meter a, Meter<IKilo> i)
+    public static Ampere operator %(Ampere a, Ampere<IKilo> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Kilo, INone.Prefix);
 
-    public static Meter operator %(Meter a, Meter<IHecto> i)
+    public static Ampere operator %(Ampere a, Ampere<IHecto> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Hecto, INone.Prefix);
 
-    public static Meter operator %(Meter a, Meter<IDeca> i)
+    public static Ampere operator %(Ampere a, Ampere<IDeca> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Deca, INone.Prefix);
 
-    public static Meter operator %(Meter a, Meter<INone> i)
+    public static Ampere operator %(Ampere a, Ampere<INone> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.None, INone.Prefix);
 
-    public static Meter operator %(Meter a, Meter<IDeci> i)
+    public static Ampere operator %(Ampere a, Ampere<IDeci> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Deci, INone.Prefix);
 
-    public static Meter operator %(Meter a, Meter<ICenti> i)
+    public static Ampere operator %(Ampere a, Ampere<ICenti> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Centi, INone.Prefix);
 
-    public static Meter operator %(Meter a, Meter<IMilli> i)
+    public static Ampere operator %(Ampere a, Ampere<IMilli> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Milli, INone.Prefix);
 
-    public static Meter operator %(Meter a, Meter<IMicro> i)
+    public static Ampere operator %(Ampere a, Ampere<IMicro> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Micro, INone.Prefix);
 
-    public static Meter operator %(Meter a, Meter<INano> i)
+    public static Ampere operator %(Ampere a, Ampere<INano> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Nano, INone.Prefix);
 
-    public static Meter operator %(Meter a, Meter<IPico> i)
+    public static Ampere operator %(Ampere a, Ampere<IPico> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Pico, INone.Prefix);
 
-    public static Meter operator %(Meter a, Meter<IFemto> i)
+    public static Ampere operator %(Ampere a, Ampere<IFemto> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Femto, INone.Prefix);
 
-    public static Meter operator %(Meter a, Meter<IAtto> i)
+    public static Ampere operator %(Ampere a, Ampere<IAtto> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Atto, INone.Prefix);
 
-    public static Meter operator %(Meter a, Meter<IZepto> i)
+    public static Ampere operator %(Ampere a, Ampere<IZepto> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Zepto, INone.Prefix);
 
     #endregion
 
     #region EQUAL
 
-    public static bool operator ==(Meter a, Meter<IYotta> i)
+    public static bool operator ==(Ampere a, Ampere<IYotta> i)
         => Unit.Convert(i.m_value, Prefix.Exa, INone.Prefix) == a.m_value;
 
-    public static bool operator !=(Meter a, Meter<IYotta> i)
+    public static bool operator !=(Ampere a, Ampere<IYotta> i)
         => Unit.Convert(i.m_value, Prefix.Exa, INone.Prefix) != a.m_value;
 
-    public static bool operator >(Meter a, Meter<IYotta> i)
+    public static bool operator >(Ampere a, Ampere<IYotta> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Exa, INone.Prefix);
 
-    public static bool operator <(Meter a, Meter<IYotta> i)
+    public static bool operator <(Ampere a, Ampere<IYotta> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Exa, INone.Prefix);
 
-    public static bool operator >=(Meter a, Meter<IYotta> i)
+    public static bool operator >=(Ampere a, Ampere<IYotta> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Exa, INone.Prefix);
 
-    public static bool operator <=(Meter a, Meter<IYotta> i)
+    public static bool operator <=(Ampere a, Ampere<IYotta> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Exa, INone.Prefix);
 
-    public static bool operator ==(Meter a, Meter<IZetta> i)
+    public static bool operator ==(Ampere a, Ampere<IZetta> i)
         => Unit.Convert(i.m_value, Prefix.Zetta, INone.Prefix) == a.m_value;
 
-    public static bool operator !=(Meter a, Meter<IZetta> i)
+    public static bool operator !=(Ampere a, Ampere<IZetta> i)
         => Unit.Convert(i.m_value, Prefix.Zetta, INone.Prefix) != a.m_value;
 
-    public static bool operator >(Meter a, Meter<IZetta> i)
+    public static bool operator >(Ampere a, Ampere<IZetta> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Zetta, INone.Prefix);
 
-    public static bool operator <(Meter a, Meter<IZetta> i)
+    public static bool operator <(Ampere a, Ampere<IZetta> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Zetta, INone.Prefix);
 
-    public static bool operator >=(Meter a, Meter<IZetta> i)
+    public static bool operator >=(Ampere a, Ampere<IZetta> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Zetta, INone.Prefix);
 
-    public static bool operator <=(Meter a, Meter<IZetta> i)
+    public static bool operator <=(Ampere a, Ampere<IZetta> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Zetta, INone.Prefix);
 
-    public static bool operator ==(Meter a, Meter<IExa> i)
+    public static bool operator ==(Ampere a, Ampere<IExa> i)
         => Unit.Convert(i.m_value, Prefix.Exa, INone.Prefix) == a.m_value;
 
-    public static bool operator !=(Meter a, Meter<IExa> i)
+    public static bool operator !=(Ampere a, Ampere<IExa> i)
         => Unit.Convert(i.m_value, Prefix.Exa, INone.Prefix) != a.m_value;
 
-    public static bool operator >(Meter a, Meter<IExa> i)
+    public static bool operator >(Ampere a, Ampere<IExa> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Exa, INone.Prefix);
 
-    public static bool operator <(Meter a, Meter<IExa> i)
+    public static bool operator <(Ampere a, Ampere<IExa> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Exa, INone.Prefix);
 
-    public static bool operator >=(Meter a, Meter<IExa> i)
+    public static bool operator >=(Ampere a, Ampere<IExa> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Exa, INone.Prefix);
 
-    public static bool operator <=(Meter a, Meter<IExa> i)
+    public static bool operator <=(Ampere a, Ampere<IExa> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Exa, INone.Prefix);
 
-    public static bool operator ==(Meter a, Meter<IPeta> i)
+    public static bool operator ==(Ampere a, Ampere<IPeta> i)
         => Unit.Convert(i.m_value, Prefix.Peta, INone.Prefix) == a.m_value;
 
-    public static bool operator !=(Meter a, Meter<IPeta> i)
+    public static bool operator !=(Ampere a, Ampere<IPeta> i)
         => Unit.Convert(i.m_value, Prefix.Peta, INone.Prefix) != a.m_value;
 
-    public static bool operator >(Meter a, Meter<IPeta> i)
+    public static bool operator >(Ampere a, Ampere<IPeta> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Peta, INone.Prefix);
 
-    public static bool operator <(Meter a, Meter<IPeta> i)
+    public static bool operator <(Ampere a, Ampere<IPeta> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Peta, INone.Prefix);
 
-    public static bool operator >=(Meter a, Meter<IPeta> i)
+    public static bool operator >=(Ampere a, Ampere<IPeta> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Peta, INone.Prefix);
 
-    public static bool operator <=(Meter a, Meter<IPeta> i)
+    public static bool operator <=(Ampere a, Ampere<IPeta> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Peta, INone.Prefix);
 
-    public static bool operator ==(Meter a, Meter<ITera> i)
+    public static bool operator ==(Ampere a, Ampere<ITera> i)
         => Unit.Convert(i.m_value, Prefix.Tera, INone.Prefix) == a.m_value;
 
-    public static bool operator !=(Meter a, Meter<ITera> i)
+    public static bool operator !=(Ampere a, Ampere<ITera> i)
         => Unit.Convert(i.m_value, Prefix.Tera, INone.Prefix) != a.m_value;
 
-    public static bool operator >(Meter a, Meter<ITera> i)
+    public static bool operator >(Ampere a, Ampere<ITera> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Tera, INone.Prefix);
 
-    public static bool operator <(Meter a, Meter<ITera> i)
+    public static bool operator <(Ampere a, Ampere<ITera> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Tera, INone.Prefix);
 
-    public static bool operator >=(Meter a, Meter<ITera> i)
+    public static bool operator >=(Ampere a, Ampere<ITera> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Tera, INone.Prefix);
 
-    public static bool operator <=(Meter a, Meter<ITera> i)
+    public static bool operator <=(Ampere a, Ampere<ITera> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Tera, INone.Prefix);
 
-    public static bool operator ==(Meter a, Meter<IGiga> i)
+    public static bool operator ==(Ampere a, Ampere<IGiga> i)
         => Unit.Convert(i.m_value, Prefix.Giga, INone.Prefix) == a.m_value;
 
-    public static bool operator !=(Meter a, Meter<IGiga> i)
+    public static bool operator !=(Ampere a, Ampere<IGiga> i)
         => Unit.Convert(i.m_value, Prefix.Giga, INone.Prefix) != a.m_value;
 
-    public static bool operator >(Meter a, Meter<IGiga> i)
+    public static bool operator >(Ampere a, Ampere<IGiga> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Giga, INone.Prefix);
 
-    public static bool operator <(Meter a, Meter<IGiga> i)
+    public static bool operator <(Ampere a, Ampere<IGiga> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Giga, INone.Prefix);
 
-    public static bool operator >=(Meter a, Meter<IGiga> i)
+    public static bool operator >=(Ampere a, Ampere<IGiga> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Giga, INone.Prefix);
 
-    public static bool operator <=(Meter a, Meter<IGiga> i)
+    public static bool operator <=(Ampere a, Ampere<IGiga> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Giga, INone.Prefix);
 
-    public static bool operator ==(Meter a, Meter<IMega> i)
+    public static bool operator ==(Ampere a, Ampere<IMega> i)
         => Unit.Convert(i.m_value, Prefix.Mega, INone.Prefix) == a.m_value;
 
-    public static bool operator !=(Meter a, Meter<IMega> i)
+    public static bool operator !=(Ampere a, Ampere<IMega> i)
         => Unit.Convert(i.m_value, Prefix.Mega, INone.Prefix) != a.m_value;
 
-    public static bool operator >(Meter a, Meter<IMega> i)
+    public static bool operator >(Ampere a, Ampere<IMega> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Mega, INone.Prefix);
 
-    public static bool operator <(Meter a, Meter<IMega> i)
+    public static bool operator <(Ampere a, Ampere<IMega> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Mega, INone.Prefix);
 
-    public static bool operator >=(Meter a, Meter<IMega> i)
+    public static bool operator >=(Ampere a, Ampere<IMega> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Mega, INone.Prefix);
 
-    public static bool operator <=(Meter a, Meter<IMega> i)
+    public static bool operator <=(Ampere a, Ampere<IMega> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Mega, INone.Prefix);
 
-    public static bool operator ==(Meter a, Meter<IKilo> i)
+    public static bool operator ==(Ampere a, Ampere<IKilo> i)
         => Unit.Convert(i.m_value, Prefix.Kilo, INone.Prefix) == a.m_value;
 
-    public static bool operator !=(Meter a, Meter<IKilo> i)
+    public static bool operator !=(Ampere a, Ampere<IKilo> i)
         => Unit.Convert(i.m_value, Prefix.Kilo, INone.Prefix) != a.m_value;
 
-    public static bool operator >(Meter a, Meter<IKilo> i)
+    public static bool operator >(Ampere a, Ampere<IKilo> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Kilo, INone.Prefix);
 
-    public static bool operator <(Meter a, Meter<IKilo> i)
+    public static bool operator <(Ampere a, Ampere<IKilo> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Kilo, INone.Prefix);
 
-    public static bool operator >=(Meter a, Meter<IKilo> i)
+    public static bool operator >=(Ampere a, Ampere<IKilo> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Kilo, INone.Prefix);
 
-    public static bool operator <=(Meter a, Meter<IKilo> i)
+    public static bool operator <=(Ampere a, Ampere<IKilo> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Kilo, INone.Prefix);
 
-    public static bool operator ==(Meter a, Meter<IHecto> i)
+    public static bool operator ==(Ampere a, Ampere<IHecto> i)
         => Unit.Convert(i.m_value, Prefix.Hecto, INone.Prefix) == a.m_value;
 
-    public static bool operator !=(Meter a, Meter<IHecto> i)
+    public static bool operator !=(Ampere a, Ampere<IHecto> i)
         => Unit.Convert(i.m_value, Prefix.Hecto, INone.Prefix) != a.m_value;
 
-    public static bool operator >(Meter a, Meter<IHecto> i)
+    public static bool operator >(Ampere a, Ampere<IHecto> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Hecto, INone.Prefix);
 
-    public static bool operator <(Meter a, Meter<IHecto> i)
+    public static bool operator <(Ampere a, Ampere<IHecto> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Hecto, INone.Prefix);
 
-    public static bool operator >=(Meter a, Meter<IHecto> i)
+    public static bool operator >=(Ampere a, Ampere<IHecto> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Hecto, INone.Prefix);
 
-    public static bool operator <=(Meter a, Meter<IHecto> i)
+    public static bool operator <=(Ampere a, Ampere<IHecto> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Hecto, INone.Prefix);
 
-    public static bool operator ==(Meter a, Meter<IDeca> i)
+    public static bool operator ==(Ampere a, Ampere<IDeca> i)
         => Unit.Convert(i.m_value, Prefix.Deca, INone.Prefix) == a.m_value;
 
-    public static bool operator !=(Meter a, Meter<IDeca> i)
+    public static bool operator !=(Ampere a, Ampere<IDeca> i)
         => Unit.Convert(i.m_value, Prefix.Deca, INone.Prefix) != a.m_value;
 
-    public static bool operator >(Meter a, Meter<IDeca> i)
+    public static bool operator >(Ampere a, Ampere<IDeca> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Deca, INone.Prefix);
 
-    public static bool operator <(Meter a, Meter<IDeca> i)
+    public static bool operator <(Ampere a, Ampere<IDeca> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Deca, INone.Prefix);
 
-    public static bool operator >=(Meter a, Meter<IDeca> i)
+    public static bool operator >=(Ampere a, Ampere<IDeca> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Deca, INone.Prefix);
 
-    public static bool operator <=(Meter a, Meter<IDeca> i)
+    public static bool operator <=(Ampere a, Ampere<IDeca> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Deca, INone.Prefix);
 
-    public static bool operator ==(Meter a, Meter<INone> i)
+    public static bool operator ==(Ampere a, Ampere<INone> i)
         => Unit.Convert(i.m_value, Prefix.None, INone.Prefix) == a.m_value;
 
-    public static bool operator !=(Meter a, Meter<INone> i)
+    public static bool operator !=(Ampere a, Ampere<INone> i)
         => Unit.Convert(i.m_value, Prefix.Nano, INone.Prefix) != a.m_value;
 
-    public static bool operator >(Meter a, Meter<INone> i)
+    public static bool operator >(Ampere a, Ampere<INone> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.None, INone.Prefix);
 
-    public static bool operator <(Meter a, Meter<INone> i)
+    public static bool operator <(Ampere a, Ampere<INone> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.None, INone.Prefix);
 
-    public static bool operator >=(Meter a, Meter<INone> i)
+    public static bool operator >=(Ampere a, Ampere<INone> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.None, INone.Prefix);
 
-    public static bool operator <=(Meter a, Meter<INone> i)
+    public static bool operator <=(Ampere a, Ampere<INone> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.None, INone.Prefix);
 
-    public static bool operator ==(Meter a, Meter<IDeci> i)
+    public static bool operator ==(Ampere a, Ampere<IDeci> i)
         => Unit.Convert(i.m_value, Prefix.Deci, INone.Prefix) == a.m_value;
 
-    public static bool operator !=(Meter a, Meter<IDeci> i)
+    public static bool operator !=(Ampere a, Ampere<IDeci> i)
         => Unit.Convert(i.m_value, Prefix.Deci, INone.Prefix) != a.m_value;
 
-    public static bool operator >(Meter a, Meter<IDeci> i)
+    public static bool operator >(Ampere a, Ampere<IDeci> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Deci, INone.Prefix);
 
-    public static bool operator <(Meter a, Meter<IDeci> i)
+    public static bool operator <(Ampere a, Ampere<IDeci> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Deci, INone.Prefix);
 
-    public static bool operator >=(Meter a, Meter<IDeci> i)
+    public static bool operator >=(Ampere a, Ampere<IDeci> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Deci, INone.Prefix);
 
-    public static bool operator <=(Meter a, Meter<IDeci> i)
+    public static bool operator <=(Ampere a, Ampere<IDeci> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Deci, INone.Prefix);
 
-    public static bool operator ==(Meter a, Meter<ICenti> i)
+    public static bool operator ==(Ampere a, Ampere<ICenti> i)
         => Unit.Convert(i.m_value, Prefix.Centi, INone.Prefix) == a.m_value;
 
-    public static bool operator !=(Meter a, Meter<ICenti> i)
+    public static bool operator !=(Ampere a, Ampere<ICenti> i)
         => Unit.Convert(i.m_value, Prefix.Centi, INone.Prefix) != a.m_value;
 
-    public static bool operator >(Meter a, Meter<ICenti> i)
+    public static bool operator >(Ampere a, Ampere<ICenti> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Centi, INone.Prefix);
 
-    public static bool operator <(Meter a, Meter<ICenti> i)
+    public static bool operator <(Ampere a, Ampere<ICenti> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Centi, INone.Prefix);
 
-    public static bool operator >=(Meter a, Meter<ICenti> i)
+    public static bool operator >=(Ampere a, Ampere<ICenti> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Centi, INone.Prefix);
 
-    public static bool operator <=(Meter a, Meter<ICenti> i)
+    public static bool operator <=(Ampere a, Ampere<ICenti> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Centi, INone.Prefix);
 
-    public static bool operator ==(Meter a, Meter<IMilli> i)
+    public static bool operator ==(Ampere a, Ampere<IMilli> i)
         => Unit.Convert(i.m_value, Prefix.Milli, INone.Prefix) == a.m_value;
 
-    public static bool operator !=(Meter a, Meter<IMilli> i)
+    public static bool operator !=(Ampere a, Ampere<IMilli> i)
         => Unit.Convert(i.m_value, Prefix.Milli, INone.Prefix) != a.m_value;
 
-    public static bool operator >(Meter a, Meter<IMilli> i)
+    public static bool operator >(Ampere a, Ampere<IMilli> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Milli, INone.Prefix);
 
-    public static bool operator <(Meter a, Meter<IMilli> i)
+    public static bool operator <(Ampere a, Ampere<IMilli> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Milli, INone.Prefix);
 
-    public static bool operator >=(Meter a, Meter<IMilli> i)
+    public static bool operator >=(Ampere a, Ampere<IMilli> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Milli, INone.Prefix);
 
-    public static bool operator <=(Meter a, Meter<IMilli> i)
+    public static bool operator <=(Ampere a, Ampere<IMilli> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Milli, INone.Prefix);
 
-    public static bool operator ==(Meter a, Meter<IMicro> i)
+    public static bool operator ==(Ampere a, Ampere<IMicro> i)
         => Unit.Convert(i.m_value, Prefix.Micro, INone.Prefix) == a.m_value;
 
-    public static bool operator !=(Meter a, Meter<IMicro> i)
+    public static bool operator !=(Ampere a, Ampere<IMicro> i)
         => Unit.Convert(i.m_value, Prefix.Micro, INone.Prefix) != a.m_value;
 
-    public static bool operator >(Meter a, Meter<IMicro> i)
+    public static bool operator >(Ampere a, Ampere<IMicro> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Micro, INone.Prefix);
 
-    public static bool operator <(Meter a, Meter<IMicro> i)
+    public static bool operator <(Ampere a, Ampere<IMicro> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Micro, INone.Prefix);
 
-    public static bool operator >=(Meter a, Meter<IMicro> i)
+    public static bool operator >=(Ampere a, Ampere<IMicro> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Micro, INone.Prefix);
 
-    public static bool operator <=(Meter a, Meter<IMicro> i)
+    public static bool operator <=(Ampere a, Ampere<IMicro> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Micro, INone.Prefix);
 
-    public static bool operator ==(Meter a, Meter<INano> i)
+    public static bool operator ==(Ampere a, Ampere<INano> i)
         => Unit.Convert(i.m_value, Prefix.Nano, INone.Prefix) == a.m_value;
 
-    public static bool operator !=(Meter a, Meter<INano> i)
+    public static bool operator !=(Ampere a, Ampere<INano> i)
         => Unit.Convert(i.m_value, Prefix.Nano, INone.Prefix) != a.m_value;
 
-    public static bool operator >(Meter a, Meter<INano> i)
+    public static bool operator >(Ampere a, Ampere<INano> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Nano, INone.Prefix);
 
-    public static bool operator <(Meter a, Meter<INano> i)
+    public static bool operator <(Ampere a, Ampere<INano> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Nano, INone.Prefix);
 
-    public static bool operator >=(Meter a, Meter<INano> i)
+    public static bool operator >=(Ampere a, Ampere<INano> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Nano, INone.Prefix);
 
-    public static bool operator <=(Meter a, Meter<INano> i)
+    public static bool operator <=(Ampere a, Ampere<INano> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Nano, INone.Prefix);
 
-    public static bool operator ==(Meter a, Meter<IPico> i)
+    public static bool operator ==(Ampere a, Ampere<IPico> i)
         => Unit.Convert(i.m_value, Prefix.Pico, INone.Prefix) == a.m_value;
 
-    public static bool operator !=(Meter a, Meter<IPico> i)
+    public static bool operator !=(Ampere a, Ampere<IPico> i)
         => Unit.Convert(i.m_value, Prefix.Pico, INone.Prefix) != a.m_value;
 
-    public static bool operator >(Meter a, Meter<IPico> i)
+    public static bool operator >(Ampere a, Ampere<IPico> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Pico, INone.Prefix);
 
-    public static bool operator <(Meter a, Meter<IPico> i)
+    public static bool operator <(Ampere a, Ampere<IPico> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Pico, INone.Prefix);
 
-    public static bool operator >=(Meter a, Meter<IPico> i)
+    public static bool operator >=(Ampere a, Ampere<IPico> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Pico, INone.Prefix);
 
-    public static bool operator <=(Meter a, Meter<IPico> i)
+    public static bool operator <=(Ampere a, Ampere<IPico> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Pico, INone.Prefix);
 
-    public static bool operator ==(Meter a, Meter<IFemto> i)
+    public static bool operator ==(Ampere a, Ampere<IFemto> i)
         => Unit.Convert(i.m_value, Prefix.Femto, INone.Prefix) == a.m_value;
 
-    public static bool operator !=(Meter a, Meter<IFemto> i)
+    public static bool operator !=(Ampere a, Ampere<IFemto> i)
         => Unit.Convert(i.m_value, Prefix.Femto, INone.Prefix) != a.m_value;
 
-    public static bool operator >(Meter a, Meter<IFemto> i)
+    public static bool operator >(Ampere a, Ampere<IFemto> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Femto, INone.Prefix);
 
-    public static bool operator <(Meter a, Meter<IFemto> i)
+    public static bool operator <(Ampere a, Ampere<IFemto> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Femto, INone.Prefix);
 
-    public static bool operator >=(Meter a, Meter<IFemto> i)
+    public static bool operator >=(Ampere a, Ampere<IFemto> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Femto, INone.Prefix);
 
-    public static bool operator <=(Meter a, Meter<IFemto> i)
+    public static bool operator <=(Ampere a, Ampere<IFemto> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Femto, INone.Prefix);
 
-    public static bool operator ==(Meter a, Meter<IAtto> i)
+    public static bool operator ==(Ampere a, Ampere<IAtto> i)
         => Unit.Convert(i.m_value, Prefix.Atto, INone.Prefix) == a.m_value;
 
-    public static bool operator !=(Meter a, Meter<IAtto> i)
+    public static bool operator !=(Ampere a, Ampere<IAtto> i)
         => Unit.Convert(i.m_value, Prefix.Atto, INone.Prefix) != a.m_value;
 
-    public static bool operator >(Meter a, Meter<IAtto> i)
+    public static bool operator >(Ampere a, Ampere<IAtto> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Atto, INone.Prefix);
 
-    public static bool operator <(Meter a, Meter<IAtto> i)
+    public static bool operator <(Ampere a, Ampere<IAtto> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Atto, INone.Prefix);
 
-    public static bool operator >=(Meter a, Meter<IAtto> i)
+    public static bool operator >=(Ampere a, Ampere<IAtto> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Atto, INone.Prefix);
 
-    public static bool operator <=(Meter a, Meter<IAtto> i)
+    public static bool operator <=(Ampere a, Ampere<IAtto> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Atto, INone.Prefix);
 
-    public static bool operator ==(Meter a, Meter<IZepto> i)
+    public static bool operator ==(Ampere a, Ampere<IZepto> i)
         => Unit.Convert(i.m_value, Prefix.Zepto, INone.Prefix) == a.m_value;
 
-    public static bool operator !=(Meter a, Meter<IZepto> i)
+    public static bool operator !=(Ampere a, Ampere<IZepto> i)
         => Unit.Convert(i.m_value, Prefix.Zepto, INone.Prefix) != a.m_value;
 
-    public static bool operator >(Meter a, Meter<IZepto> i)
+    public static bool operator >(Ampere a, Ampere<IZepto> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Zepto, INone.Prefix);
 
-    public static bool operator <(Meter a, Meter<IZepto> i)
+    public static bool operator <(Ampere a, Ampere<IZepto> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Zepto, INone.Prefix);
 
-    public static bool operator >=(Meter a, Meter<IZepto> i)
+    public static bool operator >=(Ampere a, Ampere<IZepto> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Zepto, INone.Prefix);
 
-    public static bool operator <=(Meter a, Meter<IZepto> i)
+    public static bool operator <=(Ampere a, Ampere<IZepto> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Zepto, INone.Prefix);
 
     #endregion
@@ -736,20 +736,20 @@ public readonly struct Meter : INone
 
     public override int GetHashCode() => HashCode.Combine(m_value, INone.Prefix);
 
-    public override string ToString() => m_value.ToString(NumberFormatInfo.CurrentInfo) + "m";
+    public override string ToString() => m_value.ToString(NumberFormatInfo.CurrentInfo) + "a";
 }
 
 /// <summary>
-/// Represent the si unit for length
+/// Represent the si unit for electricity
 /// </summary>
 /// <typeparam name="T">The SI Prefix</typeparam>
 [Serializable]
 [StructLayout(LayoutKind.Sequential)]
-public readonly struct Meter<T> where T : SI
+public readonly struct Ampere<T> where T : SI
 {
     internal readonly decimal m_value; // Do not rename (binary serialization)
 
-    public Meter(decimal val)
+    public Ampere(decimal val)
     {
         m_value = val;
     }
@@ -809,199 +809,199 @@ public readonly struct Meter<T> where T : SI
         }
     }
 
-    public static implicit operator Meter<T>(decimal val) => new(val);
+    public static implicit operator Ampere<T>(decimal val) => new(val);
 
-    #region IMPL_METER
+    #region IMPL_Ampere
 
-    public static implicit operator Meter<T>(Meter<IYotta> i)
+    public static implicit operator Ampere<T>(Ampere<IYotta> i)
     {
         return Prefix switch
         {
-            Prefix.Yotta => new Meter<T>(i.m_value),
-            Prefix.None => new Meter<T>(Unit.BaseValue(i.m_value, Prefix.Yotta)),
-            _ => new Meter<T>(Unit.Convert(i.m_value, Prefix.Yotta, Prefix))
+            Prefix.Yotta => new Ampere<T>(i.m_value),
+            Prefix.None => new Ampere<T>(Unit.BaseValue(i.m_value, Prefix.Yotta)),
+            _ => new Ampere<T>(Unit.Convert(i.m_value, Prefix.Yotta, Prefix))
         };
     }
 
-    public static implicit operator Meter<T>(Meter<IZetta> i)
+    public static implicit operator Ampere<T>(Ampere<IZetta> i)
     {
         return Prefix switch
         {
-            Prefix.Zetta => new Meter<T>(i.m_value),
-            Prefix.None => new Meter<T>(Unit.BaseValue(i.m_value, Prefix.Zetta)),
-            _ => new Meter<T>(Unit.Convert(i.m_value, Prefix.Zetta, Prefix))
+            Prefix.Zetta => new Ampere<T>(i.m_value),
+            Prefix.None => new Ampere<T>(Unit.BaseValue(i.m_value, Prefix.Zetta)),
+            _ => new Ampere<T>(Unit.Convert(i.m_value, Prefix.Zetta, Prefix))
         };
     }
 
-    public static implicit operator Meter<T>(Meter<IExa> i)
+    public static implicit operator Ampere<T>(Ampere<IExa> i)
     {
         return Prefix switch
         {
-            Prefix.Exa => new Meter<T>(i.m_value),
-            Prefix.None => new Meter<T>(Unit.BaseValue(i.m_value, Prefix.Exa)),
-            _ => new Meter<T>(Unit.Convert(i.m_value, Prefix.Exa, Prefix))
+            Prefix.Exa => new Ampere<T>(i.m_value),
+            Prefix.None => new Ampere<T>(Unit.BaseValue(i.m_value, Prefix.Exa)),
+            _ => new Ampere<T>(Unit.Convert(i.m_value, Prefix.Exa, Prefix))
         };
     }
 
-    public static implicit operator Meter<T>(Meter<IPeta> i)
+    public static implicit operator Ampere<T>(Ampere<IPeta> i)
     {
         return Prefix switch
         {
-            Prefix.Peta => new Meter<T>(i.m_value),
-            Prefix.None => new Meter<T>(Unit.BaseValue(i.m_value, Prefix.Peta)),
-            _ => new Meter<T>(Unit.Convert(i.m_value, Prefix.Peta, Prefix))
+            Prefix.Peta => new Ampere<T>(i.m_value),
+            Prefix.None => new Ampere<T>(Unit.BaseValue(i.m_value, Prefix.Peta)),
+            _ => new Ampere<T>(Unit.Convert(i.m_value, Prefix.Peta, Prefix))
         };
     }
 
-    public static implicit operator Meter<T>(Meter<ITera> i)
+    public static implicit operator Ampere<T>(Ampere<ITera> i)
     {
         return Prefix switch
         {
-            Prefix.Tera => new Meter<T>(i.m_value),
-            Prefix.None => new Meter<T>(Unit.BaseValue(i.m_value, Prefix.Tera)),
-            _ => new Meter<T>(Unit.Convert(i.m_value, Prefix.Tera, Prefix))
+            Prefix.Tera => new Ampere<T>(i.m_value),
+            Prefix.None => new Ampere<T>(Unit.BaseValue(i.m_value, Prefix.Tera)),
+            _ => new Ampere<T>(Unit.Convert(i.m_value, Prefix.Tera, Prefix))
         };
     }
 
-    public static implicit operator Meter<T>(Meter<IGiga> i)
+    public static implicit operator Ampere<T>(Ampere<IGiga> i)
     {
         return Prefix switch
         {
-            Prefix.Giga => new Meter<T>(i.m_value),
-            Prefix.None => new Meter<T>(Unit.BaseValue(i.m_value, Prefix.Giga)),
-            _ => new Meter<T>(Unit.Convert(i.m_value, Prefix.Giga, Prefix))
+            Prefix.Giga => new Ampere<T>(i.m_value),
+            Prefix.None => new Ampere<T>(Unit.BaseValue(i.m_value, Prefix.Giga)),
+            _ => new Ampere<T>(Unit.Convert(i.m_value, Prefix.Giga, Prefix))
         };
     }
 
-    public static implicit operator Meter<T>(Meter<IMega> i)
+    public static implicit operator Ampere<T>(Ampere<IMega> i)
     {
         return Prefix switch
         {
-            Prefix.Mega => new Meter<T>(i.m_value),
-            Prefix.None => new Meter<T>(Unit.BaseValue(i.m_value, Prefix.Mega)),
-            _ => new Meter<T>(Unit.Convert(i.m_value, Prefix.Mega, Prefix))
+            Prefix.Mega => new Ampere<T>(i.m_value),
+            Prefix.None => new Ampere<T>(Unit.BaseValue(i.m_value, Prefix.Mega)),
+            _ => new Ampere<T>(Unit.Convert(i.m_value, Prefix.Mega, Prefix))
         };
     }
 
-    public static implicit operator Meter<T>(Meter<IKilo> i)
+    public static implicit operator Ampere<T>(Ampere<IKilo> i)
     {
         return Prefix switch
         {
-            Prefix.Kilo => new Meter<T>(i.m_value),
-            Prefix.None => new Meter<T>(Unit.BaseValue(i.m_value, Prefix.Kilo)),
-            _ => new Meter<T>(Unit.Convert(i.m_value, Prefix.Kilo, Prefix))
+            Prefix.Kilo => new Ampere<T>(i.m_value),
+            Prefix.None => new Ampere<T>(Unit.BaseValue(i.m_value, Prefix.Kilo)),
+            _ => new Ampere<T>(Unit.Convert(i.m_value, Prefix.Kilo, Prefix))
         };
     }
 
-    public static implicit operator Meter<T>(Meter<IHecto> i)
+    public static implicit operator Ampere<T>(Ampere<IHecto> i)
     {
         return Prefix switch
         {
-            Prefix.Hecto => new Meter<T>(i.m_value),
-            Prefix.None => new Meter<T>(Unit.BaseValue(i.m_value, Prefix.Hecto)),
-            _ => new Meter<T>(Unit.Convert(i.m_value, Prefix.Hecto, Prefix))
+            Prefix.Hecto => new Ampere<T>(i.m_value),
+            Prefix.None => new Ampere<T>(Unit.BaseValue(i.m_value, Prefix.Hecto)),
+            _ => new Ampere<T>(Unit.Convert(i.m_value, Prefix.Hecto, Prefix))
         };
     }
 
-    public static implicit operator Meter<T>(Meter<IDeca> i)
+    public static implicit operator Ampere<T>(Ampere<IDeca> i)
     {
         return Prefix switch
         {
-            Prefix.Deca => new Meter<T>(i.m_value),
-            Prefix.None => new Meter<T>(Unit.BaseValue(i.m_value, Prefix.Deca)),
-            _ => new Meter<T>(Unit.Convert(i.m_value, Prefix.Deca, Prefix))
+            Prefix.Deca => new Ampere<T>(i.m_value),
+            Prefix.None => new Ampere<T>(Unit.BaseValue(i.m_value, Prefix.Deca)),
+            _ => new Ampere<T>(Unit.Convert(i.m_value, Prefix.Deca, Prefix))
         };
     }
 
-    public static implicit operator Meter<T>(Meter<INone> i) => new Meter<T>(i.m_value);
+    public static implicit operator Ampere<T>(Ampere<INone> i) => new Ampere<T>(i.m_value);
 
-    public static implicit operator Meter<T>(Meter<IDeci> i)
+    public static implicit operator Ampere<T>(Ampere<IDeci> i)
     {
         return Prefix switch
         {
-            Prefix.Deci => new Meter<T>(i.m_value),
-            Prefix.None => new Meter<T>(Unit.BaseValue(i.m_value, Prefix.Deci)),
-            _ => new Meter<T>(Unit.Convert(i.m_value, Prefix.Deci, Prefix))
+            Prefix.Deci => new Ampere<T>(i.m_value),
+            Prefix.None => new Ampere<T>(Unit.BaseValue(i.m_value, Prefix.Deci)),
+            _ => new Ampere<T>(Unit.Convert(i.m_value, Prefix.Deci, Prefix))
         };
     }
 
-    public static implicit operator Meter<T>(Meter<ICenti> i)
+    public static implicit operator Ampere<T>(Ampere<ICenti> i)
     {
         return Prefix switch
         {
-            Prefix.Centi => new Meter<T>(i.m_value),
-            Prefix.None => new Meter<T>(Unit.BaseValue(i.m_value, Prefix.Centi)),
-            _ => new Meter<T>(Unit.Convert(i.m_value, Prefix.Centi, Prefix))
+            Prefix.Centi => new Ampere<T>(i.m_value),
+            Prefix.None => new Ampere<T>(Unit.BaseValue(i.m_value, Prefix.Centi)),
+            _ => new Ampere<T>(Unit.Convert(i.m_value, Prefix.Centi, Prefix))
         };
     }
 
-    public static implicit operator Meter<T>(Meter<IMilli> i)
+    public static implicit operator Ampere<T>(Ampere<IMilli> i)
     {
         return Prefix switch
         {
-            Prefix.Milli => new Meter<T>(i.m_value),
-            Prefix.None => new Meter<T>(Unit.BaseValue(i.m_value, Prefix.Milli)),
-            _ => new Meter<T>(Unit.Convert(i.m_value, Prefix.Milli, Prefix))
+            Prefix.Milli => new Ampere<T>(i.m_value),
+            Prefix.None => new Ampere<T>(Unit.BaseValue(i.m_value, Prefix.Milli)),
+            _ => new Ampere<T>(Unit.Convert(i.m_value, Prefix.Milli, Prefix))
         };
     }
 
-    public static implicit operator Meter<T>(Meter<IMicro> i)
+    public static implicit operator Ampere<T>(Ampere<IMicro> i)
     {
         return Prefix switch
         {
-            Prefix.Micro => new Meter<T>(i.m_value),
-            Prefix.None => new Meter<T>(Unit.BaseValue(i.m_value, Prefix.Micro)),
-            _ => new Meter<T>(Unit.Convert(i.m_value, Prefix.Micro, Prefix))
+            Prefix.Micro => new Ampere<T>(i.m_value),
+            Prefix.None => new Ampere<T>(Unit.BaseValue(i.m_value, Prefix.Micro)),
+            _ => new Ampere<T>(Unit.Convert(i.m_value, Prefix.Micro, Prefix))
         };
     }
 
-    public static implicit operator Meter<T>(Meter<INano> i)
+    public static implicit operator Ampere<T>(Ampere<INano> i)
     {
         return Prefix switch
         {
-            Prefix.Nano => new Meter<T>(i.m_value),
-            Prefix.None => new Meter<T>(Unit.BaseValue(i.m_value, Prefix.Nano)),
-            _ => new Meter<T>(Unit.Convert(i.m_value, Prefix.Nano, Prefix))
+            Prefix.Nano => new Ampere<T>(i.m_value),
+            Prefix.None => new Ampere<T>(Unit.BaseValue(i.m_value, Prefix.Nano)),
+            _ => new Ampere<T>(Unit.Convert(i.m_value, Prefix.Nano, Prefix))
         };
     }
 
-    public static implicit operator Meter<T>(Meter<IPico> i)
+    public static implicit operator Ampere<T>(Ampere<IPico> i)
     {
         return Prefix switch
         {
-            Prefix.Pico => new Meter<T>(i.m_value),
-            Prefix.None => new Meter<T>(Unit.BaseValue(i.m_value, Prefix.Pico)),
-            _ => new Meter<T>(Unit.Convert(i.m_value, Prefix.Pico, Prefix))
+            Prefix.Pico => new Ampere<T>(i.m_value),
+            Prefix.None => new Ampere<T>(Unit.BaseValue(i.m_value, Prefix.Pico)),
+            _ => new Ampere<T>(Unit.Convert(i.m_value, Prefix.Pico, Prefix))
         };
     }
 
-    public static implicit operator Meter<T>(Meter<IFemto> i)
+    public static implicit operator Ampere<T>(Ampere<IFemto> i)
     {
         return Prefix switch
         {
-            Prefix.Femto => new Meter<T>(i.m_value),
-            Prefix.None => new Meter<T>(Unit.BaseValue(i.m_value, Prefix.Femto)),
-            _ => new Meter<T>(Unit.Convert(i.m_value, Prefix.Femto, Prefix))
+            Prefix.Femto => new Ampere<T>(i.m_value),
+            Prefix.None => new Ampere<T>(Unit.BaseValue(i.m_value, Prefix.Femto)),
+            _ => new Ampere<T>(Unit.Convert(i.m_value, Prefix.Femto, Prefix))
         };
     }
 
-    public static implicit operator Meter<T>(Meter<IAtto> i)
+    public static implicit operator Ampere<T>(Ampere<IAtto> i)
     {
         return Prefix switch
         {
-            Prefix.Atto => new Meter<T>(i.m_value),
-            Prefix.None => new Meter<T>(Unit.BaseValue(i.m_value, Prefix.Atto)),
-            _ => new Meter<T>(Unit.Convert(i.m_value, Prefix.Atto, Prefix))
+            Prefix.Atto => new Ampere<T>(i.m_value),
+            Prefix.None => new Ampere<T>(Unit.BaseValue(i.m_value, Prefix.Atto)),
+            _ => new Ampere<T>(Unit.Convert(i.m_value, Prefix.Atto, Prefix))
         };
     }
 
-    public static implicit operator Meter<T>(Meter<IZepto> i)
+    public static implicit operator Ampere<T>(Ampere<IZepto> i)
     {
         return Prefix switch
         {
-            Prefix.Zepto => new Meter<T>(i.m_value),
-            Prefix.None => new Meter<T>(Unit.BaseValue(i.m_value, Prefix.Zepto)),
-            _ => new Meter<T>(Unit.Convert(i.m_value, Prefix.Zepto, Prefix))
+            Prefix.Zepto => new Ampere<T>(i.m_value),
+            Prefix.None => new Ampere<T>(Unit.BaseValue(i.m_value, Prefix.Zepto)),
+            _ => new Ampere<T>(Unit.Convert(i.m_value, Prefix.Zepto, Prefix))
         };
     }
 
@@ -1009,684 +1009,684 @@ public readonly struct Meter<T> where T : SI
 
     #region PLUS
 
-    public static Meter<T> operator +(Meter<T> a, Meter<IYotta> i)
+    public static Ampere<T> operator +(Ampere<T> a, Ampere<IYotta> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Yotta, Prefix);
 
-    public static Meter<T> operator +(Meter<T> a, Meter<IZetta> i)
+    public static Ampere<T> operator +(Ampere<T> a, Ampere<IZetta> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Zetta, Prefix);
 
-    public static Meter<T> operator +(Meter<T> a, Meter<IExa> i)
+    public static Ampere<T> operator +(Ampere<T> a, Ampere<IExa> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Exa, Prefix);
 
-    public static Meter<T> operator +(Meter<T> a, Meter<IPeta> i)
+    public static Ampere<T> operator +(Ampere<T> a, Ampere<IPeta> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Peta, Prefix);
 
-    public static Meter<T> operator +(Meter<T> a, Meter<ITera> i)
+    public static Ampere<T> operator +(Ampere<T> a, Ampere<ITera> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Tera, Prefix);
 
-    public static Meter<T> operator +(Meter<T> a, Meter<IGiga> i)
+    public static Ampere<T> operator +(Ampere<T> a, Ampere<IGiga> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Giga, Prefix);
 
-    public static Meter<T> operator +(Meter<T> a, Meter<IMega> i)
+    public static Ampere<T> operator +(Ampere<T> a, Ampere<IMega> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Mega, Prefix);
 
-    public static Meter<T> operator +(Meter<T> a, Meter<IKilo> i)
+    public static Ampere<T> operator +(Ampere<T> a, Ampere<IKilo> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Kilo, Prefix);
 
-    public static Meter<T> operator +(Meter<T> a, Meter<IHecto> i)
+    public static Ampere<T> operator +(Ampere<T> a, Ampere<IHecto> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Hecto, Prefix);
 
-    public static Meter<T> operator +(Meter<T> a, Meter<IDeca> i)
+    public static Ampere<T> operator +(Ampere<T> a, Ampere<IDeca> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Deca, Prefix);
 
-    public static Meter<T> operator +(Meter<T> a, Meter<INone> i)
+    public static Ampere<T> operator +(Ampere<T> a, Ampere<INone> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.None, Prefix);
 
-    public static Meter<T> operator +(Meter<T> a, Meter<IDeci> i)
+    public static Ampere<T> operator +(Ampere<T> a, Ampere<IDeci> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Deci, Prefix);
 
-    public static Meter<T> operator +(Meter<T> a, Meter<ICenti> i)
+    public static Ampere<T> operator +(Ampere<T> a, Ampere<ICenti> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Centi, Prefix);
 
-    public static Meter<T> operator +(Meter<T> a, Meter<IMilli> i)
+    public static Ampere<T> operator +(Ampere<T> a, Ampere<IMilli> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Milli, Prefix);
 
-    public static Meter<T> operator +(Meter<T> a, Meter<IMicro> i)
+    public static Ampere<T> operator +(Ampere<T> a, Ampere<IMicro> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Micro, Prefix);
 
-    public static Meter<T> operator +(Meter<T> a, Meter<INano> i)
+    public static Ampere<T> operator +(Ampere<T> a, Ampere<INano> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Nano, Prefix);
 
-    public static Meter<T> operator +(Meter<T> a, Meter<IPico> i)
+    public static Ampere<T> operator +(Ampere<T> a, Ampere<IPico> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Pico, Prefix);
 
-    public static Meter<T> operator +(Meter<T> a, Meter<IFemto> i)
+    public static Ampere<T> operator +(Ampere<T> a, Ampere<IFemto> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Femto, Prefix);
 
-    public static Meter<T> operator +(Meter<T> a, Meter<IAtto> i)
+    public static Ampere<T> operator +(Ampere<T> a, Ampere<IAtto> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Atto, Prefix);
 
-    public static Meter<T> operator +(Meter<T> a, Meter<IZepto> i)
+    public static Ampere<T> operator +(Ampere<T> a, Ampere<IZepto> i)
         => a.m_value + Unit.Convert(i.m_value, Prefix.Zepto, Prefix);
 
     #endregion
 
     #region MINUS
 
-    public static Meter<T> operator -(Meter<T> a, Meter<IYotta> i)
+    public static Ampere<T> operator -(Ampere<T> a, Ampere<IYotta> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Yotta, Prefix);
 
-    public static Meter<T> operator -(Meter<T> a, Meter<IZetta> i)
+    public static Ampere<T> operator -(Ampere<T> a, Ampere<IZetta> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Zetta, Prefix);
 
-    public static Meter<T> operator -(Meter<T> a, Meter<IExa> i)
+    public static Ampere<T> operator -(Ampere<T> a, Ampere<IExa> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Exa, Prefix);
 
-    public static Meter<T> operator -(Meter<T> a, Meter<IPeta> i)
+    public static Ampere<T> operator -(Ampere<T> a, Ampere<IPeta> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Peta, Prefix);
 
-    public static Meter<T> operator -(Meter<T> a, Meter<ITera> i)
+    public static Ampere<T> operator -(Ampere<T> a, Ampere<ITera> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Tera, Prefix);
 
-    public static Meter<T> operator -(Meter<T> a, Meter<IGiga> i)
+    public static Ampere<T> operator -(Ampere<T> a, Ampere<IGiga> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Giga, Prefix);
 
-    public static Meter<T> operator -(Meter<T> a, Meter<IMega> i)
+    public static Ampere<T> operator -(Ampere<T> a, Ampere<IMega> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Mega, Prefix);
 
-    public static Meter<T> operator -(Meter<T> a, Meter<IKilo> i)
+    public static Ampere<T> operator -(Ampere<T> a, Ampere<IKilo> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Kilo, Prefix);
 
-    public static Meter<T> operator -(Meter<T> a, Meter<IHecto> i)
+    public static Ampere<T> operator -(Ampere<T> a, Ampere<IHecto> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Hecto, Prefix);
 
-    public static Meter<T> operator -(Meter<T> a, Meter<IDeca> i)
+    public static Ampere<T> operator -(Ampere<T> a, Ampere<IDeca> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Deca, Prefix);
 
-    public static Meter<T> operator -(Meter<T> a, Meter<INone> i)
+    public static Ampere<T> operator -(Ampere<T> a, Ampere<INone> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.None, Prefix);
 
-    public static Meter<T> operator -(Meter<T> a, Meter<IDeci> i)
+    public static Ampere<T> operator -(Ampere<T> a, Ampere<IDeci> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Deci, Prefix);
 
-    public static Meter<T> operator -(Meter<T> a, Meter<ICenti> i)
+    public static Ampere<T> operator -(Ampere<T> a, Ampere<ICenti> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Centi, Prefix);
 
-    public static Meter<T> operator -(Meter<T> a, Meter<IMilli> i)
+    public static Ampere<T> operator -(Ampere<T> a, Ampere<IMilli> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Milli, Prefix);
 
-    public static Meter<T> operator -(Meter<T> a, Meter<IMicro> i)
+    public static Ampere<T> operator -(Ampere<T> a, Ampere<IMicro> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Micro, Prefix);
 
-    public static Meter<T> operator -(Meter<T> a, Meter<INano> i)
+    public static Ampere<T> operator -(Ampere<T> a, Ampere<INano> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Nano, Prefix);
 
-    public static Meter<T> operator -(Meter<T> a, Meter<IPico> i)
+    public static Ampere<T> operator -(Ampere<T> a, Ampere<IPico> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Pico, Prefix);
 
-    public static Meter<T> operator -(Meter<T> a, Meter<IFemto> i)
+    public static Ampere<T> operator -(Ampere<T> a, Ampere<IFemto> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Femto, Prefix);
 
-    public static Meter<T> operator -(Meter<T> a, Meter<IAtto> i)
+    public static Ampere<T> operator -(Ampere<T> a, Ampere<IAtto> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Atto, Prefix);
 
-    public static Meter<T> operator -(Meter<T> a, Meter<IZepto> i)
+    public static Ampere<T> operator -(Ampere<T> a, Ampere<IZepto> i)
         => a.m_value - Unit.Convert(i.m_value, Prefix.Zepto, Prefix);
 
     #endregion
 
     #region MULTI
 
-    public static Meter<T> operator *(Meter<T> a, Meter<IYotta> i)
+    public static Ampere<T> operator *(Ampere<T> a, Ampere<IYotta> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Yotta, Prefix);
 
-    public static Meter<T> operator *(Meter<T> a, Meter<IZetta> i)
+    public static Ampere<T> operator *(Ampere<T> a, Ampere<IZetta> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Zetta, Prefix);
 
-    public static Meter<T> operator *(Meter<T> a, Meter<IExa> i)
+    public static Ampere<T> operator *(Ampere<T> a, Ampere<IExa> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Exa, Prefix);
 
-    public static Meter<T> operator *(Meter<T> a, Meter<IPeta> i)
+    public static Ampere<T> operator *(Ampere<T> a, Ampere<IPeta> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Peta, Prefix);
 
-    public static Meter<T> operator *(Meter<T> a, Meter<ITera> i)
+    public static Ampere<T> operator *(Ampere<T> a, Ampere<ITera> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Tera, Prefix);
 
-    public static Meter<T> operator *(Meter<T> a, Meter<IGiga> i)
+    public static Ampere<T> operator *(Ampere<T> a, Ampere<IGiga> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Giga, Prefix);
 
-    public static Meter<T> operator *(Meter<T> a, Meter<IMega> i)
+    public static Ampere<T> operator *(Ampere<T> a, Ampere<IMega> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Mega, Prefix);
 
-    public static Meter<T> operator *(Meter<T> a, Meter<IKilo> i)
+    public static Ampere<T> operator *(Ampere<T> a, Ampere<IKilo> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Kilo, Prefix);
 
-    public static Meter<T> operator *(Meter<T> a, Meter<IHecto> i)
+    public static Ampere<T> operator *(Ampere<T> a, Ampere<IHecto> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Hecto, Prefix);
 
-    public static Meter<T> operator *(Meter<T> a, Meter<IDeca> i)
+    public static Ampere<T> operator *(Ampere<T> a, Ampere<IDeca> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Deca, Prefix);
 
-    public static Meter<T> operator *(Meter<T> a, Meter<INone> i)
+    public static Ampere<T> operator *(Ampere<T> a, Ampere<INone> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.None, Prefix);
 
-    public static Meter<T> operator *(Meter<T> a, Meter<IDeci> i)
+    public static Ampere<T> operator *(Ampere<T> a, Ampere<IDeci> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Deci, Prefix);
 
-    public static Meter<T> operator *(Meter<T> a, Meter<ICenti> i)
+    public static Ampere<T> operator *(Ampere<T> a, Ampere<ICenti> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Centi, Prefix);
 
-    public static Meter<T> operator *(Meter<T> a, Meter<IMilli> i)
+    public static Ampere<T> operator *(Ampere<T> a, Ampere<IMilli> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Milli, Prefix);
 
-    public static Meter<T> operator *(Meter<T> a, Meter<IMicro> i)
+    public static Ampere<T> operator *(Ampere<T> a, Ampere<IMicro> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Micro, Prefix);
 
-    public static Meter<T> operator *(Meter<T> a, Meter<INano> i)
+    public static Ampere<T> operator *(Ampere<T> a, Ampere<INano> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Nano, Prefix);
 
-    public static Meter<T> operator *(Meter<T> a, Meter<IPico> i)
+    public static Ampere<T> operator *(Ampere<T> a, Ampere<IPico> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Pico, Prefix);
 
-    public static Meter<T> operator *(Meter<T> a, Meter<IFemto> i)
+    public static Ampere<T> operator *(Ampere<T> a, Ampere<IFemto> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Femto, Prefix);
 
-    public static Meter<T> operator *(Meter<T> a, Meter<IAtto> i)
+    public static Ampere<T> operator *(Ampere<T> a, Ampere<IAtto> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Atto, Prefix);
 
-    public static Meter<T> operator *(Meter<T> a, Meter<IZepto> i)
+    public static Ampere<T> operator *(Ampere<T> a, Ampere<IZepto> i)
         => a.m_value * Unit.Convert(i.m_value, Prefix.Zepto, Prefix);
 
     #endregion
 
     #region DIV
 
-    public static Meter<T> operator /(Meter<T> a, Meter<IYotta> i)
+    public static Ampere<T> operator /(Ampere<T> a, Ampere<IYotta> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Yotta, Prefix);
 
-    public static Meter<T> operator /(Meter<T> a, Meter<IZetta> i)
+    public static Ampere<T> operator /(Ampere<T> a, Ampere<IZetta> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Zetta, Prefix);
 
-    public static Meter<T> operator /(Meter<T> a, Meter<IExa> i)
+    public static Ampere<T> operator /(Ampere<T> a, Ampere<IExa> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Exa, Prefix);
 
-    public static Meter<T> operator /(Meter<T> a, Meter<IPeta> i)
+    public static Ampere<T> operator /(Ampere<T> a, Ampere<IPeta> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Peta, Prefix);
 
-    public static Meter<T> operator /(Meter<T> a, Meter<ITera> i)
+    public static Ampere<T> operator /(Ampere<T> a, Ampere<ITera> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Tera, Prefix);
 
-    public static Meter<T> operator /(Meter<T> a, Meter<IGiga> i)
+    public static Ampere<T> operator /(Ampere<T> a, Ampere<IGiga> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Giga, Prefix);
 
-    public static Meter<T> operator /(Meter<T> a, Meter<IMega> i)
+    public static Ampere<T> operator /(Ampere<T> a, Ampere<IMega> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Mega, Prefix);
 
-    public static Meter<T> operator /(Meter<T> a, Meter<IKilo> i)
+    public static Ampere<T> operator /(Ampere<T> a, Ampere<IKilo> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Kilo, Prefix);
 
-    public static Meter<T> operator /(Meter<T> a, Meter<IHecto> i)
+    public static Ampere<T> operator /(Ampere<T> a, Ampere<IHecto> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Hecto, Prefix);
 
-    public static Meter<T> operator /(Meter<T> a, Meter<IDeca> i)
+    public static Ampere<T> operator /(Ampere<T> a, Ampere<IDeca> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Deca, Prefix);
 
-    public static Meter<T> operator /(Meter<T> a, Meter<INone> i)
+    public static Ampere<T> operator /(Ampere<T> a, Ampere<INone> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.None, Prefix);
 
-    public static Meter<T> operator /(Meter<T> a, Meter<IDeci> i)
+    public static Ampere<T> operator /(Ampere<T> a, Ampere<IDeci> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Deci, Prefix);
 
-    public static Meter<T> operator /(Meter<T> a, Meter<ICenti> i)
+    public static Ampere<T> operator /(Ampere<T> a, Ampere<ICenti> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Centi, Prefix);
 
-    public static Meter<T> operator /(Meter<T> a, Meter<IMilli> i)
+    public static Ampere<T> operator /(Ampere<T> a, Ampere<IMilli> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Milli, Prefix);
 
-    public static Meter<T> operator /(Meter<T> a, Meter<IMicro> i)
+    public static Ampere<T> operator /(Ampere<T> a, Ampere<IMicro> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Micro, Prefix);
 
-    public static Meter<T> operator /(Meter<T> a, Meter<INano> i)
+    public static Ampere<T> operator /(Ampere<T> a, Ampere<INano> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Nano, Prefix);
 
-    public static Meter<T> operator /(Meter<T> a, Meter<IPico> i)
+    public static Ampere<T> operator /(Ampere<T> a, Ampere<IPico> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Pico, Prefix);
 
-    public static Meter<T> operator /(Meter<T> a, Meter<IFemto> i)
+    public static Ampere<T> operator /(Ampere<T> a, Ampere<IFemto> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Femto, Prefix);
 
-    public static Meter<T> operator /(Meter<T> a, Meter<IAtto> i)
+    public static Ampere<T> operator /(Ampere<T> a, Ampere<IAtto> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Atto, Prefix);
 
-    public static Meter<T> operator /(Meter<T> a, Meter<IZepto> i)
+    public static Ampere<T> operator /(Ampere<T> a, Ampere<IZepto> i)
         => a.m_value / Unit.Convert(i.m_value, Prefix.Zepto, Prefix);
 
     #endregion
 
     #region PERCENT
 
-    public static Meter<T> operator %(Meter<T> a, Meter<IYotta> i)
+    public static Ampere<T> operator %(Ampere<T> a, Ampere<IYotta> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Yotta, Prefix);
 
-    public static Meter<T> operator %(Meter<T> a, Meter<IZetta> i)
+    public static Ampere<T> operator %(Ampere<T> a, Ampere<IZetta> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Zetta, Prefix);
 
-    public static Meter<T> operator %(Meter<T> a, Meter<IExa> i)
+    public static Ampere<T> operator %(Ampere<T> a, Ampere<IExa> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Exa, Prefix);
 
-    public static Meter<T> operator %(Meter<T> a, Meter<IPeta> i)
+    public static Ampere<T> operator %(Ampere<T> a, Ampere<IPeta> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Peta, Prefix);
 
-    public static Meter<T> operator %(Meter<T> a, Meter<ITera> i)
+    public static Ampere<T> operator %(Ampere<T> a, Ampere<ITera> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Tera, Prefix);
 
-    public static Meter<T> operator %(Meter<T> a, Meter<IGiga> i)
+    public static Ampere<T> operator %(Ampere<T> a, Ampere<IGiga> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Giga, Prefix);
 
-    public static Meter<T> operator %(Meter<T> a, Meter<IMega> i)
+    public static Ampere<T> operator %(Ampere<T> a, Ampere<IMega> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Mega, Prefix);
 
-    public static Meter<T> operator %(Meter<T> a, Meter<IKilo> i)
+    public static Ampere<T> operator %(Ampere<T> a, Ampere<IKilo> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Kilo, Prefix);
 
-    public static Meter<T> operator %(Meter<T> a, Meter<IHecto> i)
+    public static Ampere<T> operator %(Ampere<T> a, Ampere<IHecto> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Hecto, Prefix);
 
-    public static Meter<T> operator %(Meter<T> a, Meter<IDeca> i)
+    public static Ampere<T> operator %(Ampere<T> a, Ampere<IDeca> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Deca, Prefix);
 
-    public static Meter<T> operator %(Meter<T> a, Meter<INone> i)
+    public static Ampere<T> operator %(Ampere<T> a, Ampere<INone> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.None, Prefix);
 
-    public static Meter<T> operator %(Meter<T> a, Meter<IDeci> i)
+    public static Ampere<T> operator %(Ampere<T> a, Ampere<IDeci> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Deci, Prefix);
 
-    public static Meter<T> operator %(Meter<T> a, Meter<ICenti> i)
+    public static Ampere<T> operator %(Ampere<T> a, Ampere<ICenti> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Centi, Prefix);
 
-    public static Meter<T> operator %(Meter<T> a, Meter<IMilli> i)
+    public static Ampere<T> operator %(Ampere<T> a, Ampere<IMilli> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Milli, Prefix);
 
-    public static Meter<T> operator %(Meter<T> a, Meter<IMicro> i)
+    public static Ampere<T> operator %(Ampere<T> a, Ampere<IMicro> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Micro, Prefix);
 
-    public static Meter<T> operator %(Meter<T> a, Meter<INano> i)
+    public static Ampere<T> operator %(Ampere<T> a, Ampere<INano> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Nano, Prefix);
 
-    public static Meter<T> operator %(Meter<T> a, Meter<IPico> i)
+    public static Ampere<T> operator %(Ampere<T> a, Ampere<IPico> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Pico, Prefix);
 
-    public static Meter<T> operator %(Meter<T> a, Meter<IFemto> i)
+    public static Ampere<T> operator %(Ampere<T> a, Ampere<IFemto> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Femto, Prefix);
 
-    public static Meter<T> operator %(Meter<T> a, Meter<IAtto> i)
+    public static Ampere<T> operator %(Ampere<T> a, Ampere<IAtto> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Atto, Prefix);
 
-    public static Meter<T> operator %(Meter<T> a, Meter<IZepto> i)
+    public static Ampere<T> operator %(Ampere<T> a, Ampere<IZepto> i)
         => a.m_value % Unit.Convert(i.m_value, Prefix.Zepto, Prefix);
 
     #endregion
 
     #region EQUAL
 
-    public static bool operator ==(Meter<T> a, Meter<IYotta> i)
+    public static bool operator ==(Ampere<T> a, Ampere<IYotta> i)
         => Unit.Convert(i.m_value, Prefix.Exa, Prefix) == a.m_value;
 
-    public static bool operator !=(Meter<T> a, Meter<IYotta> i)
+    public static bool operator !=(Ampere<T> a, Ampere<IYotta> i)
         => Unit.Convert(i.m_value, Prefix.Exa, Prefix) != a.m_value;
 
-    public static bool operator >(Meter<T> a, Meter<IYotta> i)
+    public static bool operator >(Ampere<T> a, Ampere<IYotta> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Exa, Prefix);
 
-    public static bool operator <(Meter<T> a, Meter<IYotta> i)
+    public static bool operator <(Ampere<T> a, Ampere<IYotta> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Exa, Prefix);
 
-    public static bool operator >=(Meter<T> a, Meter<IYotta> i)
+    public static bool operator >=(Ampere<T> a, Ampere<IYotta> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Exa, Prefix);
 
-    public static bool operator <=(Meter<T> a, Meter<IYotta> i)
+    public static bool operator <=(Ampere<T> a, Ampere<IYotta> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Exa, Prefix);
 
-    public static bool operator ==(Meter<T> a, Meter<IZetta> i)
+    public static bool operator ==(Ampere<T> a, Ampere<IZetta> i)
         => Unit.Convert(i.m_value, Prefix.Zetta, Prefix) == a.m_value;
 
-    public static bool operator !=(Meter<T> a, Meter<IZetta> i)
+    public static bool operator !=(Ampere<T> a, Ampere<IZetta> i)
         => Unit.Convert(i.m_value, Prefix.Zetta, Prefix) != a.m_value;
 
-    public static bool operator >(Meter<T> a, Meter<IZetta> i)
+    public static bool operator >(Ampere<T> a, Ampere<IZetta> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Zetta, Prefix);
 
-    public static bool operator <(Meter<T> a, Meter<IZetta> i)
+    public static bool operator <(Ampere<T> a, Ampere<IZetta> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Zetta, Prefix);
 
-    public static bool operator >=(Meter<T> a, Meter<IZetta> i)
+    public static bool operator >=(Ampere<T> a, Ampere<IZetta> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Zetta, Prefix);
 
-    public static bool operator <=(Meter<T> a, Meter<IZetta> i)
+    public static bool operator <=(Ampere<T> a, Ampere<IZetta> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Zetta, Prefix);
 
-    public static bool operator ==(Meter<T> a, Meter<IExa> i)
+    public static bool operator ==(Ampere<T> a, Ampere<IExa> i)
         => Unit.Convert(i.m_value, Prefix.Exa, Prefix) == a.m_value;
 
-    public static bool operator !=(Meter<T> a, Meter<IExa> i)
+    public static bool operator !=(Ampere<T> a, Ampere<IExa> i)
         => Unit.Convert(i.m_value, Prefix.Exa, Prefix) != a.m_value;
 
-    public static bool operator >(Meter<T> a, Meter<IExa> i)
+    public static bool operator >(Ampere<T> a, Ampere<IExa> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Exa, Prefix);
 
-    public static bool operator <(Meter<T> a, Meter<IExa> i)
+    public static bool operator <(Ampere<T> a, Ampere<IExa> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Exa, Prefix);
 
-    public static bool operator >=(Meter<T> a, Meter<IExa> i)
+    public static bool operator >=(Ampere<T> a, Ampere<IExa> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Exa, Prefix);
 
-    public static bool operator <=(Meter<T> a, Meter<IExa> i)
+    public static bool operator <=(Ampere<T> a, Ampere<IExa> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Exa, Prefix);
 
-    public static bool operator ==(Meter<T> a, Meter<IPeta> i)
+    public static bool operator ==(Ampere<T> a, Ampere<IPeta> i)
         => Unit.Convert(i.m_value, Prefix.Peta, Prefix) == a.m_value;
 
-    public static bool operator !=(Meter<T> a, Meter<IPeta> i)
+    public static bool operator !=(Ampere<T> a, Ampere<IPeta> i)
         => Unit.Convert(i.m_value, Prefix.Peta, Prefix) != a.m_value;
 
-    public static bool operator >(Meter<T> a, Meter<IPeta> i)
+    public static bool operator >(Ampere<T> a, Ampere<IPeta> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Peta, Prefix);
 
-    public static bool operator <(Meter<T> a, Meter<IPeta> i)
+    public static bool operator <(Ampere<T> a, Ampere<IPeta> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Peta, Prefix);
 
-    public static bool operator >=(Meter<T> a, Meter<IPeta> i)
+    public static bool operator >=(Ampere<T> a, Ampere<IPeta> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Peta, Prefix);
 
-    public static bool operator <=(Meter<T> a, Meter<IPeta> i)
+    public static bool operator <=(Ampere<T> a, Ampere<IPeta> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Peta, Prefix);
 
-    public static bool operator ==(Meter<T> a, Meter<ITera> i)
+    public static bool operator ==(Ampere<T> a, Ampere<ITera> i)
         => Unit.Convert(i.m_value, Prefix.Tera, Prefix) == a.m_value;
 
-    public static bool operator !=(Meter<T> a, Meter<ITera> i)
+    public static bool operator !=(Ampere<T> a, Ampere<ITera> i)
         => Unit.Convert(i.m_value, Prefix.Tera, Prefix) != a.m_value;
 
-    public static bool operator >(Meter<T> a, Meter<ITera> i)
+    public static bool operator >(Ampere<T> a, Ampere<ITera> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Tera, Prefix);
 
-    public static bool operator <(Meter<T> a, Meter<ITera> i)
+    public static bool operator <(Ampere<T> a, Ampere<ITera> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Tera, Prefix);
 
-    public static bool operator >=(Meter<T> a, Meter<ITera> i)
+    public static bool operator >=(Ampere<T> a, Ampere<ITera> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Tera, Prefix);
 
-    public static bool operator <=(Meter<T> a, Meter<ITera> i)
+    public static bool operator <=(Ampere<T> a, Ampere<ITera> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Tera, Prefix);
 
-    public static bool operator ==(Meter<T> a, Meter<IGiga> i)
+    public static bool operator ==(Ampere<T> a, Ampere<IGiga> i)
         => Unit.Convert(i.m_value, Prefix.Giga, Prefix) == a.m_value;
 
-    public static bool operator !=(Meter<T> a, Meter<IGiga> i)
+    public static bool operator !=(Ampere<T> a, Ampere<IGiga> i)
         => Unit.Convert(i.m_value, Prefix.Giga, Prefix) != a.m_value;
 
-    public static bool operator >(Meter<T> a, Meter<IGiga> i)
+    public static bool operator >(Ampere<T> a, Ampere<IGiga> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Giga, Prefix);
 
-    public static bool operator <(Meter<T> a, Meter<IGiga> i)
+    public static bool operator <(Ampere<T> a, Ampere<IGiga> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Giga, Prefix);
 
-    public static bool operator >=(Meter<T> a, Meter<IGiga> i)
+    public static bool operator >=(Ampere<T> a, Ampere<IGiga> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Giga, Prefix);
 
-    public static bool operator <=(Meter<T> a, Meter<IGiga> i)
+    public static bool operator <=(Ampere<T> a, Ampere<IGiga> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Giga, Prefix);
 
-    public static bool operator ==(Meter<T> a, Meter<IMega> i)
+    public static bool operator ==(Ampere<T> a, Ampere<IMega> i)
         => Unit.Convert(i.m_value, Prefix.Mega, Prefix) == a.m_value;
 
-    public static bool operator !=(Meter<T> a, Meter<IMega> i)
+    public static bool operator !=(Ampere<T> a, Ampere<IMega> i)
         => Unit.Convert(i.m_value, Prefix.Mega, Prefix) != a.m_value;
 
-    public static bool operator >(Meter<T> a, Meter<IMega> i)
+    public static bool operator >(Ampere<T> a, Ampere<IMega> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Mega, Prefix);
 
-    public static bool operator <(Meter<T> a, Meter<IMega> i)
+    public static bool operator <(Ampere<T> a, Ampere<IMega> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Mega, Prefix);
 
-    public static bool operator >=(Meter<T> a, Meter<IMega> i)
+    public static bool operator >=(Ampere<T> a, Ampere<IMega> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Mega, Prefix);
 
-    public static bool operator <=(Meter<T> a, Meter<IMega> i)
+    public static bool operator <=(Ampere<T> a, Ampere<IMega> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Mega, Prefix);
 
-    public static bool operator ==(Meter<T> a, Meter<IKilo> i)
+    public static bool operator ==(Ampere<T> a, Ampere<IKilo> i)
         => Unit.Convert(i.m_value, Prefix.Kilo, Prefix) == a.m_value;
 
-    public static bool operator !=(Meter<T> a, Meter<IKilo> i)
+    public static bool operator !=(Ampere<T> a, Ampere<IKilo> i)
         => Unit.Convert(i.m_value, Prefix.Kilo, Prefix) != a.m_value;
 
-    public static bool operator >(Meter<T> a, Meter<IKilo> i)
+    public static bool operator >(Ampere<T> a, Ampere<IKilo> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Kilo, Prefix);
 
-    public static bool operator <(Meter<T> a, Meter<IKilo> i)
+    public static bool operator <(Ampere<T> a, Ampere<IKilo> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Kilo, Prefix);
 
-    public static bool operator >=(Meter<T> a, Meter<IKilo> i)
+    public static bool operator >=(Ampere<T> a, Ampere<IKilo> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Kilo, Prefix);
 
-    public static bool operator <=(Meter<T> a, Meter<IKilo> i)
+    public static bool operator <=(Ampere<T> a, Ampere<IKilo> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Kilo, Prefix);
 
-    public static bool operator ==(Meter<T> a, Meter<IHecto> i)
+    public static bool operator ==(Ampere<T> a, Ampere<IHecto> i)
         => Unit.Convert(i.m_value, Prefix.Hecto, Prefix) == a.m_value;
 
-    public static bool operator !=(Meter<T> a, Meter<IHecto> i)
+    public static bool operator !=(Ampere<T> a, Ampere<IHecto> i)
         => Unit.Convert(i.m_value, Prefix.Hecto, Prefix) != a.m_value;
 
-    public static bool operator >(Meter<T> a, Meter<IHecto> i)
+    public static bool operator >(Ampere<T> a, Ampere<IHecto> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Hecto, Prefix);
 
-    public static bool operator <(Meter<T> a, Meter<IHecto> i)
+    public static bool operator <(Ampere<T> a, Ampere<IHecto> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Hecto, Prefix);
 
-    public static bool operator >=(Meter<T> a, Meter<IHecto> i)
+    public static bool operator >=(Ampere<T> a, Ampere<IHecto> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Hecto, Prefix);
 
-    public static bool operator <=(Meter<T> a, Meter<IHecto> i)
+    public static bool operator <=(Ampere<T> a, Ampere<IHecto> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Hecto, Prefix);
 
-    public static bool operator ==(Meter<T> a, Meter<IDeca> i)
+    public static bool operator ==(Ampere<T> a, Ampere<IDeca> i)
         => Unit.Convert(i.m_value, Prefix.Deca, Prefix) == a.m_value;
 
-    public static bool operator !=(Meter<T> a, Meter<IDeca> i)
+    public static bool operator !=(Ampere<T> a, Ampere<IDeca> i)
         => Unit.Convert(i.m_value, Prefix.Deca, Prefix) != a.m_value;
 
-    public static bool operator >(Meter<T> a, Meter<IDeca> i)
+    public static bool operator >(Ampere<T> a, Ampere<IDeca> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Deca, Prefix);
 
-    public static bool operator <(Meter<T> a, Meter<IDeca> i)
+    public static bool operator <(Ampere<T> a, Ampere<IDeca> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Deca, Prefix);
 
-    public static bool operator >=(Meter<T> a, Meter<IDeca> i)
+    public static bool operator >=(Ampere<T> a, Ampere<IDeca> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Deca, Prefix);
 
-    public static bool operator <=(Meter<T> a, Meter<IDeca> i)
+    public static bool operator <=(Ampere<T> a, Ampere<IDeca> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Deca, Prefix);
 
-    public static bool operator ==(Meter<T> a, Meter<INone> i)
+    public static bool operator ==(Ampere<T> a, Ampere<INone> i)
         => Unit.Convert(i.m_value, Prefix.None, Prefix) == a.m_value;
 
-    public static bool operator !=(Meter<T> a, Meter<INone> i)
+    public static bool operator !=(Ampere<T> a, Ampere<INone> i)
         => Unit.Convert(i.m_value, Prefix.Nano, Prefix) != a.m_value;
 
-    public static bool operator >(Meter<T> a, Meter<INone> i)
+    public static bool operator >(Ampere<T> a, Ampere<INone> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.None, Prefix);
 
-    public static bool operator <(Meter<T> a, Meter<INone> i)
+    public static bool operator <(Ampere<T> a, Ampere<INone> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.None, Prefix);
 
-    public static bool operator >=(Meter<T> a, Meter<INone> i)
+    public static bool operator >=(Ampere<T> a, Ampere<INone> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.None, Prefix);
 
-    public static bool operator <=(Meter<T> a, Meter<INone> i)
+    public static bool operator <=(Ampere<T> a, Ampere<INone> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.None, Prefix);
 
-    public static bool operator ==(Meter<T> a, Meter<IDeci> i)
+    public static bool operator ==(Ampere<T> a, Ampere<IDeci> i)
         => Unit.Convert(i.m_value, Prefix.Deci, Prefix) == a.m_value;
 
-    public static bool operator !=(Meter<T> a, Meter<IDeci> i)
+    public static bool operator !=(Ampere<T> a, Ampere<IDeci> i)
         => Unit.Convert(i.m_value, Prefix.Deci, Prefix) != a.m_value;
 
-    public static bool operator >(Meter<T> a, Meter<IDeci> i)
+    public static bool operator >(Ampere<T> a, Ampere<IDeci> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Deci, Prefix);
 
-    public static bool operator <(Meter<T> a, Meter<IDeci> i)
+    public static bool operator <(Ampere<T> a, Ampere<IDeci> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Deci, Prefix);
 
-    public static bool operator >=(Meter<T> a, Meter<IDeci> i)
+    public static bool operator >=(Ampere<T> a, Ampere<IDeci> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Deci, Prefix);
 
-    public static bool operator <=(Meter<T> a, Meter<IDeci> i)
+    public static bool operator <=(Ampere<T> a, Ampere<IDeci> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Deci, Prefix);
 
-    public static bool operator ==(Meter<T> a, Meter<ICenti> i)
+    public static bool operator ==(Ampere<T> a, Ampere<ICenti> i)
         => Unit.Convert(i.m_value, Prefix.Centi, Prefix) == a.m_value;
 
-    public static bool operator !=(Meter<T> a, Meter<ICenti> i)
+    public static bool operator !=(Ampere<T> a, Ampere<ICenti> i)
         => Unit.Convert(i.m_value, Prefix.Centi, Prefix) != a.m_value;
 
-    public static bool operator >(Meter<T> a, Meter<ICenti> i)
+    public static bool operator >(Ampere<T> a, Ampere<ICenti> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Centi, Prefix);
 
-    public static bool operator <(Meter<T> a, Meter<ICenti> i)
+    public static bool operator <(Ampere<T> a, Ampere<ICenti> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Centi, Prefix);
 
-    public static bool operator >=(Meter<T> a, Meter<ICenti> i)
+    public static bool operator >=(Ampere<T> a, Ampere<ICenti> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Centi, Prefix);
 
-    public static bool operator <=(Meter<T> a, Meter<ICenti> i)
+    public static bool operator <=(Ampere<T> a, Ampere<ICenti> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Centi, Prefix);
 
-    public static bool operator ==(Meter<T> a, Meter<IMilli> i)
+    public static bool operator ==(Ampere<T> a, Ampere<IMilli> i)
         => Unit.Convert(i.m_value, Prefix.Milli, Prefix) == a.m_value;
 
-    public static bool operator !=(Meter<T> a, Meter<IMilli> i)
+    public static bool operator !=(Ampere<T> a, Ampere<IMilli> i)
         => Unit.Convert(i.m_value, Prefix.Milli, Prefix) != a.m_value;
 
-    public static bool operator >(Meter<T> a, Meter<IMilli> i)
+    public static bool operator >(Ampere<T> a, Ampere<IMilli> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Milli, Prefix);
 
-    public static bool operator <(Meter<T> a, Meter<IMilli> i)
+    public static bool operator <(Ampere<T> a, Ampere<IMilli> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Milli, Prefix);
 
-    public static bool operator >=(Meter<T> a, Meter<IMilli> i)
+    public static bool operator >=(Ampere<T> a, Ampere<IMilli> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Milli, Prefix);
 
-    public static bool operator <=(Meter<T> a, Meter<IMilli> i)
+    public static bool operator <=(Ampere<T> a, Ampere<IMilli> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Milli, Prefix);
 
-    public static bool operator ==(Meter<T> a, Meter<IMicro> i)
+    public static bool operator ==(Ampere<T> a, Ampere<IMicro> i)
         => Unit.Convert(i.m_value, Prefix.Micro, Prefix) == a.m_value;
 
-    public static bool operator !=(Meter<T> a, Meter<IMicro> i)
+    public static bool operator !=(Ampere<T> a, Ampere<IMicro> i)
         => Unit.Convert(i.m_value, Prefix.Micro, Prefix) != a.m_value;
 
-    public static bool operator >(Meter<T> a, Meter<IMicro> i)
+    public static bool operator >(Ampere<T> a, Ampere<IMicro> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Micro, Prefix);
 
-    public static bool operator <(Meter<T> a, Meter<IMicro> i)
+    public static bool operator <(Ampere<T> a, Ampere<IMicro> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Micro, Prefix);
 
-    public static bool operator >=(Meter<T> a, Meter<IMicro> i)
+    public static bool operator >=(Ampere<T> a, Ampere<IMicro> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Micro, Prefix);
 
-    public static bool operator <=(Meter<T> a, Meter<IMicro> i)
+    public static bool operator <=(Ampere<T> a, Ampere<IMicro> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Micro, Prefix);
 
-    public static bool operator ==(Meter<T> a, Meter<INano> i)
+    public static bool operator ==(Ampere<T> a, Ampere<INano> i)
         => Unit.Convert(i.m_value, Prefix.Nano, Prefix) == a.m_value;
 
-    public static bool operator !=(Meter<T> a, Meter<INano> i)
+    public static bool operator !=(Ampere<T> a, Ampere<INano> i)
         => Unit.Convert(i.m_value, Prefix.Nano, Prefix) != a.m_value;
 
-    public static bool operator >(Meter<T> a, Meter<INano> i)
+    public static bool operator >(Ampere<T> a, Ampere<INano> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Nano, Prefix);
 
-    public static bool operator <(Meter<T> a, Meter<INano> i)
+    public static bool operator <(Ampere<T> a, Ampere<INano> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Nano, Prefix);
 
-    public static bool operator >=(Meter<T> a, Meter<INano> i)
+    public static bool operator >=(Ampere<T> a, Ampere<INano> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Nano, Prefix);
 
-    public static bool operator <=(Meter<T> a, Meter<INano> i)
+    public static bool operator <=(Ampere<T> a, Ampere<INano> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Nano, Prefix);
 
-    public static bool operator ==(Meter<T> a, Meter<IPico> i)
+    public static bool operator ==(Ampere<T> a, Ampere<IPico> i)
         => Unit.Convert(i.m_value, Prefix.Pico, Prefix) == a.m_value;
 
-    public static bool operator !=(Meter<T> a, Meter<IPico> i)
+    public static bool operator !=(Ampere<T> a, Ampere<IPico> i)
         => Unit.Convert(i.m_value, Prefix.Pico, Prefix) != a.m_value;
 
-    public static bool operator >(Meter<T> a, Meter<IPico> i)
+    public static bool operator >(Ampere<T> a, Ampere<IPico> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Pico, Prefix);
 
-    public static bool operator <(Meter<T> a, Meter<IPico> i)
+    public static bool operator <(Ampere<T> a, Ampere<IPico> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Pico, Prefix);
 
-    public static bool operator >=(Meter<T> a, Meter<IPico> i)
+    public static bool operator >=(Ampere<T> a, Ampere<IPico> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Pico, Prefix);
 
-    public static bool operator <=(Meter<T> a, Meter<IPico> i)
+    public static bool operator <=(Ampere<T> a, Ampere<IPico> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Pico, Prefix);
 
-    public static bool operator ==(Meter<T> a, Meter<IFemto> i)
+    public static bool operator ==(Ampere<T> a, Ampere<IFemto> i)
         => Unit.Convert(i.m_value, Prefix.Femto, Prefix) == a.m_value;
 
-    public static bool operator !=(Meter<T> a, Meter<IFemto> i)
+    public static bool operator !=(Ampere<T> a, Ampere<IFemto> i)
         => Unit.Convert(i.m_value, Prefix.Femto, Prefix) != a.m_value;
 
-    public static bool operator >(Meter<T> a, Meter<IFemto> i)
+    public static bool operator >(Ampere<T> a, Ampere<IFemto> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Femto, Prefix);
 
-    public static bool operator <(Meter<T> a, Meter<IFemto> i)
+    public static bool operator <(Ampere<T> a, Ampere<IFemto> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Femto, Prefix);
 
-    public static bool operator >=(Meter<T> a, Meter<IFemto> i)
+    public static bool operator >=(Ampere<T> a, Ampere<IFemto> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Femto, Prefix);
 
-    public static bool operator <=(Meter<T> a, Meter<IFemto> i)
+    public static bool operator <=(Ampere<T> a, Ampere<IFemto> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Femto, Prefix);
 
-    public static bool operator ==(Meter<T> a, Meter<IAtto> i)
+    public static bool operator ==(Ampere<T> a, Ampere<IAtto> i)
         => Unit.Convert(i.m_value, Prefix.Atto, Prefix) == a.m_value;
 
-    public static bool operator !=(Meter<T> a, Meter<IAtto> i)
+    public static bool operator !=(Ampere<T> a, Ampere<IAtto> i)
         => Unit.Convert(i.m_value, Prefix.Atto, Prefix) != a.m_value;
 
-    public static bool operator >(Meter<T> a, Meter<IAtto> i)
+    public static bool operator >(Ampere<T> a, Ampere<IAtto> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Atto, Prefix);
 
-    public static bool operator <(Meter<T> a, Meter<IAtto> i)
+    public static bool operator <(Ampere<T> a, Ampere<IAtto> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Atto, Prefix);
 
-    public static bool operator >=(Meter<T> a, Meter<IAtto> i)
+    public static bool operator >=(Ampere<T> a, Ampere<IAtto> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Atto, Prefix);
 
-    public static bool operator <=(Meter<T> a, Meter<IAtto> i)
+    public static bool operator <=(Ampere<T> a, Ampere<IAtto> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Atto, Prefix);
 
-    public static bool operator ==(Meter<T> a, Meter<IZepto> i)
+    public static bool operator ==(Ampere<T> a, Ampere<IZepto> i)
         => Unit.Convert(i.m_value, Prefix.Zepto, Prefix) == a.m_value;
 
-    public static bool operator !=(Meter<T> a, Meter<IZepto> i)
+    public static bool operator !=(Ampere<T> a, Ampere<IZepto> i)
         => Unit.Convert(i.m_value, Prefix.Zepto, Prefix) != a.m_value;
 
-    public static bool operator >(Meter<T> a, Meter<IZepto> i)
+    public static bool operator >(Ampere<T> a, Ampere<IZepto> i)
         => a.m_value > Unit.Convert(i.m_value, Prefix.Zepto, Prefix);
 
-    public static bool operator <(Meter<T> a, Meter<IZepto> i)
+    public static bool operator <(Ampere<T> a, Ampere<IZepto> i)
         => a.m_value < Unit.Convert(i.m_value, Prefix.Zepto, Prefix);
 
-    public static bool operator >=(Meter<T> a, Meter<IZepto> i)
+    public static bool operator >=(Ampere<T> a, Ampere<IZepto> i)
         => a.m_value >= Unit.Convert(i.m_value, Prefix.Zepto, Prefix);
 
-    public static bool operator <=(Meter<T> a, Meter<IZepto> i)
+    public static bool operator <=(Ampere<T> a, Ampere<IZepto> i)
         => a.m_value <= Unit.Convert(i.m_value, Prefix.Zepto, Prefix);
 
     #endregion
@@ -1696,5 +1696,5 @@ public readonly struct Meter<T> where T : SI
     public override int GetHashCode() => HashCode.Combine(m_value, Prefix);
 
     public override string ToString() => m_value.ToString(NumberFormatInfo.CurrentInfo) +
-                                         Prefix.Attribute<SuffixAttribute>()!.Suffix + "m";
+                                         Prefix.Attribute<SuffixAttribute>()!.Suffix + "a";
 }

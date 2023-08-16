@@ -39,6 +39,7 @@
         <Content Include="obj\Debug\net8.0\Core9.assets.cache"/>
         <Content Include="obj\project.assets.json"/>
         <Content Include="obj\project.nuget.cache"/>
+        <Content Include="obj\rider.project.model.nuget.info"/>
         <Content Include="obj\rider.project.restore.info"/>
     </ItemGroup>
 
