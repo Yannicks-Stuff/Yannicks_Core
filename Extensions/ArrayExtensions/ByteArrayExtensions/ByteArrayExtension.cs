@@ -41,4 +41,45 @@ public static class ByteArrayExtension
         Array.Copy(source, result, length);
         return result;
     }
+
+    /// <summary>
+    /// Converts a byte array to a Base64 encoded string, with optional encoding.
+    /// </summary>
+    /// <param name="array">The byte array to convert.</param>
+    /// <param name="base64FormattingOptions">Specifies whether relevant line breaks should be inserted.</param>
+    /// <param name="encoding">The optional character encoding to use when converting the Base64 string to bytes and back.</param>
+    /// <returns>The Base64 encoded string.</returns>
+    public static string ToBase64String(this byte[] array,
+        Base64FormattingOptions base64FormattingOptions = Base64FormattingOptions.None,
+        Encoding? encoding = null)
+    {
+        var base64String = Convert.ToBase64String(array, base64FormattingOptions);
+
+        if (encoding == null)
+            return base64String;
+
+        var bytes = encoding.GetBytes(base64String);
+        base64String = encoding.GetString(bytes);
+        return base64String;
+    }
+
+    /// <summary>
+    /// Converts a byte array to a hexadecimal string, with optional encoding.
+    /// </summary>
+    /// <param name="array">The byte array to convert.</param>
+    /// <param name="encoding">The optional character encoding to use when converting the hexadecimal string to bytes and back.</param>
+    /// <param name="includeHyphens">Whether to include hyphens between byte values in the output string.</param>
+    /// <returns>The hexadecimal string.</returns>
+    public static string ToHexString(this byte[] array, Encoding? encoding = null, bool includeHyphens = false)
+    {
+        var hexString = BitConverter.ToString(array);
+
+        if (!includeHyphens)
+            hexString = hexString.Replace("-", "");
+
+        if (encoding != null)
+            hexString = encoding.GetString(array);
+
+        return hexString;
+    }
 }
