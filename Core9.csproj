@@ -23,11 +23,12 @@
     <ItemGroup>
       <Folder Include="Chemistry\" />
       <Folder Include="Crypto\" />
-        <Folder Include="Extensions\ArrayExtensions\GenericExtensions\"/>
       <Folder Include="IO\" />
       <Folder Include="Mathematic\" />
-      <Folder Include="Native\OS\" />
-      <Folder Include="Network\Protocol\" />
+        <Folder Include="Network\Protocol\FTP\"/>
+        <Folder Include="Network\Protocol\HTTP\"/>
+        <Folder Include="Network\Protocol\ICMP\"/>
+        <Folder Include="Network\Protocol\NDP\"/>
       <Folder Include="VM\CLR\" />
       <Folder Include="VM\CVM\" />
       <Folder Include="VM\JVM\" />
