@@ -25,7 +25,6 @@
       <Folder Include="Crypto\" />
         <Folder Include="Extensions\ArrayExtensions\GenericExtensions\"/>
       <Folder Include="IO\" />
-      <Folder Include="Lang\" />
       <Folder Include="Mathematic\" />
       <Folder Include="Native\OS\" />
       <Folder Include="Network\Protocol\" />
