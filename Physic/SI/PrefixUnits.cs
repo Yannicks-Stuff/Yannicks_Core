@@ -10,7 +10,7 @@ public interface SI
     /// <summary>
     /// Gets the prefix associated with the SI unit.
     /// </summary>
-    static Prefix Prefix { get; }
+    public static Prefix Prefix { get; }
 
     /// <summary>
     /// Converts a value with the specified prefix to a value with the target prefix (e.g., converting meters to centimeters).
@@ -26,7 +26,7 @@ public interface SI
     /// </summary>
     /// <param name="target">The target prefix for the conversion.</param>
     /// <returns>The value converted to the target prefix.</returns>
-    decimal Convert(Prefix target);
+    public decimal Convert(Prefix target);
 }
 
 /// <summary>
