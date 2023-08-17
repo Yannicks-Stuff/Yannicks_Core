@@ -13,6 +13,11 @@ public struct MACAddress
         Address = address;
     }
 
+    public MACAddress(IEnumerable<byte> address)
+    {
+        Address = address.ToArray();
+    }
+
     public static implicit operator byte[](MACAddress address) => address.Address;
 
     public static implicit operator MACAddress(string adr)

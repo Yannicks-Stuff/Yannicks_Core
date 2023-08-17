@@ -51,4 +51,23 @@ public static class GenericArrayExtension
 
         return result;
     }
+
+    /// <summary>
+    /// Adds multiple items to an existing array.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the array.</typeparam>
+    /// <param name="source">The original array to which the items should be added.</param>
+    /// <param name="item">The item to be added to the array.</param>
+    /// <param name="count">The number of items to be added.</param>
+    /// <returns>A new array that includes the elements of the original array plus the added items.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when source or items is null.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of 'count' is greater than Int32.MaxValue
+    /// or the length of the resulting array would be greater than Int32.MaxValue.</exception>
+    public static T[] Add<T>(this T[] source, T item, uint count)
+    {
+        if (count > int.MaxValue || source.Length + count > int.MaxValue)
+            throw new ArgumentOutOfRangeException(nameof(count), "your over int max");
+
+        return Add<T>(source, Enumerable.Repeat<T>(item, (int)count).ToArray());
+    }
 }

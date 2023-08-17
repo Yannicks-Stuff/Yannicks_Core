@@ -20,6 +20,17 @@ public sealed class IPAddress : IEquatable<IPAddress>
     }
 
     /// <summary>
+    ///     Initializes a new instance of the <see cref='System.Net.IPAddress'/>
+    ///     class with the specified address.
+    /// </summary>
+    /// <param name="newAddress">newAddress – The long value of the IP address. For example,
+    /// the value 0x2414188f in big-endian format would be the IP address "143.24.20.36".</param>
+    /// <exception cref="ArgumentOutOfRangeException">– newAddress  0 or newAddress  0x00000000FFFFFFFF</exception>
+    public IPAddress(long newAddress) : this(new System.Net.IPAddress(newAddress))
+    {
+    }
+
+    /// <summary>
     /// Provides the IP address of the loopback interface.
     /// </summary>
     public static IPAddress Loopback => System.Net.IPAddress.Loopback;
@@ -210,10 +221,16 @@ public sealed class IPAddress : IEquatable<IPAddress>
             ? throw new ArgumentOutOfRangeException(nameof(ip), "Only IPV4 is support to unsigned int32")
             : BitConverter.ToUInt32(ip._ipAddress.GetAddressBytes(), 0);
 
+
     /// <summary>
     /// Defines an implicit conversion of a string to an <see cref="IPAddress"/> instance.
     /// </summary>
     public static implicit operator IPAddress(string adr) => Parse(adr);
+
+    /// <summary>
+    /// Defines an implicit conversion of a uint to an <see cref="IPAddress"/> IPV4 instance.
+    /// </summary>
+    public static implicit operator IPAddress(uint adr) => new IPAddress(adr);
 
     public override bool Equals(object? obj)
     {

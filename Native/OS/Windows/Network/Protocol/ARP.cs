@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using Yannick.Extensions.GenericExtensions.ArrayExtensions;
 using Yannick.Native.OS.Windows.Win32;
@@ -14,6 +15,14 @@ namespace Yannick.Native.OS.Windows.Network.Protocol;
 /// </summary>
 public sealed class ARP
 {
+    public enum Type : uint
+    {
+        Other = 0x00000001,
+        Invalid = 0x00000002,
+        Dynamic = 0x00000003,
+        Static = 0x00000004
+    }
+
     /// <summary>
     /// Gets the MAC address associated with the specified IP address.
     /// </summary>
@@ -48,7 +57,7 @@ public sealed class ARP
     /// </summary>
     /// <returns>A list of entries in the ARP table.</returns>
     /// <exception cref="InvalidOperationException">Thrown when retrieving the ARP table fails.</exception>
-    public static List<Iphlpapi.MIB_IPNETROW> GetArpTable()
+    private static List<Iphlpapi.MIB_IPNETROW> _GetArpTable()
     {
         uint size = 0;
         Iphlpapi.GetIpNetTable(IntPtr.Zero, ref size, false);
@@ -76,6 +85,26 @@ public sealed class ARP
         {
             Marshal.FreeHGlobal(pNetTable);
         }
+    }
+
+    /// <summary>
+    /// Retrieves the ARP table of the local computer.
+    /// </summary>
+    /// <returns>A list of entries in the ARP table.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when retrieving the ARP table fails.</exception>
+    public static IEnumerable<Entry> GetArpTable()
+    {
+        var interfaces = NetworkInterface.GetAllNetworkInterfaces()
+            .ToDictionary(ni => ni.GetIPProperties().GetIPv4Properties().Index);
+
+        foreach (var entry in _GetArpTable())
+            yield return new Entry
+            {
+                Interface = interfaces[(int)entry.Index],
+                MacAddress = new MACAddress(entry.PhysAddr.SkipLast(2)),
+                IPAddress = entry.Addr,
+                Type = (Type)entry.Type
+            };
     }
 
     /// <summary>
@@ -146,5 +175,13 @@ public sealed class ARP
     public static bool FlushArpTable(uint interfaceIndex)
     {
         return Iphlpapi.FlushIpNetTable(interfaceIndex) == 0;
+    }
+
+    public readonly struct Entry
+    {
+        public NetworkInterface Interface { get; init; }
+        public MACAddress MacAddress { get; init; }
+        public IPAddress IPAddress { get; init; }
+        public Type Type { get; init; }
     }
 }
