@@ -217,7 +217,7 @@ public sealed class IPAddress : IEquatable<IPAddress>
     /// Defines an implicit conversion of an <see cref="IPAddress"/> instance to a 32-bit unsigned integer.
     /// </summary>
     public static implicit operator uint(IPAddress ip) =>
-        ip._ipAddress.AddressFamily == AddressFamily.InterNetwork
+        ip._ipAddress.AddressFamily != AddressFamily.InterNetwork
             ? throw new ArgumentOutOfRangeException(nameof(ip), "Only IPV4 is support to unsigned int32")
             : BitConverter.ToUInt32(ip._ipAddress.GetAddressBytes(), 0);
 
