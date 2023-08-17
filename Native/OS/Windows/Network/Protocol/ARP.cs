@@ -46,7 +46,7 @@ public sealed class ARP
         var macAddr = new byte[6];
         var macAddrLen = (uint)macAddr.Length;
 
-        if (Iphlpapi.SendARP(dstIpAddr, 0, macAddr, ref macAddrLen) != 0)
+        if (Iphlpapi.SendArp(dstIpAddr, 0, macAddr, ref macAddrLen) != 0)
             throw new InvalidOperationException("ARP request failed.");
 
         return BitConverter.ToString(macAddr, 0, (int)macAddrLen);
@@ -57,7 +57,7 @@ public sealed class ARP
     /// </summary>
     /// <returns>A list of entries in the ARP table.</returns>
     /// <exception cref="InvalidOperationException">Thrown when retrieving the ARP table fails.</exception>
-    private static List<Iphlpapi.MIB_IPNETROW> _GetArpTable()
+    private static List<Iphlpapi.MibIpnetrow> _GetArpTable()
     {
         uint size = 0;
         Iphlpapi.GetIpNetTable(IntPtr.Zero, ref size, false);
@@ -70,13 +70,13 @@ public sealed class ARP
 
             var entries = Marshal.ReadInt32(pNetTable);
             var current = new IntPtr(pNetTable.ToInt64() + Marshal.SizeOf(typeof(int)));
-            var rows = new List<Iphlpapi.MIB_IPNETROW>();
+            var rows = new List<Iphlpapi.MibIpnetrow>();
 
             for (var i = 0; i < entries; i++)
             {
-                var row = Marshal.PtrToStructure<Iphlpapi.MIB_IPNETROW>(current);
+                var row = Marshal.PtrToStructure<Iphlpapi.MibIpnetrow>(current);
                 rows.Add(row);
-                current = new IntPtr(current.ToInt64() + Marshal.SizeOf(typeof(Iphlpapi.MIB_IPNETROW)));
+                current = new IntPtr(current.ToInt64() + Marshal.SizeOf(typeof(Iphlpapi.MibIpnetrow)));
             }
 
             return rows;
@@ -126,7 +126,7 @@ public sealed class ARP
     /// <returns>True if the entry was added successfully, false otherwise.</returns>
     public static bool AddArpEntry(IPAddress ipAddress, MACAddress macAddress, uint interfaceIndex)
     {
-        var arpEntry = new Iphlpapi.MIB_IPNETROW_LH
+        var arpEntry = new Iphlpapi.MibIpnetrowLh
         {
             Index = interfaceIndex,
             PhysAddrLen = 6,
@@ -156,7 +156,7 @@ public sealed class ARP
     /// <returns>True if the entry was deleted successfully, false otherwise.</returns>
     public static bool DeleteArpEntry(IPAddress ipAddress, uint interfaceIndex)
     {
-        var arpEntry = new Iphlpapi.MIB_IPNETROW
+        var arpEntry = new Iphlpapi.MibIpnetrow
         {
             Index = interfaceIndex,
             PhysAddrLen = 6,
