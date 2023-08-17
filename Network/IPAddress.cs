@@ -36,6 +36,11 @@ public sealed class IPAddress : IEquatable<IPAddress>
     public static IPAddress Loopback => System.Net.IPAddress.Loopback;
 
     /// <summary>
+    /// Provides an IP address that indicates that the server must listen for client activity on all network interfaces.
+    /// </summary>
+    public static IPAddress Any => System.Net.IPAddress.Any;
+
+    /// <summary>
     /// Provides the IP address of the broadcast address.
     /// </summary>
     public static IPAddress Broadcast => System.Net.IPAddress.Broadcast;
