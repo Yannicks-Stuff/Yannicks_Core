@@ -25,7 +25,6 @@
       <Folder Include="Crypto\" />
       <Folder Include="IO\" />
       <Folder Include="Mathematic\" />
-        <Folder Include="Native\OS\Windows\UI\Forms\"/>
         <Folder Include="Network\Protocol\FTP\"/>
         <Folder Include="Network\Protocol\HTTP\"/>
         <Folder Include="Network\Protocol\NDP\"/>

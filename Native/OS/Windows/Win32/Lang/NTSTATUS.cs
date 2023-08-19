@@ -3,8 +3,23 @@
 namespace Yannick.Native.OS.Windows.Win32.Lang
 {
     [StructLayout(LayoutKind.Explicit)]
-    public partial struct NTSTATUS
+    public partial struct NTSTATUS : IEquatable<NTSTATUS>
     {
+        public bool Equals(NTSTATUS other)
+        {
+            return UnderlyingType == other.UnderlyingType && Status == other.Status;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is NTSTATUS other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(UnderlyingType, (int)Status);
+        }
+
         [FieldOffset(0)] internal uint UnderlyingType;
         [FieldOffset(0)] public readonly Code Status;
 
