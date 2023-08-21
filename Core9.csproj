@@ -27,6 +27,7 @@
         <Folder Include="Network\Protocol\FTP\"/>
         <Folder Include="Network\Protocol\HTTP\"/>
         <Folder Include="Network\Protocol\NDP\"/>
+        <Folder Include="Simulation\"/>
       <Folder Include="VM\CLR\" />
       <Folder Include="VM\CVM\" />
       <Folder Include="VM\JVM\" />

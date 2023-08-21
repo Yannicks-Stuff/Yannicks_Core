@@ -1,3 +1,5 @@
+using Yannick.Physic.SI.Electricity;
+
 namespace Yannick.Physic
 {
     /// <summary>
@@ -11,9 +13,9 @@ namespace Yannick.Physic
         /// <param name="voltage">The voltage across the resistor in volts.</param>
         /// <param name="current">The current flowing through the resistor in amperes.</param>
         /// <returns>The electrical resistance in ohms.</returns>
-        public static decimal CalculateResistance(decimal voltage, decimal current)
+        public static Ohm CalculateResistance(Volt voltage, Ampere current)
         {
-            return voltage / current;
+            return voltage.m_value / current.m_value;
         }
 
 
