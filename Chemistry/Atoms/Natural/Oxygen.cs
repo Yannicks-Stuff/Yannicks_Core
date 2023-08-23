@@ -13,5 +13,44 @@ public sealed class Oxygen : Atom<Oxygen>, IAtom
     public override string Name => "Oxygen";
     public override byte Electrons => 8;
     public override byte Protons => 8;
+
+    public override IReadOnlyDictionary<PhysicalState, ThermalConductivity> ThermalConductivity =>
+        new Dictionary<PhysicalState, ThermalConductivity>
+        {
+            {
+                PhysicalState.Gas, new ThermalConductivity
+                {
+                    Temperature = 273,
+                    Aggregate = PhysicalState.Gas,
+                    Atom = Instance,
+                    Pressure = 101325,
+                    Length = 1,
+                    Value = (decimal)(26.58 * 10E-3) // W/(m·K)
+                }
+            },
+            {
+                PhysicalState.Fluid, new ThermalConductivity
+                {
+                    Temperature = new Kelvin(90.20m),
+                    Aggregate = PhysicalState.Fluid,
+                    Atom = Instance,
+                    Pressure = 101325,
+                    Length = 1,
+                    Value = 0.152M
+                }
+            },
+            {
+                PhysicalState.Solid, new ThermalConductivity
+                {
+                    Temperature = new Kelvin(54.36m),
+                    Aggregate = PhysicalState.Solid,
+                    Atom = Instance,
+                    Pressure = 101325,
+                    Length = 1,
+                    Value = 0.036M
+                }
+            }
+        };
+
     public static Atom Instance => new Oxygen();
 }

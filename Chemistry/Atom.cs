@@ -18,6 +18,7 @@ public abstract class Atom
     public abstract string Name { get; }
     public abstract byte Electrons { get; }
     public abstract byte Protons { get; }
+    public abstract IReadOnlyDictionary<PhysicalState, ThermalConductivity> ThermalConductivity { get; }
 }
 
 public abstract class Atom<T> : Atom where T : IAtom

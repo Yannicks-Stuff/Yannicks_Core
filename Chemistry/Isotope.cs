@@ -14,6 +14,9 @@ public abstract class Isotope<T> : Atom where T : Atom, IAtom
     public override string Symbol => T.Instance.Symbol;
     public override string Name => T.Instance.Name;
 
+    public override IReadOnlyDictionary<PhysicalState, ThermalConductivity> ThermalConductivity =>
+        T.Instance.ThermalConductivity;
+
     public abstract byte Neutron { get; }
     public abstract Dalton Mass { get; }
 }
