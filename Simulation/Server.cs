@@ -6,6 +6,7 @@ namespace Yannick.Simulation;
 
 public sealed class Server
 {
+    public const decimal R = 8.314m;
     internal ConcurrentBag<GameObject> ActiveDynamicObjects = new();
     internal ConcurrentDictionary<Guid, GameObject> ActiveObjects = new();
     public DateTime CurrentDateTime => new(0, 0, 0);

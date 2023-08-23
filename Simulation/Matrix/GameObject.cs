@@ -2,6 +2,7 @@ using System.Numerics;
 using Yannick.Chemistry;
 using Yannick.Physic.SI.AmountSubstance;
 using Yannick.Physic.SI.Mass;
+using Yannick.Physic.SI.Pressure;
 using Yannick.Physic.SI.Temperature;
 using Yannick.Simulation.Matrix.Physic;
 
@@ -47,6 +48,8 @@ public abstract class GameObject : object, IEquatable<GameObject>
     public Guid ID => Server.CreateNewObjectID(this);
     public bool IsStatic { get; init; }
 
+    public Pascal Pressure
+        => new(ObjectComponents.Values.Sum(mol => mol.m_value) * Server.R * Temperature / Volume.m_value * 0.001m);
 
     public IList<GameObject> Children => new List<GameObject>();
 
