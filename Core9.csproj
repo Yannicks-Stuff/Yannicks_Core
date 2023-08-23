@@ -21,7 +21,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Chemistry\" />
       <Folder Include="Crypto\" />
       <Folder Include="Mathematic\" />
         <Folder Include="Network\Protocol\FTP\"/>
