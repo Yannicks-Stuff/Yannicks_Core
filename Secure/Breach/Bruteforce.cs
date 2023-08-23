@@ -28,6 +28,17 @@ public sealed class Bruteforce
         var tasks = new Task[processorCount];
 
 
+        for (var i = 0; i < processorCount; i++)
+        {
+            var i1 = i;
+            tasks[i] = Task.Run(() => TryPassword(i1));
+        }
+
+
+        await Task.WhenAll(tasks);
+
+        return pw;
+
         void TryPassword(int taskIndex)
         {
             var currentAttempt = new char[startLength + taskIndex];
@@ -63,17 +74,5 @@ public sealed class Bruteforce
                 }
             }
         }
-
-
-        for (var i = 0; i < processorCount; i++)
-        {
-            var i1 = i;
-            tasks[i] = Task.Run(() => TryPassword(i1));
-        }
-
-
-        await Task.WhenAll(tasks);
-
-        return pw;
     }
 }
