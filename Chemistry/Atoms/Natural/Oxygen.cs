@@ -25,7 +25,7 @@ public sealed class Oxygen : Atom<Oxygen>, IAtom
                     Atom = Instance,
                     Pressure = 101325,
                     Length = 1,
-                    Value = (decimal)(26.58 * 10E-3) // W/(m·K)
+                    Value = (decimal)(26.58 * 10E-3)
                 }
             },
             {

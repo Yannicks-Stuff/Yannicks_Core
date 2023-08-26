@@ -52,7 +52,6 @@ public abstract class GameObject : object, IEquatable<GameObject>
         => new(ObjectComponents.Values.Sum(mol => mol.m_value) * Server.R * Temperature / Volume.m_value * 0.001m);
 
     public IList<GameObject> Children => new List<GameObject>();
-
     public DateTime Age { get; protected set; } = DateTime.Now;
     public bool Equals(GameObject? other) => !ReferenceEquals(other, null) && other.ID == this.ID;
 
