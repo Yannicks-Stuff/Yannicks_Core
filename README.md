@@ -13,13 +13,3 @@ Ich versuche, meinen Code und meine Experimente so gut wie möglich zu dokumenti
 ## Universalbibliothek
 
 Die hier entstehende Bibliothek soll eine Universalbibliothek sein, das heißt, sie wird keinen spezifischen Schwerpunkt haben. Stattdessen möchte ich mich mit verschiedenen Technologien und Themen auseinandersetzen und die entsprechenden Implementierungen in die Bibliothek aufnehmen.
-
-## Mitmachen
-
-Wenn du Interesse an meinem Projekt hast und mitmachen möchtest, freue ich mich sehr. Bitte kontaktiere mich, und wir können über mögliche Beiträge und Ideen sprechen.
-
-## Kontakt
-
-Wenn du Fragen oder Anregungen hast, zögere nicht, mich zu kontaktieren. Ich freue mich über jegliches Feedback und bin gespannt auf den Austausch mit anderen Entwicklern.
-
-Vielen Dank für dein Interesse und viel Spaß beim Stöbern in meinem Repository!
