@@ -83,6 +83,11 @@ namespace Yannick.Network.Protocol.TCP
         public event Action<User, byte[]>? OnDataReceived;
 
         /// <summary>
+        /// Triggered when data is available to read from a user.
+        /// </summary>
+        public event Action<User> OnAvailable;
+
+        /// <summary>
         /// Starts the server synchronously.
         /// </summary>
         public void Start()
@@ -133,7 +138,7 @@ namespace Yannick.Network.Protocol.TCP
         /// </summary>
         public void SendToUser(User user, byte[] data)
         {
-            user.Send(data);
+            user._Send(data);
         }
 
         /// <summary>
@@ -142,7 +147,7 @@ namespace Yannick.Network.Protocol.TCP
         public void Broadcast(byte[] data)
         {
             foreach (var user in _users.Values)
-                user.Send(data);
+                user._Send(data);
         }
 
         /// <summary>
@@ -184,6 +189,7 @@ namespace Yannick.Network.Protocol.TCP
 
             private Task? _heart = null;
             private CancellationTokenSource? _token = null;
+            protected int BufferSize = 1024;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="User"/> class.
@@ -197,6 +203,17 @@ namespace Yannick.Network.Protocol.TCP
             }
 
             /// <summary>
+            /// Gets or sets a value that specifies the amount of time after which a synchronous receive call will time out.
+            /// </summary>
+            protected TimeSpan ReceiveTimeout
+            {
+                get => TimeSpan.FromMilliseconds(Socket.ReceiveTimeout);
+                set => Socket.ReceiveTimeout = value.TotalMilliseconds > int.MaxValue
+                    ? int.MaxValue
+                    : Convert.ToInt32(value.TotalMilliseconds);
+            }
+
+            /// <summary>
             /// Gets or sets the listening state of the user.
             /// </summary>
             public bool Listen
@@ -204,15 +221,16 @@ namespace Yannick.Network.Protocol.TCP
                 get => _heart is not { Status: TaskStatus.Running };
                 set
                 {
-                    if (value && _token == null)
+                    switch (value)
                     {
-                        _token = new CancellationTokenSource();
-                        _heart = Task.Run(HeartTick, _token.Token);
-                    }
-                    else if (!value && _token != null)
-                    {
-                        _token.Cancel();
-                        _token = null;
+                        case true when _token == null:
+                            _token = new CancellationTokenSource();
+                            _heart = Task.Run(HeartTick, _token.Token);
+                            break;
+                        case false when _token != null:
+                            _token.Cancel();
+                            _token = null;
+                            break;
                     }
                 }
             }
@@ -231,29 +249,40 @@ namespace Yannick.Network.Protocol.TCP
             /// </summary>
             public event Action<byte[]> OnReceive;
 
+            /// <summary>
+            /// Triggered when data is available to read
+            /// </summary>
+            public event Action OnAvailable;
+
             private void HeartTick()
             {
                 try
                 {
                     while (!_token?.Token.IsCancellationRequested ?? true)
                     {
-                        if (Socket.Poll(1000, SelectMode.SelectRead))
+                        if (!Socket.Poll(1000, SelectMode.SelectRead))
+                            continue;
+
+                        if (BufferSize <= 0)
                         {
-                            var buffer = new byte[1024];
-                            var size = Socket.Receive(buffer);
-
-                            if (size == 0)
-                            {
-                                Dispose();
-                                break;
-                            }
-
-                            var receivedData = new byte[size];
-                            Array.Copy(buffer, receivedData, size);
-
-                            OnReceive?.Invoke(receivedData);
-                            Server.OnDataReceived?.Invoke(this, receivedData);
+                            OnAvailable?.Invoke();
+                            Server.OnAvailable?.Invoke(this);
                         }
+
+                        var buffer = new byte[BufferSize];
+                        var size = Socket.Receive(buffer);
+
+                        if (size == 0)
+                        {
+                            Dispose();
+                            break;
+                        }
+
+                        var receivedData = new byte[size];
+                        Array.Copy(buffer, receivedData, size);
+
+                        OnReceive?.Invoke(receivedData);
+                        Server.OnDataReceived?.Invoke(this, receivedData);
                     }
                 }
                 catch (SocketException)
@@ -265,9 +294,19 @@ namespace Yannick.Network.Protocol.TCP
             /// <summary>
             /// Sends data to the user.
             /// </summary>
-            public void Send(byte[] data) => Socket.Send(data);
+            protected void Send(byte[] data) => Socket.Send(data);
+
+            internal void _Send(byte[] data) => Send(data);
+
+            /// <summary>
+            /// Sends data to the user.
+            /// </summary>
+            protected int Receive(byte[] data) => Socket.Receive(data);
+
+            internal int _Receive(byte[] data) => Receive(data);
 
             public static implicit operator IPEndPoint(User user) => user.EndPoint;
+            public static implicit operator Socket(User user) => user.Socket;
         }
     }
 }
