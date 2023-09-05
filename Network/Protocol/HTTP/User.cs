@@ -13,6 +13,7 @@ public partial class Server
             Listen = true;
         }
 
+
         public bool IsDecrypted { get; internal set; }
     }
 }
