@@ -203,18 +203,6 @@ public partial class Console
 
         public event Func<int, bool> OnLineDraw;
 
-        #region STATIC
-
-        public static Border LinePointStyle(Vector2? size = null, string title = "",
-            ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null,
-            bool shadow = false)
-        {
-            return new Border(size, '┄', '┄', '┆', '┆', '┌', '┐', '└', '┘',
-                title, foregroundColor, backgroundColor, shadow);
-        }
-
-        #endregion
-
         private void StartWindowSizeMonitor()
         {
             _cts = new CancellationTokenSource();
@@ -348,5 +336,25 @@ public partial class Console
             Console.SetCursorPosition(x, y);
             Console.Write(text);
         }
+
+        #region STATIC
+
+        public static Border LinePointStyle(Vector2? size = null, string title = "",
+            ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null,
+            bool shadow = false)
+        {
+            return new Border(size, '┄', '┄', '┆', '┆', '┌', '┐', '└', '┘',
+                title, foregroundColor, backgroundColor, shadow);
+        }
+
+        public static Border DoubleLine(Vector2? size = null, string title = "",
+            ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null,
+            bool shadow = false)
+        {
+            return new Border(size, '═', '═', '║', '║', '╔', '╗', '╚', '╝',
+                title, foregroundColor, backgroundColor, shadow);
+        }
+
+        #endregion
     }
 }
