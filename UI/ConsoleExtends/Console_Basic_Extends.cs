@@ -2,7 +2,34 @@ namespace Yannick.UI;
 
 public partial class Console
 {
+    private static Animation? _animation;
+
+    private static bool _activeAnimation = false;
     public static (int, int) Cursor => (CursorTop, CursorLeft);
+
+    public static Animation? Animations
+    {
+        get => _animation;
+        set
+        {
+            _animation?.Stop();
+            _animation = value;
+        }
+    }
+
+    public static bool ActiveAnimation
+    {
+        get => _activeAnimation;
+        set
+        {
+            if (value)
+                _animation?.StartAsync();
+            else
+                _animation?.Stop();
+
+            _activeAnimation = value;
+        }
+    }
 
     /// <summary>
     /// Sets the foreground and/or background color of the console.
@@ -80,7 +107,7 @@ public partial class Console
         return rs;
     }
 
-    public static void ClearLine(int? y = null)
+    public static void ClearLine(int? y = null, bool setNewCords = false)
     {
         y = y ?? CursorTop;
 
@@ -92,5 +119,8 @@ public partial class Console
         SetCursorPosition(0, y.Value);
         Write(new string(' ', Math.Min(BufferWidth, WindowWidth)));
         SetCursorPosition(cx, cy);
+
+        if (setNewCords)
+            SetCursorPosition(cx, cy);
     }
 }

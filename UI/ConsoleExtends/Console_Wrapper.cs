@@ -284,61 +284,121 @@ public partial class Console
 
     public static void Write(string text, ConsoleColor foregroundColor, ConsoleColor? backgroundColor = null)
     {
-        Write((object)text, foregroundColor, backgroundColor);
+        var oldForegroundColor = ForegroundColor;
+        var oldBackgroundColor = BackgroundColor;
+        ForegroundColor = foregroundColor;
+        BackgroundColor = (backgroundColor ?? oldBackgroundColor);
+        global::System.Console.Write(text);
+        ForegroundColor = oldForegroundColor;
+        BackgroundColor = oldBackgroundColor;
     }
 
 
     public static void Write(long text, ConsoleColor foregroundColor, ConsoleColor? backgroundColor = null)
     {
-        Write((object)text, foregroundColor, backgroundColor);
+        var oldForegroundColor = ForegroundColor;
+        var oldBackgroundColor = BackgroundColor;
+        ForegroundColor = foregroundColor;
+        BackgroundColor = (backgroundColor ?? oldBackgroundColor);
+        global::System.Console.Write(text);
+        ForegroundColor = oldForegroundColor;
+        BackgroundColor = oldBackgroundColor;
     }
 
 
     public static void Write(float text, ConsoleColor foregroundColor, ConsoleColor? backgroundColor = null)
     {
-        Write((object)text, foregroundColor, backgroundColor);
+        var oldForegroundColor = ForegroundColor;
+        var oldBackgroundColor = BackgroundColor;
+        ForegroundColor = foregroundColor;
+        BackgroundColor = (backgroundColor ?? oldBackgroundColor);
+        global::System.Console.Write(text);
+        ForegroundColor = oldForegroundColor;
+        BackgroundColor = oldBackgroundColor;
     }
 
 
     public static void Write(int text, ConsoleColor foregroundColor, ConsoleColor? backgroundColor = null)
     {
-        Write((object)text, foregroundColor, backgroundColor);
+        var oldForegroundColor = ForegroundColor;
+        var oldBackgroundColor = BackgroundColor;
+        ForegroundColor = foregroundColor;
+        BackgroundColor = (backgroundColor ?? oldBackgroundColor);
+        global::System.Console.Write(text);
+        ForegroundColor = oldForegroundColor;
+        BackgroundColor = oldBackgroundColor;
     }
 
 
     public static void Write(ulong text, ConsoleColor foregroundColor, ConsoleColor? backgroundColor = null)
     {
-        Write((object)text, foregroundColor, backgroundColor);
+        var oldForegroundColor = ForegroundColor;
+        var oldBackgroundColor = BackgroundColor;
+        ForegroundColor = foregroundColor;
+        BackgroundColor = (backgroundColor ?? oldBackgroundColor);
+        global::System.Console.Write(text);
+        ForegroundColor = oldForegroundColor;
+        BackgroundColor = oldBackgroundColor;
     }
 
 
     public static void Write(uint text, ConsoleColor foregroundColor, ConsoleColor? backgroundColor = null)
     {
-        Write((object)text, foregroundColor, backgroundColor);
+        var oldForegroundColor = ForegroundColor;
+        var oldBackgroundColor = BackgroundColor;
+        ForegroundColor = foregroundColor;
+        BackgroundColor = (backgroundColor ?? oldBackgroundColor);
+        global::System.Console.Write(text);
+        ForegroundColor = oldForegroundColor;
+        BackgroundColor = oldBackgroundColor;
     }
 
 
     public static void Write(ushort text, ConsoleColor foregroundColor, ConsoleColor? backgroundColor = null)
     {
-        Write((object)text, foregroundColor, backgroundColor);
+        var oldForegroundColor = ForegroundColor;
+        var oldBackgroundColor = BackgroundColor;
+        ForegroundColor = foregroundColor;
+        BackgroundColor = (backgroundColor ?? oldBackgroundColor);
+        global::System.Console.Write(text);
+        ForegroundColor = oldForegroundColor;
+        BackgroundColor = oldBackgroundColor;
     }
 
 
     public static void Write(short text, ConsoleColor foregroundColor, ConsoleColor? backgroundColor = null)
     {
-        Write((object)text, foregroundColor, backgroundColor);
+        var oldForegroundColor = ForegroundColor;
+        var oldBackgroundColor = BackgroundColor;
+        ForegroundColor = foregroundColor;
+        BackgroundColor = (backgroundColor ?? oldBackgroundColor);
+        global::System.Console.Write(text);
+        ForegroundColor = oldForegroundColor;
+        BackgroundColor = oldBackgroundColor;
     }
 
 
     public static void Write(sbyte text, ConsoleColor foregroundColor, ConsoleColor? backgroundColor = null)
     {
-        Write((object)text, foregroundColor, backgroundColor);
+        var oldForegroundColor = ForegroundColor;
+        var oldBackgroundColor = BackgroundColor;
+        ForegroundColor = foregroundColor;
+        BackgroundColor = (backgroundColor ?? oldBackgroundColor);
+        global::System.Console.Write(text);
+        ForegroundColor = oldForegroundColor;
+        BackgroundColor = oldBackgroundColor;
     }
 
 
     public static void Write(byte text, ConsoleColor foregroundColor, ConsoleColor? backgroundColor = null)
     {
-        Write((object)text, foregroundColor, backgroundColor);
+        var oldForegroundColor = ForegroundColor;
+        var oldBackgroundColor = BackgroundColor;
+        ForegroundColor = foregroundColor;
+        BackgroundColor = (backgroundColor ?? oldBackgroundColor);
+        global::System.Console.Write(text);
+        ForegroundColor = oldForegroundColor;
+        BackgroundColor = oldBackgroundColor;
     }
 
 
