@@ -2,6 +2,8 @@ namespace Yannick.UI;
 
 public partial class Console
 {
+    public static (int, int) Cursor => (CursorTop, CursorLeft);
+
     /// <summary>
     /// Sets the foreground and/or background color of the console.
     /// </summary>
@@ -34,5 +36,61 @@ public partial class Console
     {
         WriteCenter(text);
         global::System.Console.WriteLine();
+    }
+
+    public static string ReadLine(ConsoleColor foreground)
+    {
+        var fb = ForegroundColor;
+        ForegroundColor = foreground;
+        var rs = global::System.Console.ReadLine();
+        ForegroundColor = fb;
+        return rs ?? string.Empty;
+    }
+
+    public static string ReadLineAsHint(char hint = '*', ConsoleColor? foreground = null)
+    {
+        var rs = "";
+        while (true)
+        {
+            var k = System.Console.ReadKey();
+
+            if (k.Key == ConsoleKey.Enter)
+                break;
+
+            rs += k.KeyChar;
+            Write(hint, ForegroundColor);
+        }
+
+        return rs;
+    }
+
+    public static string ReadKeysUntil(ConsoleKey key)
+    {
+        var rs = "";
+        while (true)
+        {
+            var k = System.Console.ReadKey();
+
+            if (k.Key == key)
+                break;
+
+            rs += k.KeyChar;
+        }
+
+        return rs;
+    }
+
+    public static void ClearLine(int? y = null)
+    {
+        y = y ?? CursorTop;
+
+        if (y < 0)
+            y = CursorTop - y * -1;
+
+        var (cx, cy) = Cursor;
+
+        SetCursorPosition(0, y.Value);
+        Write(new string(' ', Math.Min(BufferWidth, WindowWidth)));
+        SetCursorPosition(cx, cy);
     }
 }
