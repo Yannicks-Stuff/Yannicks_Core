@@ -661,13 +661,31 @@ public partial class Console
         public LineStyle LineStyle { get; init; }
 
         public static void Draw(string? txt = null, Color? foreground = null, Color? background = null,
-            AnsiGraphicMode? graphicMode = null, LineStyle? lineStyle = null)
+            AnsiGraphicMode? graphicMode = null, LineStyle? lineStyle = null, TimeSpan? waitBetweenChars = null)
         {
+            var oldF = _foregroundColor24;
+            var olfB = _backgroundColor24;
+
             WriteColor(foreground ?? ForegroundColor24, background ?? BackgroundColor24);
             WriteStyleStart(graphicMode ?? AnsiGraphicMode.NORMAL);
-            Write(txt ?? string.Empty);
+            if (waitBetweenChars == null)
+                Write(txt ?? string.Empty);
+            else
+            {
+                txt ??= " ";
+                if (txt.Length == 0)
+                    txt = " ";
+
+                foreach (var c in txt.ToCharArray())
+                {
+                    Thread.Sleep(waitBetweenChars.Value);
+                    Write(txt);
+                }
+            }
+
             WriteStyleStop(graphicMode ?? AnsiGraphicMode.NORMAL);
             Write(lineStyle == LineStyle.NEW_LINE ? "\n" : "");
+            WriteColor(oldF, olfB);
         }
     }
 }
