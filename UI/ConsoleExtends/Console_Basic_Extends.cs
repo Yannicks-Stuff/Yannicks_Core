@@ -1,3 +1,5 @@
+using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using Yannick.Native;
 
@@ -153,4 +155,6 @@ public partial class Console
     private delegate bool GetConsoleMode(IntPtr hConsoleHandle, out int lpMode);
 
     private delegate bool SetConsoleMode(IntPtr hConsoleHandle, int dwMode);
+
+    private delegate ReadOnlyDictionary<ConsoleColor, Color> CurrentBackgroundFromWindowsCMD();
 }

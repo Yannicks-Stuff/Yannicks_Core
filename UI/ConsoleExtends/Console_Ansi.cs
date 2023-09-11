@@ -64,27 +64,8 @@ public partial class Console
     private static Color _foregroundColor24 = Color.White;
     private static Color _backgroundColor24 = Color.Black;
 
-    private static Dictionary<ConsoleColor, Color> consoleColors = new Dictionary<ConsoleColor, Color>
-    {
-        { ConsoleColor.Black, Color.Black },
-        { ConsoleColor.DarkBlue, Color.DarkBlue },
-        { ConsoleColor.DarkGreen, Color.DarkGreen },
-        { ConsoleColor.DarkCyan, Color.DarkCyan },
-        { ConsoleColor.DarkRed, Color.DarkRed },
-        { ConsoleColor.DarkMagenta, Color.DarkMagenta },
-        { ConsoleColor.DarkYellow, Color.Olive },
-        { ConsoleColor.Gray, Color.Gray },
-        { ConsoleColor.DarkGray, Color.DarkGray },
-        { ConsoleColor.Blue, Color.Blue },
-        { ConsoleColor.Green, Color.Green },
-        { ConsoleColor.Cyan, Color.Cyan },
-        { ConsoleColor.Red, Color.Red },
-        { ConsoleColor.Magenta, Color.Magenta },
-        { ConsoleColor.Yellow, Color.Yellow },
-        { ConsoleColor.White, Color.White }
-    };
-
-    private static Dictionary<Color, ConsoleColor> colorsConsole = consoleColors.Swap();
+    private static readonly IReadOnlyDictionary<ConsoleColor, Color> consoleColors;
+    private static readonly IReadOnlyDictionary<Color, ConsoleColor> colorsConsole;
 
 
     static Console()
@@ -98,6 +79,10 @@ public partial class Console
                 mode |= 0x0004;
                 linker.LinkStatic<SetConsoleMode>()!(handle, mode);
             }
+
+            linker = new Linker("Console", "Yannick.Native.OS.Windows.UI");
+            consoleColors = linker.LinkStatic<CurrentBackgroundFromWindowsCMD>("CurrentColorPlate")!();
+            colorsConsole = consoleColors.Swap();
         }
     }
 
@@ -457,7 +442,7 @@ public partial class Console
         var oldF = _foregroundColor24;
         var olfB = _backgroundColor24;
 
-        WriteColor(foreground ?? ForegroundColor24, background ?? BackgroundColor24);
+        WriteColor(foreground ?? _foregroundColor24, background ?? _backgroundColor24);
         WriteStyleStart(graphicMode ?? AnsiGraphicMode.NORMAL);
         if (waitBetweenChars == null)
             Write(txt ?? string.Empty);
@@ -470,7 +455,7 @@ public partial class Console
             foreach (var c in txt.ToCharArray())
             {
                 Thread.Sleep(waitBetweenChars.Value);
-                Write(txt);
+                System.Console.Write(c);
             }
         }
 
