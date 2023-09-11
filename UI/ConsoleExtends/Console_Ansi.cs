@@ -8,6 +8,59 @@ namespace Yannick.UI;
 
 public partial class Console
 {
+    public enum AnsiGraphicMode
+    {
+        NORMAL,
+        BOLD,
+        ITALIC,
+        UNDERLINE,
+        STRIKETHROUGH,
+        BLINK,
+        INVERT_COLORS,
+        BLINK_BACKGROUND,
+        FRAME
+    }
+
+    public enum CursorDirection
+    {
+        UP,
+        DOWN,
+        RIGHT,
+        LEFT
+    }
+
+    public enum EraseMode
+    {
+        TO_END_OF_SCREEN,
+        FROM_BEGINNING_OF_SCREEN,
+        ENTIRE_SCREEN,
+        TO_END_OF_LINE,
+        FROM_BEGINNING_OF_LINE,
+        ENTIRE_LINE
+    }
+
+    public enum FormatStyle
+    {
+        RESET,
+        BOLD,
+        ITALIC,
+        UNDERLINE,
+        STRIKETHROUGH,
+        NEW_LINE,
+        FOREGROUND_COLOR,
+        BACKGROUND_COLOR,
+        TEXT,
+        MOVE_CURSOR,
+        SET_CURSOR_POSITION,
+        ERASE
+    }
+
+    public enum LineStyle
+    {
+        NORMAL,
+        NEW_LINE
+    }
+
     private static Color _foregroundColor24 = Color.White;
     private static Color _backgroundColor24 = Color.Black;
 
@@ -272,6 +325,373 @@ public partial class Console
         if (background.HasValue)
         {
             Console.Write(GetTrueColorAnsiCode(background.Value, true));
+        }
+    }
+
+    private static void WriteStyleStart(AnsiGraphicMode mode)
+    {
+        switch (mode)
+        {
+            case AnsiGraphicMode.NORMAL:
+                break;
+            case AnsiGraphicMode.BOLD:
+                Write("\x1B[1m");
+                break;
+            case AnsiGraphicMode.ITALIC:
+                Write("\x1B[3m");
+                break;
+            case AnsiGraphicMode.UNDERLINE:
+                Write("\x1B[4m");
+                break;
+            case AnsiGraphicMode.STRIKETHROUGH:
+                Write("\x1B[9m");
+                break;
+            case AnsiGraphicMode.BLINK:
+                Write("\x1B[5m");
+                break;
+            case AnsiGraphicMode.INVERT_COLORS:
+                Write("\x1B[7m");
+                break;
+            case AnsiGraphicMode.BLINK_BACKGROUND:
+                Write("\x1B[6m");
+                break;
+            case AnsiGraphicMode.FRAME:
+                Write("\x1B[51m");
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
+        }
+    }
+
+    private static void WriteStyleStop(AnsiGraphicMode mode)
+    {
+        switch (mode)
+        {
+            case AnsiGraphicMode.NORMAL:
+                break;
+            case AnsiGraphicMode.BOLD:
+                Write("\x1B[22m");
+                break;
+            case AnsiGraphicMode.ITALIC:
+                Write("\x1B[23m");
+                break;
+            case AnsiGraphicMode.UNDERLINE:
+                Write("\x1B[24m");
+                break;
+            case AnsiGraphicMode.STRIKETHROUGH:
+                Write("\x1B[29m");
+                break;
+            case AnsiGraphicMode.BLINK:
+                Write("\x1B[25m");
+                break;
+            case AnsiGraphicMode.INVERT_COLORS:
+                Write("\x1B[27m");
+                break;
+            case AnsiGraphicMode.BLINK_BACKGROUND:
+                Write("\x1B[26m");
+                break;
+            case AnsiGraphicMode.FRAME:
+                Write("\x1B[54m");
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
+        }
+    }
+
+    private static void WriteMoveCursor(CursorDirection direction)
+    {
+        switch (direction)
+        {
+            case CursorDirection.UP:
+                Write("\x1B[A");
+                break;
+            case CursorDirection.DOWN:
+                Write("\x1B[B");
+                break;
+            case CursorDirection.RIGHT:
+                Write("\x1B[C");
+                break;
+            case CursorDirection.LEFT:
+                Write("\x1B[D");
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
+        }
+    }
+
+    private static void WriteSetCursorPosition(int y, int x)
+    {
+        Write($"\x1B[{y};{x}H");
+    }
+
+    private static void WriteErase(EraseMode mode)
+    {
+        switch (mode)
+        {
+            case EraseMode.TO_END_OF_SCREEN:
+                Write("\x1B[0J");
+                break;
+            case EraseMode.FROM_BEGINNING_OF_SCREEN:
+                Write("\x1B[1J");
+                break;
+            case EraseMode.ENTIRE_SCREEN:
+                Write("\x1B[2J");
+                break;
+            case EraseMode.TO_END_OF_LINE:
+                Write("\x1B[0K");
+                break;
+            case EraseMode.FROM_BEGINNING_OF_LINE:
+                Write("\x1B[1K");
+                break;
+            case EraseMode.ENTIRE_LINE:
+                Write("\x1B[2K");
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
+        }
+    }
+
+
+    public sealed class Formatter
+    {
+        private readonly Color _baseBackground = BackgroundColor24;
+        private readonly Color _baseForeground = ForegroundColor24;
+        public static Formatter Create => new();
+
+        public Formatter UseForeground(Color foreground)
+        {
+            Console.SetColor(foreground, BackgroundColor24);
+            return this;
+        }
+
+        public Formatter UseBackground(Color background)
+        {
+            Console.SetColor(ForegroundColor24, background);
+            return this;
+        }
+
+        public Formatter UseStyle(AnsiGraphicMode style)
+        {
+            Console.WriteStyleStart(style);
+            return this;
+        }
+
+        public Formatter StopUseStyle(AnsiGraphicMode style)
+        {
+            Console.WriteStyleStop(style);
+            return this;
+        }
+
+        public Formatter Write(string txt)
+        {
+            Console.Write(txt);
+            return this;
+        }
+
+        public Formatter Write(string txt, Color fb, Color bg)
+        {
+            Console.Write(txt, fb, bg);
+            Console.WriteColor(fb, bg);
+            return this;
+        }
+
+        public Formatter MoveCursor(CursorDirection direction)
+        {
+            Console.WriteMoveCursor(direction);
+            return this;
+        }
+
+        public Formatter Erase(EraseMode mode)
+        {
+            Console.WriteErase(mode);
+            return this;
+        }
+
+        public Formatter MoveCursorToLeft(int n)
+            => Write($"\x1B[{n}D");
+
+        public Formatter DeleteCharactersToLeft(int n)
+            => MoveCursorToLeft(n)
+                .Write(new string(' ', n), _baseForeground, _baseBackground)
+                .MoveCursorToLeft(n);
+
+        public Formatter UseBlink()
+        {
+            Console.WriteStyleStart(AnsiGraphicMode.BLINK);
+            return this;
+        }
+
+        public Formatter ChangeCursorPosition(int x, int y)
+        {
+            WriteSetCursorPosition(x, y);
+            return this;
+        }
+
+        public Formatter StopUseBlink()
+        {
+            Console.WriteStyleStop(AnsiGraphicMode.BLINK);
+            return this;
+        }
+
+        public Formatter SaveCursorPosition()
+        {
+            Write("\x1B[s");
+            return this;
+        }
+
+        public Formatter RestoreCursorPosition()
+        {
+            Write("\x1B[u");
+            return this;
+        }
+
+        public Formatter ScrollScreenUp(int n)
+        {
+            Write($"\x1B[{n}S");
+            return this;
+        }
+
+        public Formatter NewLine()
+        {
+            Console.WriteLine();
+            return this;
+        }
+
+        public Formatter Reset()
+        {
+            Write("\x1B[0m");
+            ResetColor();
+            SetColor(ConsoleColor.White, ConsoleColor.Black);
+            return this;
+        }
+
+        public Formatter UseInvertColors()
+        {
+            Console.WriteStyleStart(AnsiGraphicMode.INVERT_COLORS);
+            return this;
+        }
+
+        public Formatter StopUseInvertColors()
+        {
+            Console.WriteStyleStop(AnsiGraphicMode.INVERT_COLORS);
+            return this;
+        }
+
+        public Formatter UseBlinkBackground()
+        {
+            Console.WriteStyleStart(AnsiGraphicMode.BLINK_BACKGROUND);
+            return this;
+        }
+
+        public Formatter StopUseBlinkBackground()
+        {
+            Console.WriteStyleStop(AnsiGraphicMode.BLINK_BACKGROUND);
+            return this;
+        }
+
+        public Formatter UseFrame()
+        {
+            Console.WriteStyleStart(AnsiGraphicMode.FRAME);
+            return this;
+        }
+
+        public Formatter StopUseFrame()
+        {
+            Console.WriteStyleStop(AnsiGraphicMode.FRAME);
+            return this;
+        }
+
+        public Formatter HideCursor()
+        {
+            Write("\x1B[?25l");
+            return this;
+        }
+
+        public Formatter ShowCursor()
+        {
+            Write("\x1B[?25h");
+            return this;
+        }
+
+        public Formatter ScrollScreenDown(int n)
+        {
+            Write($"\x1B[{n}T");
+            return this;
+        }
+
+        public Formatter ScrollUp(int n)
+        {
+            Write($"\x1B[{n}S");
+            return this;
+        }
+
+        public Formatter ScrollDown(int n)
+        {
+            Write($"\x1B[{n}T");
+            return this;
+        }
+
+        public Formatter ChangeWindowSize(int width, int height)
+        {
+            Write($"\x1B[8;{height};{width}t");
+            return this;
+        }
+
+        public Formatter SetConsoleTitle(string title)
+        {
+            Write($"\x1B]2;{title}\x1B\\");
+            return this;
+        }
+
+        public Formatter DrawBoxAroundText(string text, int padding = 1)
+        {
+            int totalWidth = text.Length + 2 * padding + 2;
+            Write(new string('═', totalWidth));
+            NewLine();
+            for (int i = 0; i < padding; i++)
+            {
+                Write($"║{new string(' ', text.Length + 2 * padding)}║");
+                NewLine();
+            }
+
+            Write($"║{new string(' ', padding)}{text}{new string(' ', padding)}║");
+            NewLine();
+            for (int i = 0; i < padding; i++)
+            {
+                Write($"║{new string(' ', text.Length + 2 * padding)}║");
+                NewLine();
+            }
+
+            Write(new string('═', totalWidth));
+            return this;
+        }
+
+        public Formatter CenterText(string text)
+        {
+            int consoleWidth = Console.WindowWidth;
+            int padding = (consoleWidth - text.Length) / 2;
+            Write(new string(' ', padding));
+            Write(text);
+            return this;
+        }
+    }
+
+    public readonly struct FormatEntry
+    {
+        public string Text { get; init; }
+        public Color Foreground { get; init; }
+        public Color Background { get; init; }
+        public AnsiGraphicMode GraphicMode { get; init; }
+        public LineStyle LineStyle { get; init; }
+
+        public static void Draw(string? txt = null, Color? foreground = null, Color? background = null,
+            AnsiGraphicMode? graphicMode = null, LineStyle? lineStyle = null)
+        {
+            WriteColor(foreground ?? ForegroundColor24, background ?? BackgroundColor24);
+            WriteStyleStart(graphicMode ?? AnsiGraphicMode.NORMAL);
+            Write(txt ?? string.Empty);
+            WriteStyleStop(graphicMode ?? AnsiGraphicMode.NORMAL);
+            Write(lineStyle == LineStyle.NEW_LINE ? "\n" : "");
         }
     }
 }

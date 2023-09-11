@@ -264,7 +264,7 @@ public partial class Console
     }
 
 
-    public static void Write(object text)
+    public static void Write(string text)
     {
         global::System.Console.Write(text);
     }
