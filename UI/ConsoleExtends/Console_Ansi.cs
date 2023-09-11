@@ -451,6 +451,34 @@ public partial class Console
         }
     }
 
+    public static void WriteFormat(string? txt = null, Color? foreground = null, Color? background = null,
+        AnsiGraphicMode? graphicMode = null, LineStyle? lineStyle = null, TimeSpan? waitBetweenChars = null)
+    {
+        var oldF = _foregroundColor24;
+        var olfB = _backgroundColor24;
+
+        WriteColor(foreground ?? ForegroundColor24, background ?? BackgroundColor24);
+        WriteStyleStart(graphicMode ?? AnsiGraphicMode.NORMAL);
+        if (waitBetweenChars == null)
+            Write(txt ?? string.Empty);
+        else
+        {
+            txt ??= " ";
+            if (txt.Length == 0)
+                txt = " ";
+
+            foreach (var c in txt.ToCharArray())
+            {
+                Thread.Sleep(waitBetweenChars.Value);
+                Write(txt);
+            }
+        }
+
+        WriteStyleStop(graphicMode ?? AnsiGraphicMode.NORMAL);
+        Write(lineStyle == LineStyle.NEW_LINE ? "\n" : "");
+        WriteColor(oldF, olfB);
+    }
+
 
     public sealed class Formatter
     {
@@ -649,43 +677,6 @@ public partial class Console
             Write(new string(' ', padding));
             Write(text);
             return this;
-        }
-    }
-
-    public readonly struct FormatEntry
-    {
-        public string Text { get; init; }
-        public Color Foreground { get; init; }
-        public Color Background { get; init; }
-        public AnsiGraphicMode GraphicMode { get; init; }
-        public LineStyle LineStyle { get; init; }
-
-        public static void Draw(string? txt = null, Color? foreground = null, Color? background = null,
-            AnsiGraphicMode? graphicMode = null, LineStyle? lineStyle = null, TimeSpan? waitBetweenChars = null)
-        {
-            var oldF = _foregroundColor24;
-            var olfB = _backgroundColor24;
-
-            WriteColor(foreground ?? ForegroundColor24, background ?? BackgroundColor24);
-            WriteStyleStart(graphicMode ?? AnsiGraphicMode.NORMAL);
-            if (waitBetweenChars == null)
-                Write(txt ?? string.Empty);
-            else
-            {
-                txt ??= " ";
-                if (txt.Length == 0)
-                    txt = " ";
-
-                foreach (var c in txt.ToCharArray())
-                {
-                    Thread.Sleep(waitBetweenChars.Value);
-                    Write(txt);
-                }
-            }
-
-            WriteStyleStop(graphicMode ?? AnsiGraphicMode.NORMAL);
-            Write(lineStyle == LineStyle.NEW_LINE ? "\n" : "");
-            WriteColor(oldF, olfB);
         }
     }
 }
