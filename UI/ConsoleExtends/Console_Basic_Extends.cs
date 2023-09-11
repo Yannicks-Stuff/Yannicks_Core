@@ -1,6 +1,5 @@
 using System.Runtime.InteropServices;
 using Yannick.Native;
-using Yannick.Native.OS.Windows.Win32;
 
 namespace Yannick.UI;
 
@@ -10,21 +9,7 @@ public partial class Console
 
     private static bool _activeAnimation = false;
 
-    static Console()
-    {
-        if (IsWindows)
-        {
-            var linker = new Linker(typeof(Kernel32));
-            var handle = linker.LinkStatic<GetStdHandle>()!(-11);
-            if (linker.LinkStatic<GetConsoleMode>()!(handle, out var mode))
-            {
-                mode |= 0x0004;
-                linker.LinkStatic<SetConsoleMode>()!(handle, mode);
-            }
-        }
-    }
 
-    private static bool IsWindows => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
     public static (int, int) Cursor => (CursorTop, CursorLeft);
 
     public static Animation? UseAnimation
@@ -51,39 +36,6 @@ public partial class Console
         }
     }
 
-    private static string GetAnsiColorCode(ConsoleColor color)
-    {
-        return color switch
-        {
-            ConsoleColor.Black => "30",
-            ConsoleColor.DarkRed => "31",
-            ConsoleColor.DarkGreen => "32",
-            ConsoleColor.DarkYellow => "33",
-            ConsoleColor.DarkBlue => "34",
-            ConsoleColor.DarkMagenta => "35",
-            ConsoleColor.DarkCyan => "36",
-            ConsoleColor.Gray => "37",
-            ConsoleColor.DarkGray => "90",
-            ConsoleColor.Red => "91",
-            ConsoleColor.Green => "92",
-            ConsoleColor.Yellow => "93",
-            ConsoleColor.Blue => "94",
-            ConsoleColor.Magenta => "95",
-            ConsoleColor.Cyan => "96",
-            ConsoleColor.White => "97",
-            _ => "39" // Standardfarbe
-        };
-    }
-
-    public static void WriteBold(string text)
-    {
-        Write($"\x1B[1m{text}\x1B[22m");
-    }
-
-    public static void WriteUnderlined(string text)
-    {
-        Write($"\x1B[4m{text}\x1B[24m");
-    }
 
     /// <summary>
     /// Sets the foreground and/or background color of the console.
@@ -94,6 +46,8 @@ public partial class Console
     {
         global::System.Console.ForegroundColor = fb ?? global::System.Console.ForegroundColor;
         global::System.Console.BackgroundColor = bg ?? global::System.Console.BackgroundColor;
+        _foregroundColor24 = consoleColors[global::System.Console.ForegroundColor];
+        _backgroundColor24 = consoleColors[global::System.Console.BackgroundColor];
     }
 
     /// <summary>
