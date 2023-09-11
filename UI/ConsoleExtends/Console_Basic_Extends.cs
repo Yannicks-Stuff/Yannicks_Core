@@ -131,7 +131,7 @@ public partial class Console
         SetCursorPosition(cx, cy);
 
         if (setNewCords)
-            SetCursorPosition(cx, cy);
+            SetCursorPosition(0, cy);
     }
 
     public static void ClearLine(bool setNewCordsOnLastEntry = false, params int[]? y)
