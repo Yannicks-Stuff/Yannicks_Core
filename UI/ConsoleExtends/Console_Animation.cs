@@ -8,7 +8,8 @@ public partial class Console
     public class Animation
     {
         private int _index = 0;
-        private bool? _isRunning = null;
+        private volatile bool _isRunning = false;
+        private volatile bool _isStop = false;
         private int Lines = 0;
 
         /// <summary>
@@ -91,6 +92,7 @@ public partial class Console
         public async Task StartAsync()
         {
             _isRunning = true;
+            _isStop = false;
             do
             {
                 cursor(out var xs, out var ys);
@@ -98,7 +100,7 @@ public partial class Console
 
                 foreach (var step in Queue)
                 {
-                    if (!_isRunning.Value)
+                    if (!_isRunning)
                         goto exit;
 
                     Lines++;
@@ -124,7 +126,8 @@ public partial class Console
 
             if (ClearOnExit) Clear();
 
-            _isRunning = null;
+            _isRunning = false;
+            _isStop = true;
         }
 
         private void Backspace()
@@ -139,11 +142,11 @@ public partial class Console
         /// </summary>
         public void Stop()
         {
-            if (_isRunning == null)
+            if (_isStop)
                 return;
 
             _isRunning = false;
-            while (_isRunning == null)
+            while (_isStop)
             {
             }
 
