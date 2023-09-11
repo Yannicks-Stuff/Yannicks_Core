@@ -106,6 +106,15 @@ namespace Yannick.Native
             => (T?)_Link(name, typeof(T));
 
         /// <summary>
+        /// Retrieves the specified function pointer from the native library and converts it to a delegate of the specified type.
+        /// the name is of the function is getting from <typeparam name="T"></typeparam>
+        /// </summary>
+        /// <typeparam name="T">The type of the delegate representing the function's signature.</typeparam>
+        /// <returns>A delegate of the specified type representing the function, or null if the function was not found.</returns>.
+        public T? Link<T>() where T : Delegate
+            => (T?)_Link(typeof(T).Name, typeof(T));
+
+        /// <summary>
         /// Provides native methods for working with libraries on Windows.
         /// </summary>
         private static class Windows

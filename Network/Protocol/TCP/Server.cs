@@ -31,6 +31,8 @@ namespace Yannick.Network.Protocol.TCP
         /// </summary>
         public readonly ushort Port;
 
+        private volatile bool _requestShutdown = false;
+
         protected int MaxNativeQueue = 100;
         protected int MaxQueueThreads = 100;
         protected int MaxUserCount = 100;
@@ -53,7 +55,12 @@ namespace Yannick.Network.Protocol.TCP
         /// <summary>
         /// Gets a value indicating whether the server should shut down.
         /// </summary>
-        public bool RequestShutdown { get; private set; } = false;
+        public bool RequestShutdown
+        {
+            get => _requestShutdown;
+            private set => _requestShutdown = value;
+        }
+
 
         /// <summary>
         /// Disposes the server's resources.

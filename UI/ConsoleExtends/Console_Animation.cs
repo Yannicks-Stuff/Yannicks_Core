@@ -32,6 +32,12 @@ public partial class Console
 
         private (int, int) _startCursor => (CursorLeft, CursorTop);
 
+        /// <summary>
+        /// Represents an animation sequence of rotating characters.
+        /// </summary>
+        /// <remarks>
+        /// This animation consists of rotating between the '/' and '\' characters.
+        /// </remarks>
         public static Animation Animation1 => new(
             new StepOption { Wait = TimeSpan.FromMilliseconds(500), Char = '/', RemoveAfter = true },
             new StepOption
@@ -40,6 +46,12 @@ public partial class Console
             ClearOnExit = true
         };
 
+        /// <summary>
+        /// Represents an animation sequence of consecutive dots.
+        /// </summary>
+        /// <remarks>
+        /// This animation consists of showing dots '.' one after the other.
+        /// </remarks>
         public static Animation Animation2 => new(
             new StepOption { Wait = TimeSpan.FromMilliseconds(500), Char = '.', RemoveAfter = false },
             new StepOption { Wait = TimeSpan.FromMilliseconds(500), Char = '.', RemoveAfter = false },
@@ -48,7 +60,6 @@ public partial class Console
         {
             ClearOnExit = true
         };
-
 
         /// <summary>
         /// Gets or sets the current cursor top position.
@@ -132,7 +143,7 @@ public partial class Console
                 return;
 
             _isRunning = false;
-            while (_isRunning != null)
+            while (_isRunning == null)
             {
             }
 
