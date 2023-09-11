@@ -134,7 +134,7 @@ public partial class Console
         private readonly int _x = CursorLeft;
         private readonly int _y = CursorTop;
         private List<string> _contentBuffer = new List<string>();
-        private CancellationTokenSource _cts;
+        private CancellationTokenSource? _cts;
         private bool _monitorWindowSize = false;
         internal int _scrollOffset = 0;
 
@@ -200,8 +200,6 @@ public partial class Console
         {
             _cts?.Cancel();
         }
-
-        public event Func<int, bool> OnLineDraw;
 
         private void StartWindowSizeMonitor()
         {

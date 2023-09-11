@@ -470,6 +470,12 @@ public partial class Console
             return this;
         }
 
+        public Formatter Wait(TimeSpan time)
+        {
+            Thread.Sleep(time);
+            return this;
+        }
+
         public Formatter UseStyle(AnsiGraphicMode style)
         {
             Console.WriteStyleStart(style);
@@ -488,9 +494,17 @@ public partial class Console
             return this;
         }
 
-        public Formatter Write(string txt, Color fb, Color bg)
+        public Formatter Write(string txt, Color fb, Color bg, TimeSpan? waitBetweenChars = null)
         {
-            Console.Write(txt, fb, bg);
+            if (waitBetweenChars == null)
+                Console.Write(txt, fb, bg);
+            else
+                foreach (var c in txt.ToCharArray())
+                {
+                    System.Console.Write(c);
+                    Thread.Sleep(waitBetweenChars.Value);
+                }
+
             Console.WriteColor(fb, bg);
             return this;
         }
@@ -533,23 +547,11 @@ public partial class Console
             return this;
         }
 
-        public Formatter SaveCursorPosition()
-        {
-            Write("\x1B[s");
-            return this;
-        }
+        public Formatter SaveCursorPosition() => Write("\x1B[s");
 
-        public Formatter RestoreCursorPosition()
-        {
-            Write("\x1B[u");
-            return this;
-        }
+        public Formatter RestoreCursorPosition() => Write("\x1B[u");
 
-        public Formatter ScrollScreenUp(int n)
-        {
-            Write($"\x1B[{n}S");
-            return this;
-        }
+        public Formatter ScrollScreenUp(int n) => Write($"\x1B[{n}S");
 
         public Formatter NewLine()
         {
@@ -559,7 +561,7 @@ public partial class Console
 
         public Formatter Reset()
         {
-            Write("\x1B[0m");
+            Console.Write("\x1B[0m");
             ResetColor();
             SetColor(ConsoleColor.White, ConsoleColor.Black);
             return this;
@@ -601,54 +603,28 @@ public partial class Console
             return this;
         }
 
-        public Formatter HideCursor()
-        {
-            Write("\x1B[?25l");
-            return this;
-        }
+        public Formatter HideCursor() => Write("\x1B[?25l");
 
-        public Formatter ShowCursor()
-        {
-            Write("\x1B[?25h");
-            return this;
-        }
+        public Formatter ShowCursor() => Write("\x1B[?25h");
 
-        public Formatter ScrollScreenDown(int n)
-        {
-            Write($"\x1B[{n}T");
-            return this;
-        }
+        public Formatter ScrollScreenDown(int n) => Write($"\x1B[{n}T");
 
-        public Formatter ScrollUp(int n)
-        {
-            Write($"\x1B[{n}S");
-            return this;
-        }
+        public Formatter ScrollUp(int n) => Write($"\x1B[{n}S");
 
-        public Formatter ScrollDown(int n)
-        {
-            Write($"\x1B[{n}T");
-            return this;
-        }
+        public Formatter ScrollDown(int n) => Write($"\x1B[{n}T");
 
         public Formatter ChangeWindowSize(int width, int height)
-        {
-            Write($"\x1B[8;{height};{width}t");
-            return this;
-        }
+            => Write($"\x1B[8;{height};{width}t");
 
         public Formatter SetConsoleTitle(string title)
-        {
-            Write($"\x1B]2;{title}\x1B\\");
-            return this;
-        }
+            => Write($"\x1B]2;{title}\x1B\\");
 
         public Formatter DrawBoxAroundText(string text, int padding = 1)
         {
-            int totalWidth = text.Length + 2 * padding + 2;
+            var totalWidth = text.Length + 2 * padding + 2;
             Write(new string('═', totalWidth));
             NewLine();
-            for (int i = 0; i < padding; i++)
+            for (var i = 0; i < padding; i++)
             {
                 Write($"║{new string(' ', text.Length + 2 * padding)}║");
                 NewLine();
@@ -656,7 +632,7 @@ public partial class Console
 
             Write($"║{new string(' ', padding)}{text}{new string(' ', padding)}║");
             NewLine();
-            for (int i = 0; i < padding; i++)
+            for (var i = 0; i < padding; i++)
             {
                 Write($"║{new string(' ', text.Length + 2 * padding)}║");
                 NewLine();
@@ -668,8 +644,8 @@ public partial class Console
 
         public Formatter CenterText(string text)
         {
-            int consoleWidth = Console.WindowWidth;
-            int padding = (consoleWidth - text.Length) / 2;
+            var consoleWidth = Console.WindowWidth;
+            var padding = (consoleWidth - text.Length) / 2;
             Write(new string(' ', padding));
             Write(text);
             return this;

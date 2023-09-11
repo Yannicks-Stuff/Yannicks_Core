@@ -7,7 +7,6 @@ public partial class Console
     /// </summary>
     public class Animation
     {
-        private int _index = 0;
         private volatile bool _isRunning = false;
         private volatile bool _isStop = false;
         private int Lines = 0;
@@ -31,7 +30,7 @@ public partial class Console
         /// </summary>
         public bool ClearOnExit { get; init; } = true;
 
-        private (int, int) _startCursor => (CursorLeft, CursorTop);
+        private (int, int) StartCursor => (CursorLeft, CursorTop);
 
         /// <summary>
         /// Represents an animation sequence of rotating characters.
@@ -82,8 +81,8 @@ public partial class Console
 
         private void cursor(out int x, out int y)
         {
-            x = _startCursor.Item1;
-            y = _startCursor.Item2;
+            x = StartCursor.Item1;
+            y = StartCursor.Item2;
         }
 
         /// <summary>
