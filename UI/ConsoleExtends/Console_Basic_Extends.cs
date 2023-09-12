@@ -126,12 +126,12 @@ public partial class Console
 
         var (cx, cy) = Cursor;
 
-        SetCursorPosition(0, y.Value);
+        SetCursorPosition(0, y.Value < 0 ? 0 : y.Value);
         Write(new string(' ', Math.Max(BufferWidth, WindowWidth)));
-        SetCursorPosition(cx, cy);
+        SetCursorPosition(cx, cy < 0 ? 0 : cy);
 
         if (setNewCords)
-            SetCursorPosition(0, cy);
+            SetCursorPosition(0, cy < 0 ? 0 : cy);
     }
 
     public static void ClearLine(bool setNewCordsOnLastEntry = false, params int[]? y)
