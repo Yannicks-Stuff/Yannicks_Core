@@ -102,7 +102,7 @@ public partial class Console
         Background = ConsoleColor.Black,
         SelectBackground = BackgroundColor,
         SelectForeground = ConsoleColor.Cyan
-    }, Border.LinePointStyle(), true, options);
+    }, Border.DoubleLine(), true, options);
 
     /// <summary>
     /// Defines the appearance options for the selection menu.

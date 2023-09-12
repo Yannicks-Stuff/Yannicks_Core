@@ -103,8 +103,15 @@ public partial class Console
 
     public static void SetColor(Color fb, Color bg)
     {
-        ForegroundColor = colorsConsole[fb];
-        BackgroundColor = colorsConsole[bg];
+        if (colorsConsole.ContainsKey(fb))
+            ForegroundColor = colorsConsole[fb];
+        else
+            ForegroundColor = ConvertFromColor(fb, true);
+
+        if (colorsConsole.ContainsKey(bg))
+            BackgroundColor = colorsConsole[bg];
+        else
+            BackgroundColor = ConvertFromColor(bg, false);
     }
 
     private static string GetAnsiColorCode(ConsoleColor color)
