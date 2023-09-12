@@ -18,23 +18,18 @@ public partial class Console
         var cv = CursorVisible;
         CursorVisible = false;
         var selectedIndex = 0;
-        var startX = Console.CursorLeft;
-        var startY = Console.CursorTop;
 
-        // Adjust the border size if there are more options than the border can display
+        var startX = CursorLeft;
+        var startY = CursorTop;
+
         if (options.Length > border.Size.Y - 2)
-        {
             border.SetContent(options.Take((int)border.Size.Y - 2));
-        }
         else
-        {
             border.SetContent(options);
-        }
 
         while (true)
         {
-            Console.SetCursorPosition(Math.Min(startX, Console.WindowWidth - 1),
-                Math.Min(startY, Console.WindowHeight - 1));
+            SetCursorPosition(Math.Min(startX, WindowWidth - 1), Math.Min(startY, WindowHeight - 1));
             border.Draw();
 
             var visibleOptions = options.Skip(border._scrollOffset).Take((int)border.Size.Y - 2).ToArray();
@@ -43,22 +38,22 @@ public partial class Console
             {
                 if (i == selectedIndex)
                 {
-                    Console.BackgroundColor = design.SelectBackground;
-                    Console.ForegroundColor = design.SelectForeground;
+                    BackgroundColor = design.SelectBackground;
+                    ForegroundColor = design.SelectForeground;
                 }
                 else
                 {
-                    Console.BackgroundColor = design.Background;
-                    Console.ForegroundColor = design.Foreground;
+                    BackgroundColor = design.Background;
+                    ForegroundColor = design.Foreground;
                 }
 
-                Console.SetCursorPosition(Math.Min(startX + 1, Console.WindowWidth - 1),
-                    Math.Min(startY + i + 1, Console.WindowHeight - 1));
-                Console.Write(visibleOptions[i].PadRight((int)border.Size.X - 2));
-                Console.ResetColor();
+                SetCursorPosition(Math.Min(startX + 1, WindowWidth - 1),
+                    Math.Min(startY + i + 1, WindowHeight - 1));
+                Write(visibleOptions[i].PadRight((int)border.Size.X - 2));
+                ResetColor();
             }
 
-            var keyInfo = Console.ReadKey(intercept: true);
+            var keyInfo = ReadKey(intercept: true);
 
             switch (keyInfo.Key)
             {
@@ -77,12 +72,13 @@ public partial class Console
                 case ConsoleKey.Enter:
                     if (clearOnExit)
                     {
-                        for (var i = 0; i < visibleOptions.Length; i++)
+                        border.Clear();
+                        /*for (var i = 0; i < visibleOptions.Length; i++)
                         {
-                            Console.SetCursorPosition(Math.Min(startX, Console.WindowWidth - 1),
-                                Math.Min(startY + i, Console.WindowHeight - 1));
-                            Console.Write(new string(' ', (int)border.Size.X));
-                        }
+                            SetCursorPosition(Math.Min(startX, WindowWidth - 1),
+                                Math.Min(startY + i, WindowHeight - 1));
+                            Write(new string(' ', (int)border.Size.X));
+                        }*/
                     }
 
                     CursorVisible = cv;
@@ -96,13 +92,29 @@ public partial class Console
     /// </summary>
     /// <param name="options">The list of options for the user to select from.</param>
     /// <returns>The index of the selected option.</returns>
-    public static int Select(params string[] options) => Select(new SelectOption
+    public static int Select(params string[] options)
     {
-        Foreground = ConsoleColor.White,
-        Background = ConsoleColor.Black,
-        SelectBackground = BackgroundColor,
-        SelectForeground = ConsoleColor.Cyan
-    }, Border.DoubleLine(), true, options);
+        var sX = (from o in options
+                select Convert.ToInt32(Math.Floor(((WindowWidth - CursorLeft + 1) - o.Length) / 2.0))
+                into x3
+                select ((x3 >= 0) ? x3 : 0)
+                into x3
+                select ((x3 <= WindowWidth) ? x3 : 0))
+            .Prepend(0).Max();
+
+        var borderSize = new Vector2(sX, CursorTop);
+        var border = Border.DoubleLine(start: borderSize);
+
+        CursorLeft = sX;
+
+        return Select(new SelectOption
+        {
+            Foreground = ConsoleColor.White,
+            Background = ConsoleColor.Black,
+            SelectBackground = BackgroundColor,
+            SelectForeground = ConsoleColor.Cyan
+        }, border, true, options);
+    }
 
     /// <summary>
     /// Defines the appearance options for the selection menu.
@@ -140,6 +152,7 @@ public partial class Console
 
 
         public Border(
+            Vector2? start = null,
             Vector2? size = null,
             char? top = null, char? bottom = null, char? left = null, char? right = null,
             char? topLeft = null, char? topRight = null, char? bottomLeft = null, char? bottomRight = null,
@@ -147,7 +160,16 @@ public partial class Console
             ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null,
             bool shadow = false)
         {
-            Size = size ?? new Vector2(Console.WindowWidth, Console.WindowHeight);
+            if (start.HasValue)
+            {
+                if ((int)start.Value.X >= 0)
+                    _x = (int)start.Value.X;
+
+                if ((int)start.Value.Y >= 0)
+                    _y = (int)start.Value.Y;
+            }
+
+            Size = size ?? new Vector2(WindowWidth - _x, WindowHeight - _y);
             Top = top ?? '-';
             Bottom = bottom ?? '-';
             Left = left ?? '|';
@@ -183,7 +205,7 @@ public partial class Console
         public ConsoleColor Background { get; init; }
         public bool Shadow { get; init; }
 
-        public bool MonitorWindowSize
+        /*public bool MonitorWindowSize
         {
             get { return _monitorWindowSize; }
             set
@@ -194,26 +216,26 @@ public partial class Console
                 else
                     _cts?.Cancel();
             }
-        }
+        }*/
 
         public void Dispose()
         {
             _cts?.Cancel();
         }
 
-        private void StartWindowSizeMonitor()
+        /*private void StartWindowSizeMonitor()
         {
             _cts = new CancellationTokenSource();
             Task.Run(() =>
             {
-                var lastWidth = Console.WindowWidth;
-                var lastHeight = Console.WindowHeight;
+                var lastWidth = WindowWidth;
+                var lastHeight = WindowHeight;
                 while (!_cts.Token.IsCancellationRequested)
                 {
-                    if (lastWidth != Console.WindowWidth || lastHeight != Console.WindowHeight)
+                    if (lastWidth != WindowWidth || lastHeight != WindowHeight)
                     {
-                        lastWidth = Console.WindowWidth;
-                        lastHeight = Console.WindowHeight;
+                        lastWidth = WindowWidth;
+                        lastHeight = WindowHeight;
                         _size = new Vector2(lastWidth, lastHeight);
                         Draw();
                     }
@@ -221,12 +243,17 @@ public partial class Console
                     Thread.Sleep(100);
                 }
             }, _cts.Token);
-        }
+        }*/
 
         public void SetContent(IEnumerable<string> content)
         {
             _contentBuffer = content.ToList();
-            var maxWidth = _contentBuffer.Max(line => line.Length);
+            int maxWidth;
+            if (_contentBuffer.Count == 0)
+                maxWidth = 0;
+            else
+                maxWidth = _contentBuffer.Max(line => line.Length);
+
             _size = new Vector2(maxWidth + 2, _contentBuffer.Count + 2);
         }
 
@@ -238,7 +265,7 @@ public partial class Console
 
         public void ScrollDown()
         {
-            if (_scrollOffset < _contentBuffer.Count - Size.Y)
+            if (_scrollOffset < _contentBuffer.Count - _size.Y)
                 _scrollOffset++;
         }
 
@@ -250,28 +277,29 @@ public partial class Console
             ForegroundColor = Foreground;
             BackgroundColor = Background;
 
-            for (var i = 0; i < Size.Y; i++)
+            for (var i = 0; i < _size.Y; i++)
             {
                 if (i == 0)
                 {
-                    WriteAt(TopLeft + Top.ToString().PadRight((int)Size.X - 2, Top) + TopRight, _x, _y + i);
+                    WriteAt(TopLeft + Top.ToString().PadRight((int)_size.X - 2, Top) + TopRight, _x, _y + i);
                     if (!string.IsNullOrEmpty(Title))
                     {
                         WriteAt(Title, _x + 2, _y);
                     }
                 }
-                else if (i == Size.Y - 1)
+                else if (i == _size.Y - 1)
                 {
-                    WriteAt(BottomLeft + Bottom.ToString().PadRight((int)Size.X - 2, Bottom) + BottomRight, _x, _y + i);
+                    WriteAt(BottomLeft + Bottom.ToString().PadRight((int)_size.X - 2, Bottom) + BottomRight, _x,
+                        _y + i);
                 }
                 else
                 {
-                    WriteAt(Left + new string(' ', (int)Size.X - 2) + Right, _x, _y + i);
+                    WriteAt(Left + new string(' ', (int)_size.X - 2) + Right, _x, _y + i);
                 }
             }
 
             prevForeground = ForegroundColor;
-            for (var i = 0; i < Size.Y - 2; i++)
+            for (var i = 0; i < _size.Y - 2; i++)
             {
                 if (i + _scrollOffset < _contentBuffer.Count)
                 {
@@ -297,12 +325,12 @@ public partial class Console
             var prevForeground = ForegroundColor;
             ForegroundColor = shadowColor;
 
-            for (var i = 1; i <= Size.Y; i++)
+            for (var i = 1; i <= _size.Y; i++)
             {
-                WriteAt(shadowChar.ToString(), (int)(_x + Size.X), (int)_y + i);
+                WriteAt(shadowChar.ToString(), (int)(_x + _size.X), (int)_y + i);
             }
 
-            WriteAt(new string(shadowChar, (int)Size.X + 1), _x + 1, (int)(_y + Size.Y));
+            WriteAt(new string(shadowChar, (int)_size.X + 1), _x + 1, (int)(_y + _size.Y));
 
             ForegroundColor = prevForeground;
         }
@@ -310,19 +338,19 @@ public partial class Console
         public void Clear()
         {
             var prevBackground = BackgroundColor;
-            BackgroundColor = Console.BackgroundColor;
+            BackgroundColor = BackgroundColor;
 
-            for (var i = 0; i < Size.Y; i++)
+            for (var i = 0; i < _size.Y; i++)
             {
-                WriteAt(new string(' ', (int)Size.X), _x, _y + i);
+                WriteAt(new string(' ', (int)_size.X), _x, _y + i);
             }
 
             if (Shadow) // new
             {
-                WriteAt(new string(' ', (int)Size.X + 1), _x + 1, (int)(_y + Size.Y));
-                for (var i = 1; i <= Size.Y; i++)
+                WriteAt(new string(' ', (int)_size.X + 1), _x + 1, (int)(_y + _size.Y));
+                for (var i = 1; i <= _size.Y; i++)
                 {
-                    WriteAt(" ", (int)(_x + Size.X), _y + i);
+                    WriteAt(" ", (int)(_x + _size.X), _y + i);
                 }
             }
 
@@ -331,25 +359,25 @@ public partial class Console
 
         private void WriteAt(string text, int x, int y)
         {
-            Console.SetCursorPosition(x, y);
-            Console.Write(text);
+            SetCursorPosition(x, y);
+            Write(text);
         }
 
         #region STATIC
 
-        public static Border LinePointStyle(Vector2? size = null, string title = "",
+        public static Border LinePointStyle(Vector2? start = null, Vector2? size = null, string title = "",
             ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null,
             bool shadow = false)
         {
-            return new Border(size, '┄', '┄', '┆', '┆', '┌', '┐', '└', '┘',
+            return new Border(start, size, '┄', '┄', '┆', '┆', '┌', '┐', '└', '┘',
                 title, foregroundColor, backgroundColor, shadow);
         }
 
-        public static Border DoubleLine(Vector2? size = null, string title = "",
+        public static Border DoubleLine(Vector2? start = null, Vector2? size = null, string title = "",
             ConsoleColor? foregroundColor = null, ConsoleColor? backgroundColor = null,
             bool shadow = false)
         {
-            return new Border(size, '═', '═', '║', '║', '╔', '╗', '╚', '╝',
+            return new Border(start, size, '═', '═', '║', '║', '╔', '╗', '╚', '╝',
                 title, foregroundColor, backgroundColor, shadow);
         }
 
