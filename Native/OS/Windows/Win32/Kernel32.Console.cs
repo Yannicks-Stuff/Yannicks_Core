@@ -1,8 +1,10 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using Yannick.Native.OS.Windows.Win32.Lang;
 
 namespace Yannick.Native.OS.Windows.Win32;
 
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
 public static partial class Kernel32
 {
     private const string DLL = "kernel32.dll";

@@ -1,10 +1,12 @@
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using Yannick.Native.OS.Windows.Win32;
 
 namespace Yannick.Native.OS.Windows.UI;
 
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
 public sealed class Console
 {
     private const int STD_OUTPUT_HANDLE = -11;

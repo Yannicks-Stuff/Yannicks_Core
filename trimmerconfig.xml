@@ -1,0 +1,6 @@
+<linker>
+    <assembly fullname="Core9">
+        <type fullname="Yannick.Native.OS.Windows.Win32.Kernel32"/>
+        <type fullname="Yannick.Native.OS.Windows.UI.Console"/>
+    </assembly>
+</linker>
