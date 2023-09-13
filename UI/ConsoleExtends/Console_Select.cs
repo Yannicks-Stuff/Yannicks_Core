@@ -355,6 +355,8 @@ public partial class Console
             }
 
             BackgroundColor = prevBackground;
+
+            SetCursorPosition(_x, _y);
         }
 
         private void WriteAt(string text, int x, int y)
