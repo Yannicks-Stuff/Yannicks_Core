@@ -186,24 +186,24 @@ public partial class Console
         Color? msgSuccessForeground = null, uint? maxWidth = null, bool allowedInvisibleChars = true, char? mask = null,
         TimeSpan? wait = null, string? defaultVal = default, byte maxTrys = 0, bool clearAfterReadLine = false)
     {
-        var cF = Console.ForegroundColor24;
-        var cB = Console.BackgroundColor24;
+        var cF = ForegroundColor24;
+        var cB = BackgroundColor24;
 
         beforeMsgForeground ??= Color.White;
         userForeground ??= Color.Cyan;
         msgErrorForeground ??= Color.Red;
         msgSuccessForeground ??= Color.Green;
-        maxWidth ??= Convert.ToUInt32(Console.WindowWidth - (beforeReadMsg?.Length ?? 0));
+        maxWidth ??= Convert.ToUInt32(WindowWidth - (beforeReadMsg?.Length ?? 0));
         maxTrys = Convert.ToByte((maxTrys < 1 ? 1 : maxTrys) + 1);
 
         var txt = "";
-        var sX = Console.CursorLeft;
+        var sX = CursorLeft;
         var isStartEscapeS = false;
 
         if (beforeReadMsg != null)
         {
-            Console.Write(beforeReadMsg, beforeMsgForeground.Value, cB);
-            sX = Console.CursorLeft;
+            Write(beforeReadMsg, beforeMsgForeground.Value, cB);
+            sX = CursorLeft;
         }
 
         do
@@ -211,11 +211,11 @@ public partial class Console
             if (maxTrys == 0)
                 break;
 
-            var key = Console.ReadKey(true);
+            var key = ReadKey(true);
 
             if (key.Key == ConsoleKey.Enter)
             {
-                Console.WriteLine();
+                WriteLine();
 
                 if (onUserInput == null)
                     break;
@@ -226,7 +226,7 @@ public partial class Console
                         break;
 
                     ClearLine();
-                    Console.Write(msgOnSuccess,
+                    Write(msgOnSuccess,
                         msgSuccessForeground.Value, cB);
 
                     if (wait != null)
@@ -243,7 +243,7 @@ public partial class Console
                         continue;
 
                     ClearLine();
-                    Console.Write(msgOnError,
+                    Write(msgOnError,
                         msgErrorForeground.Value, cB);
 
                     if (wait != null)
@@ -259,72 +259,72 @@ public partial class Console
                         continue;
                     case ConsoleKey.Backspace:
                     {
-                        var cursorPosition = Console.CursorLeft - sX;
+                        var cursorPosition = CursorLeft - sX;
                         if (cursorPosition <= 0)
                             continue;
 
                         txt = txt.Remove(cursorPosition - 1, 1);
 
-                        Console.CursorLeft -= 1;
+                        CursorLeft -= 1;
 
                         var visibleText = txt.Length - cursorPosition + 1 <= maxWidth.Value
                             ? txt[(cursorPosition - 1)..]
                             : txt.Substring(cursorPosition - 1,
                                 (int)maxWidth.Value - cursorPosition + 1);
-                        Console.Write(visibleText + " ", userForeground.Value, cB);
-                        Console.CursorLeft = cursorPosition - 1 + sX;
+                        Write(visibleText + " ", userForeground.Value, cB);
+                        CursorLeft = cursorPosition - 1 + sX;
                         break;
                     }
                     case ConsoleKey.Tab:
                     {
-                        var cursorPosition = Console.CursorLeft - sX;
+                        var cursorPosition = CursorLeft - sX;
                         txt = txt.Insert(cursorPosition, "    ");
 
                         if (txt.Length > maxWidth)
                         {
-                            Console.Write(
+                            Write(
                                 string.Concat(txt.AsSpan(cursorPosition, 4),
                                     cursorPosition + 4 < txt.Length ? txt[(cursorPosition + 4)..] : ""),
                                 userForeground.Value, cB);
-                            Console.CursorLeft = cursorPosition + 4 + sX;
+                            CursorLeft = cursorPosition + 4 + sX;
                         }
                         else
                         {
-                            Console.Write("    ", userForeground.Value, cB);
-                            Console.CursorLeft += 4;
+                            Write("    ", userForeground.Value, cB);
+                            CursorLeft += 4;
                         }
 
                         break;
                     }
                     case ConsoleKey.LeftArrow:
                     {
-                        if (Console.CursorLeft > sX)
-                            Console.CursorLeft--;
+                        if (CursorLeft > sX)
+                            CursorLeft--;
                         break;
                     }
                     case ConsoleKey.RightArrow:
                     {
                         var visibleLength = Math.Min(txt.Length, maxWidth.Value);
-                        if (Console.CursorLeft < sX + visibleLength)
-                            Console.CursorLeft++;
+                        if (CursorLeft < sX + visibleLength)
+                            CursorLeft++;
                         break;
                     }
                     default:
                     {
-                        var cursorPosition = Console.CursorLeft - sX;
+                        var cursorPosition = CursorLeft - sX;
                         var t = NewText(key.KeyChar);
                         txt = txt.Insert(cursorPosition, t);
 
                         if (txt.Length <= maxWidth)
                         {
-                            Console.Write(txt[cursorPosition..], userForeground.Value, cB);
-                            Console.CursorLeft = cursorPosition + t.Length + sX;
+                            Write(txt[cursorPosition..], userForeground.Value, cB);
+                            CursorLeft = cursorPosition + t.Length + sX;
                         }
                         else if (allowedInvisibleChars && cursorPosition < maxWidth)
                         {
-                            Console.Write(txt.Substring(cursorPosition, (int)maxWidth.Value - cursorPosition),
+                            Write(txt.Substring(cursorPosition, (int)maxWidth.Value - cursorPosition),
                                 userForeground.Value, cB);
-                            Console.CursorLeft = cursorPosition + t.Length + sX;
+                            CursorLeft = cursorPosition + t.Length + sX;
                         }
 
                         break;
@@ -339,9 +339,9 @@ public partial class Console
 
         void ClearLine()
         {
-            Console.CursorLeft = sX;
-            Console.Write(new string(' ', Convert.ToInt32(maxWidth!.Value)), cF, cB);
-            Console.CursorLeft = sX;
+            CursorLeft = sX;
+            Write(new string(' ', Convert.ToInt32(maxWidth!.Value)), cF, cB);
+            CursorLeft = sX;
         }
 
         string NewText(char key)

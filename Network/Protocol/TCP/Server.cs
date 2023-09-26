@@ -196,7 +196,7 @@ namespace Yannick.Network.Protocol.TCP
 
             private Task? _heart = null;
             private CancellationTokenSource? _token = null;
-            protected int BufferSize = 1024;
+            public int BufferSize = 1024;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="User"/> class.

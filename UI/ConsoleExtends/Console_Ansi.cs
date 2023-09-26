@@ -302,7 +302,7 @@ public partial class Console
         WriteLine();
     }
 
-    private static string GetTrueColorAnsiCode(Color color, bool isBackground = false)
+    public static string GetTrueColorAnsiCode(Color color, bool isBackground = false)
     {
         return isBackground ? $"\x1B[48;2;{color.R};{color.G};{color.B}m" : $"\x1B[38;2;{color.R};{color.G};{color.B}m";
     }

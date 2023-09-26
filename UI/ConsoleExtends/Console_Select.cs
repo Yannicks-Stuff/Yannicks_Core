@@ -11,9 +11,12 @@ public partial class Console
     /// <param name="design">The appearance design for the selection menu.</param>
     /// <param name="border">The border design for the selection menu.</param>
     /// <param name="clearOnExit">Clear all lines after enter ?</param>
+    /// <param name="returnOnKey">Where key is press the int get return where is not the correct console key return null
+    /// to continue</param>
     /// <param name="options">The list of options for the user to select from.</param>
     /// <returns>The index of the selected option.</returns>
-    public static int Select(SelectOption design, Border border, bool clearOnExit, params string[] options)
+    public static int Select(SelectOption design, Border border, bool clearOnExit,
+        Func<ConsoleKey, int?>? returnOnKey = null, params string[] options)
     {
         var cv = CursorVisible;
         CursorVisible = false;
@@ -21,70 +24,85 @@ public partial class Console
 
         var startX = CursorLeft;
         var startY = CursorTop;
+        var offset = 0;
 
-        if (options.Length > border.Size.Y - 2)
-            border.SetContent(options.Take((int)border.Size.Y - 2));
-        else
-            border.SetContent(options);
+        SetCursorPosition((int)border.Start.X, (int)border.Start.Y);
 
         while (true)
         {
             SetCursorPosition(Math.Min(startX, WindowWidth - 1), Math.Min(startY, WindowHeight - 1));
             border.Draw();
 
-            var visibleOptions = options.Skip(border._scrollOffset).Take((int)border.Size.Y - 2).ToArray();
+            var visibleOptions = options.Skip(offset).Take((int)border.Size.Y - 2).ToArray();
 
             for (var i = 0; i < visibleOptions.Length; i++)
             {
-                if (i == selectedIndex)
+                var actualIndex = i + offset;
+                if (actualIndex == selectedIndex)
                 {
                     BackgroundColor = design.SelectBackground;
-                    ForegroundColor = design.SelectForeground;
+                    ForegroundColor = design[i, true] ?? design.SelectForeground;
                 }
                 else
                 {
                     BackgroundColor = design.Background;
-                    ForegroundColor = design.Foreground;
+                    ForegroundColor = design[i, false] ?? design.Foreground;
                 }
 
-                SetCursorPosition(Math.Min(startX + 1, WindowWidth - 1),
-                    Math.Min(startY + i + 1, WindowHeight - 1));
+                SetCursorPosition(Math.Min((int)border.Start.X + 1, WindowWidth - 1),
+                    Math.Min((int)border.Start.Y + i + 1, WindowHeight - 1));
                 Write(visibleOptions[i].PadRight((int)border.Size.X - 2));
                 ResetColor();
             }
 
             var keyInfo = ReadKey(intercept: true);
-
             switch (keyInfo.Key)
             {
                 case ConsoleKey.UpArrow:
-                    if (selectedIndex == 0)
-                        border.ScrollUp();
-                    selectedIndex = (selectedIndex - 1 + visibleOptions.Length) % visibleOptions.Length;
+                    if (selectedIndex > 0)
+                    {
+                        selectedIndex--;
+                        if (selectedIndex < offset)
+                            offset--;
+                    }
+
                     break;
 
                 case ConsoleKey.DownArrow:
-                    if (selectedIndex == visibleOptions.Length - 1)
-                        border.ScrollDown();
-                    selectedIndex = (selectedIndex + 1) % visibleOptions.Length;
+                    if (selectedIndex < options.Length - 1)
+                    {
+                        selectedIndex++;
+                        if (selectedIndex >= offset + visibleOptions.Length)
+                            offset++;
+                    }
+
                     break;
 
                 case ConsoleKey.Enter:
-                    if (clearOnExit)
+                    goto exit;
+                default:
+                    var rs = returnOnKey?.Invoke(keyInfo.Key);
+                    if (rs != null)
                     {
-                        border.Clear();
-                        /*for (var i = 0; i < visibleOptions.Length; i++)
-                        {
-                            SetCursorPosition(Math.Min(startX, WindowWidth - 1),
-                                Math.Min(startY + i, WindowHeight - 1));
-                            Write(new string(' ', (int)border.Size.X));
-                        }*/
+                        selectedIndex = rs.Value;
+                        goto exit;
                     }
 
-                    CursorVisible = cv;
-                    return selectedIndex + border._scrollOffset;
+                    break;
             }
         }
+
+        exit:
+
+        if (clearOnExit)
+        {
+            border.Clear();
+            CursorLeft = startX;
+            CursorTop = startY;
+        }
+
+        CursorVisible = cv;
+        return selectedIndex;
     }
 
     /// <summary>
@@ -113,7 +131,97 @@ public partial class Console
             Background = ConsoleColor.Black,
             SelectBackground = BackgroundColor,
             SelectForeground = ConsoleColor.Cyan
-        }, border, true, options);
+        }, border, true, null, options);
+    }
+
+    /// <summary>
+    /// Allows the user to interactively select a file or directory from the given starting directory.
+    /// </summary>
+    /// <param name="startDirectory">The starting directory from which the file or subdirectory selection begins.</param>
+    /// <param name="deep">Specifies how many directory levels deep the selection should go. A negative value means there's no limit.</param>
+    /// <returns>Returns the path to the selected file. If a directory is selected, the method will navigate into that directory and continue the selection process.</returns>
+    /// <exception cref="System.IO.DirectoryNotFoundException">Thrown when the provided start directory is not found.</exception>
+    /// <remarks>
+    /// This method uses a console-based UI for file and directory selection. The user can navigate through directories and select a file.
+    /// If the user presses the backspace key, it signals a request to go up to the parent directory.
+    /// </remarks>
+    public static string SelectFile(string startDirectory, int deep = -1)
+    {
+        if (File.Exists(startDirectory))
+            return startDirectory;
+
+        if (!Directory.Exists(startDirectory))
+            throw new DirectoryNotFoundException("Use a valid Directory Path");
+
+        var pathList = new Stack<string>();
+
+        pathList.Push(startDirectory);
+
+        loop:
+
+        _Select(pathList.Peek(), out var currentPath, out var isFile, out var isRequestParent);
+
+        if (isRequestParent)
+        {
+            if (pathList.Count > 1)
+                currentPath = pathList.Pop();
+
+            goto loop;
+        }
+
+        if (isFile)
+            return currentPath;
+        else if (deep < 0 || pathList.Count <= deep)
+            pathList.Push(currentPath);
+
+        goto loop;
+
+        static void _Select(string path, out string pathSelect, out bool isFile, out bool isRequestParent)
+        {
+            var a = Directory.GetFiles(path);
+            var b = Directory.GetDirectories(path);
+            var c = a.Select(Path.GetFileName).Concat(b.Select(Path.GetFileName)).ToArray();
+
+            var length = c.Max(line => line!.Length) + 2;
+            var sX = Convert.ToInt32(Math.Floor(((WindowWidth - CursorLeft + 1) - length) / 2.0));
+            sX = (sX >= 0) ? sX : 0;
+            sX = (sX <= WindowWidth) ? sX : 0;
+
+            var borderSize = new Vector2(sX, CursorTop);
+            var border = Border.DoubleLine(start: borderSize,
+                size: new Vector2(length, WindowHeight - borderSize.Y));
+
+            var option = new SelectOption(ConsoleColor.White, ConsoleColor.Black,
+                BackgroundColor, ConsoleColor.Magenta);
+
+            for (var i = 0; i < a.Length; i++)
+                option[i, false] = ConsoleColor.Cyan;
+
+            for (var i = 0; i < b.Length; i++)
+                option[i + a.Length, false] = ConsoleColor.White;
+
+            var s = Console.Select(option, border, true, key =>
+            {
+                return key switch
+                {
+                    ConsoleKey.Backspace => -100,
+                    _ => null
+                };
+            }, c!);
+
+            if (s == -100)
+            {
+                isRequestParent = true;
+                isFile = false;
+                pathSelect = path;
+            }
+            else
+            {
+                isRequestParent = false;
+                pathSelect = s < a.Length ? a[s] : b[s - a.Length];
+                isFile = s < a.Length;
+            }
+        }
     }
 
     /// <summary>
@@ -125,6 +233,41 @@ public partial class Console
         public ConsoleColor Background { get; init; }
         public ConsoleColor SelectForeground { get; init; }
         public ConsoleColor SelectBackground { get; init; }
+        private readonly Dictionary<int, ConsoleColor> _selectColorForIndex = new Dictionary<int, ConsoleColor>();
+        private readonly Dictionary<int, ConsoleColor> _colorForIndex = new Dictionary<int, ConsoleColor>();
+
+        /// <summary>
+        /// Set Foreground per Index
+        /// </summary>
+        /// <param name="index">the index from option</param>
+        /// <param name="isSelect">the color for select or not</param>
+        public ConsoleColor? this[int index, bool isSelect = true]
+        {
+            get
+            {
+                if (isSelect)
+                    return _selectColorForIndex.TryGetValue(index, out var value) ? value : null;
+                else
+                    return _colorForIndex.TryGetValue(index, out var value) ? value : null;
+            }
+            set
+            {
+                if (isSelect)
+                {
+                    _selectColorForIndex.Remove(index, out _);
+
+                    if (value != null)
+                        _selectColorForIndex.Add(index, value.Value);
+                }
+                else
+                {
+                    _colorForIndex.Remove(index, out _);
+
+                    if (value != null)
+                        _colorForIndex.Add(index, value.Value);
+                }
+            }
+        }
 
         public SelectOption(ConsoleColor? foregroundColor = null,
             ConsoleColor? backgroundColor = null,
@@ -135,6 +278,8 @@ public partial class Console
             Background = backgroundColor ?? BackgroundColor;
             SelectForeground = selectForeground ?? ConsoleColor.Gray;
             SelectBackground = selectBackground ?? ForegroundColor;
+            _selectColorForIndex = new Dictionary<int, ConsoleColor>();
+            _colorForIndex = new Dictionary<int, ConsoleColor>();
         }
     }
 
@@ -145,6 +290,8 @@ public partial class Console
     {
         private readonly int _x = CursorLeft;
         private readonly int _y = CursorTop;
+
+        public readonly Vector2 Start;
         private List<string> _contentBuffer = new List<string>();
         private CancellationTokenSource? _cts;
         private bool _monitorWindowSize = false;
@@ -169,6 +316,7 @@ public partial class Console
                     _y = (int)start.Value.Y;
             }
 
+            Start = new Vector2(_x, _y);
             Size = size ?? new Vector2(WindowWidth - _x, WindowHeight - _y);
             Top = top ?? '-';
             Bottom = bottom ?? '-';
@@ -205,56 +353,9 @@ public partial class Console
         public ConsoleColor Background { get; init; }
         public bool Shadow { get; init; }
 
-        /*public bool MonitorWindowSize
-        {
-            get { return _monitorWindowSize; }
-            set
-            {
-                _monitorWindowSize = value;
-                if (_monitorWindowSize)
-                    StartWindowSizeMonitor();
-                else
-                    _cts?.Cancel();
-            }
-        }*/
-
         public void Dispose()
         {
             _cts?.Cancel();
-        }
-
-        /*private void StartWindowSizeMonitor()
-        {
-            _cts = new CancellationTokenSource();
-            Task.Run(() =>
-            {
-                var lastWidth = WindowWidth;
-                var lastHeight = WindowHeight;
-                while (!_cts.Token.IsCancellationRequested)
-                {
-                    if (lastWidth != WindowWidth || lastHeight != WindowHeight)
-                    {
-                        lastWidth = WindowWidth;
-                        lastHeight = WindowHeight;
-                        _size = new Vector2(lastWidth, lastHeight);
-                        Draw();
-                    }
-
-                    Thread.Sleep(100);
-                }
-            }, _cts.Token);
-        }*/
-
-        public void SetContent(IEnumerable<string> content)
-        {
-            _contentBuffer = content.ToList();
-            int maxWidth;
-            if (_contentBuffer.Count == 0)
-                maxWidth = 0;
-            else
-                maxWidth = _contentBuffer.Max(line => line.Length);
-
-            _size = new Vector2(maxWidth + 2, _contentBuffer.Count + 2);
         }
 
         public void ScrollUp()
@@ -265,7 +366,7 @@ public partial class Console
 
         public void ScrollDown()
         {
-            if (_scrollOffset < _contentBuffer.Count - _size.Y)
+            if (_scrollOffset < _contentBuffer.Count - (_size.Y - 2))
                 _scrollOffset++;
         }
 
@@ -298,7 +399,7 @@ public partial class Console
                 }
             }
 
-            prevForeground = ForegroundColor;
+            /*prevForeground = ForegroundColor;
             for (var i = 0; i < _size.Y - 2; i++)
             {
                 if (i + _scrollOffset < _contentBuffer.Count)
@@ -307,7 +408,7 @@ public partial class Console
                 }
             }
 
-            ForegroundColor = prevForeground;
+            ForegroundColor = prevForeground;*/
 
             if (Shadow)
             {
