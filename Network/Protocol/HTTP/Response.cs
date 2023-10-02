@@ -16,7 +16,7 @@ public sealed class Response
     public Status Status { get; init; }
 
     public byte[] Content { get; set; } = Array.Empty<byte>();
-    public IReadOnlyDictionary<string, List<string>> Header { get; init; }
+    public IReadOnlyDictionary<string, List<string>> Header { get; init; } = new Dictionary<string, List<string>>();
 
     /// <summary>
     /// Converts the HTTP response to a byte array.

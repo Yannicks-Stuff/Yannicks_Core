@@ -112,26 +112,17 @@ public partial class Console
     /// <returns>The index of the selected option.</returns>
     public static int Select(params string[] options)
     {
-        var sX = (from o in options
-                select Convert.ToInt32(Math.Floor(((WindowWidth - CursorLeft + 1) - o.Length) / 2.0))
-                into x3
-                select ((x3 >= 0) ? x3 : 0)
-                into x3
-                select ((x3 <= WindowWidth) ? x3 : 0))
-            .Prepend(0).Max();
+        var length = options.Max(line => line!.Length) + 2;
+        var sX = Convert.ToInt32(Math.Floor(((WindowWidth - CursorLeft + 1) - length) / 2.0));
+        sX = (sX >= 0) ? sX : 0;
+        sX = (sX <= WindowWidth) ? sX : 0;
 
         var borderSize = new Vector2(sX, CursorTop);
-        var border = Border.DoubleLine(start: borderSize);
+        var border = Border.DoubleLine(start: borderSize,
+            size: new Vector2(length, options.Length + 2));
 
-        CursorLeft = sX;
-
-        return Select(new SelectOption
-        {
-            Foreground = ConsoleColor.White,
-            Background = ConsoleColor.Black,
-            SelectBackground = BackgroundColor,
-            SelectForeground = ConsoleColor.Cyan
-        }, border, true, null, options);
+        return Select(new SelectOption(ConsoleColor.White, ConsoleColor.Black,
+            BackgroundColor, ConsoleColor.Cyan), border, true, null, options);
     }
 
     /// <summary>
@@ -286,16 +277,12 @@ public partial class Console
     /// <summary>
     /// Represents a border with customizable characters, colors, and other features that can be drawn in the console.
     /// </summary>
-    public sealed class Border : IDisposable
+    public sealed class Border
     {
         private readonly int _x = CursorLeft;
         private readonly int _y = CursorTop;
 
         public readonly Vector2 Start;
-        private List<string> _contentBuffer = new List<string>();
-        private CancellationTokenSource? _cts;
-        private bool _monitorWindowSize = false;
-        internal int _scrollOffset = 0;
 
 
         public Border(
@@ -353,22 +340,6 @@ public partial class Console
         public ConsoleColor Background { get; init; }
         public bool Shadow { get; init; }
 
-        public void Dispose()
-        {
-            _cts?.Cancel();
-        }
-
-        public void ScrollUp()
-        {
-            if (_scrollOffset > 0)
-                _scrollOffset--;
-        }
-
-        public void ScrollDown()
-        {
-            if (_scrollOffset < _contentBuffer.Count - (_size.Y - 2))
-                _scrollOffset++;
-        }
 
         public void Draw()
         {

@@ -8,6 +8,51 @@ namespace Yannick.UI;
 
 public partial class Console
 {
+    /// <summary>
+    /// Represents a method that is invoked during the reading of a line of input.
+    /// </summary>
+    /// <param name="currentKey">
+    /// The <see cref="ConsoleKeyInfo"/> object representing the key currently pressed by the user.
+    /// </param>
+    /// <param name="completeTxt">
+    /// The complete text that has been entered so far by the user.
+    /// </param>
+    /// <returns>
+    /// A tuple consisting of the following elements:
+    /// <list type="bullet">
+    /// <item><description><c>OnReadLineStatus skip</c>: A value indicating whether how to continue the program</description></item>
+    /// <item><description><c>string? addTxt</c>: An optional text to be appended to the current input. If null, no text is added.</description></item>
+    /// <item><description><c>Color? foreground</c>: An optional color to change the console's foreground color. If null, the color from ReadLine is use</description></item>
+    /// </list>
+    /// </returns>
+    /// <remarks>
+    /// This delegate can be used to customize the behavior of reading a line of input, allowing for dynamic modifications or validations as the user types.
+    /// </remarks>
+    public delegate (OnReadLineStatus, string?, Color?) OnReadLine(ConsoleKeyInfo currentKey, string completeTxt);
+
+    public enum OnReadLineStatus
+    {
+        /// <summary>
+        /// Skip the current key
+        /// </summary>
+        SKIP,
+
+        /// <summary>
+        /// Continue the loop
+        /// </summary>
+        CONTINUE,
+
+        /// <summary>
+        /// Break the loop and get the current txt
+        /// </summary>
+        EXIT,
+
+        /// <summary>
+        /// Call the error msg and reset the txt
+        /// </summary>
+        ERROR
+    }
+
     private static Animation? _animation;
 
     private static bool _activeAnimation = false;
@@ -156,7 +201,6 @@ public partial class Console
         ClearLine(y[^1], setNewCordsOnLastEntry);
     }
 
-
     /// <summary>
     /// Reads a line of text from the console, providing various customization options.
     /// </summary>
@@ -175,6 +219,7 @@ public partial class Console
     /// <param name="defaultVal">Default return value if max attempts are reached.</param>
     /// <param name="maxTrys">Maximum number of input attempts allowed.</param>
     /// <param name="clearAfterReadLine">Indicates whether to clear the line after reading input.</param>
+    /// <param name="onKeyInput">Represents a method that is invoked during the reading of a line of input.</param>
     /// <returns>The user input string, or the default value if max attempts are reached.</returns>
     [SupportedOSPlatform("windows10.0.14393.0")]
     [SupportedOSPlatform("linux")]
@@ -184,21 +229,43 @@ public partial class Console
         Func<string?, bool>? onUserInput = null,
         string? msgOnError = null, Color? msgErrorForeground = null, string? msgOnSuccess = null,
         Color? msgSuccessForeground = null, uint? maxWidth = null, bool allowedInvisibleChars = true, char? mask = null,
-        TimeSpan? wait = null, string? defaultVal = default, byte maxTrys = 0, bool clearAfterReadLine = false)
+        TimeSpan? wait = null, string? defaultVal = default, uint maxTrys = 0, bool clearAfterReadLine = false,
+        OnReadLine? onKeyInput = null, bool cursorVisible = true)
     {
+        if (beforeReadMsg == null &&
+            beforeMsgForeground == null &&
+            userForeground == null &&
+            onUserInput == null &&
+            msgOnError == null &&
+            msgErrorForeground == null &&
+            msgOnSuccess == null &&
+            msgSuccessForeground == null &&
+            maxWidth == null &&
+            mask == null &&
+            wait == null &&
+            defaultVal == null)
+            return global::System.Console.ReadLine();
+
+
+        var s = CursorVisible;
         var cF = ForegroundColor24;
         var cB = BackgroundColor24;
+
+        CursorVisible = cursorVisible;
 
         beforeMsgForeground ??= Color.White;
         userForeground ??= Color.Cyan;
         msgErrorForeground ??= Color.Red;
         msgSuccessForeground ??= Color.Green;
         maxWidth ??= Convert.ToUInt32(WindowWidth - (beforeReadMsg?.Length ?? 0));
-        maxTrys = Convert.ToByte((maxTrys < 1 ? 1 : maxTrys) + 1);
+        maxTrys = (maxTrys < 1 ? 1 : maxTrys);
+        maxTrys = maxTrys < uint.MaxValue ? maxTrys + 1 : maxTrys;
 
         var txt = "";
         var sX = CursorLeft;
-        var isStartEscapeS = false;
+        var sXR = CursorLeft;
+        var sY = CursorTop;
+        //var isStartEscapeS = false;
 
         if (beforeReadMsg != null)
         {
@@ -213,10 +280,29 @@ public partial class Console
 
             var key = ReadKey(true);
 
+            if (onKeyInput != null)
+            {
+                var (skip, addTxt, foreground) = onKeyInput(key, txt);
+
+                if (addTxt != null)
+                    foreach (var t in addTxt)
+                        Append(t, foreground);
+
+                if (skip == OnReadLineStatus.EXIT)
+                    break;
+                else
+                    switch (skip)
+                    {
+                        case OnReadLineStatus.SKIP:
+                            continue;
+                        case OnReadLineStatus.ERROR:
+                            DrawError();
+                            continue;
+                    }
+            }
+
             if (key.Key == ConsoleKey.Enter)
             {
-                WriteLine();
-
                 if (onUserInput == null)
                     break;
 
@@ -242,14 +328,7 @@ public partial class Console
                     if (msgOnError == null)
                         continue;
 
-                    ClearLine();
-                    Write(msgOnError,
-                        msgErrorForeground.Value, cB);
-
-                    if (wait != null)
-                        Thread.Sleep(wait.Value);
-
-                    ClearLine();
+                    DrawError();
                 }
             }
             else
@@ -311,37 +390,28 @@ public partial class Console
                     }
                     default:
                     {
-                        var cursorPosition = CursorLeft - sX;
-                        var t = NewText(key.KeyChar);
-                        txt = txt.Insert(cursorPosition, t);
-
-                        if (txt.Length <= maxWidth)
-                        {
-                            Write(txt[cursorPosition..], userForeground.Value, cB);
-                            CursorLeft = cursorPosition + t.Length + sX;
-                        }
-                        else if (allowedInvisibleChars && cursorPosition < maxWidth)
-                        {
-                            Write(txt.Substring(cursorPosition, (int)maxWidth.Value - cursorPosition),
-                                userForeground.Value, cB);
-                            CursorLeft = cursorPosition + t.Length + sX;
-                        }
-
+                        Append(key.KeyChar);
                         break;
                     }
                 }
         } while (true);
 
         if (clearAfterReadLine)
-            ClearLine();
+            ClearLine(true);
+
+        WriteLine();
+
+        CursorVisible = s;
 
         return maxTrys == 0 ? defaultVal : txt;
 
-        void ClearLine()
+        void ClearLine(bool isOnExit = false)
         {
-            CursorLeft = sX;
-            Write(new string(' ', Convert.ToInt32(maxWidth!.Value)), cF, cB);
-            CursorLeft = sX;
+            CursorLeft = isOnExit ? sXR : sX;
+            CursorTop = sY;
+            Write(new string(' ', Convert.ToInt32(maxWidth!.Value) + (Math.Min(sX, sXR) - Math.Min(sXR, sX))), cF, cB);
+            CursorLeft = isOnExit ? sXR : sX;
+            ;
         }
 
         string NewText(char key)
@@ -367,6 +437,43 @@ public partial class Console
             }*/
 
             return mask.HasValue ? mask.Value.ToString() : newK;
+        }
+
+        void Append(char k, Color? otherForeground = null)
+        {
+            var cursorPosition = CursorLeft - sX;
+
+            var t = NewText(k);
+            txt = txt.Insert(cursorPosition, t);
+
+            if (txt.Length <= maxWidth)
+            {
+                Write(txt[cursorPosition..], otherForeground ?? userForeground.Value, cB);
+                CursorLeft = cursorPosition + t.Length + sX;
+            }
+            else if (allowedInvisibleChars && cursorPosition < maxWidth)
+            {
+                Write(txt.Substring(cursorPosition, (int)maxWidth.Value - cursorPosition),
+                    otherForeground ?? userForeground.Value, cB);
+                CursorLeft = cursorPosition + t.Length + sX;
+            }
+        }
+
+        void DrawError()
+        {
+            txt = "";
+
+            if (msgOnError == null)
+                return;
+
+            ClearLine();
+            Write(msgOnError,
+                msgErrorForeground.Value, cB);
+
+            if (wait != null)
+                Thread.Sleep(wait.Value);
+
+            ClearLine();
         }
     }
 

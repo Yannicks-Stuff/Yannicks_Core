@@ -19,11 +19,11 @@ public static partial class Server
         }
 
         public Version Version { get; init; } = Version.HTTP_1_0;
-        public event Action<User> OnHeaderToBig;
-        public event Action<User, SocketException> OnSocketException;
-        public event Action<User, IOException> OnIOException;
-        public event Action<User, Exception> OnUnknowException;
-        public event Action<User, IReadOnlyList<Request>> OnRequest;
+        public event Action<User>? OnHeaderToBig;
+        public event Action<User, SocketException>? OnSocketException;
+        public event Action<User, IOException>? OnIOException;
+        public event Action<User, Exception>? OnUnknowException;
+        public event Action<User, IReadOnlyList<Request>>? OnRequest;
 
         private void OnClientConnect(User user)
         {
@@ -115,9 +115,7 @@ public static partial class Server
                                                      ? int.Parse(header[0])
                                                      : 0)).ToArray();
             if (remainingData.Length > 0)
-            {
                 goto again;
-            }
 
             OnRequest?.Invoke(usr, reqL);
         }

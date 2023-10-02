@@ -84,6 +84,29 @@ public partial class Console
             consoleColors = linker.LinkStatic<CurrentBackgroundFromWindowsCMD>("CurrentColorPlate")!();
             colorsConsole = consoleColors.Swap();
         }
+        else
+        {
+            consoleColors = new Dictionary<ConsoleColor, Color>
+            {
+                { ConsoleColor.Black, Color.Black },
+                { ConsoleColor.DarkBlue, Color.DarkBlue },
+                { ConsoleColor.DarkGreen, Color.DarkGreen },
+                { ConsoleColor.DarkCyan, Color.DarkCyan },
+                { ConsoleColor.DarkRed, Color.DarkRed },
+                { ConsoleColor.DarkMagenta, Color.DarkMagenta },
+                { ConsoleColor.DarkYellow, Color.Olive },
+                { ConsoleColor.Gray, Color.Gray },
+                { ConsoleColor.DarkGray, Color.DarkGray },
+                { ConsoleColor.Blue, Color.Blue },
+                { ConsoleColor.Green, Color.Green },
+                { ConsoleColor.Cyan, Color.Cyan },
+                { ConsoleColor.Red, Color.Red },
+                { ConsoleColor.Magenta, Color.Magenta },
+                { ConsoleColor.Yellow, Color.Yellow },
+                { ConsoleColor.White, Color.White }
+            };
+            colorsConsole = consoleColors.Swap();
+        }
     }
 
     public static Color ForegroundColor24

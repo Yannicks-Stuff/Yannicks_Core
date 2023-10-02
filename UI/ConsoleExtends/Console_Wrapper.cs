@@ -217,10 +217,6 @@ public partial class Console
         return global::System.Console.ReadKey(intercept);
     }
 
-
-    public static string? ReadLine() => global::System.Console.ReadLine();
-
-
     public static void ResetColor()
     {
         global::System.Console.ResetColor();

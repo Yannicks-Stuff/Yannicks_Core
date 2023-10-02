@@ -40,7 +40,10 @@ namespace Yannick.Network
                 if (transportType == ProtocolType.Tcp)
                     socket.Connect(new IPEndPoint(address, port));
                 else
-                    socket.Bind(new IPEndPoint(address, port));
+                {
+                    socket.SendTo(new byte[1], new IPEndPoint(address, port));
+                    return socket.Poll(timeout.Value.Milliseconds, SelectMode.SelectRead);
+                }
 
                 return true;
             }

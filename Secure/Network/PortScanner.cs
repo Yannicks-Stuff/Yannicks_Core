@@ -1,3 +1,5 @@
+using Yannick.Network;
+
 namespace Yannick.Secure.Network;
 
 using System;
@@ -10,71 +12,39 @@ using System.Net.Sockets;
 public class PortScanner
 {
     /// <summary>
-    /// Checks if a specific port is open on a given IP address using the specified protocol.
-    /// </summary>
-    /// <param name="address">The IP address to check.</param>
-    /// <param name="port">The port number to check.</param>
-    /// <param name="protocolType">The protocol to use (TCP or UDP).</param>
-    /// <returns>True if the port is open, false otherwise.</returns>
-    public static bool IsPortOpen(IPAddress address, ushort port, ProtocolType protocolType)
-    {
-        try
-        {
-            using var sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, protocolType);
-            sock.Connect(address, port);
-            return sock.Connected;
-        }
-        catch (Exception)
-        {
-            return false;
-        }
-    }
-
-    /// <summary>
-    /// Checks if a specific TCP port is open on a given IP address.
-    /// </summary>
-    /// <param name="address">The IP address to check.</param>
-    /// <param name="port">The port number to check.</param>
-    /// <returns>True if the port is open, false otherwise.</returns>
-    public static bool IsTcpPortOpen(IPAddress address, ushort port)
-        => IsPortOpen(address, port, ProtocolType.Tcp);
-
-    /// <summary>
-    /// Checks if a specific UDP port is open on a given IP address.
-    /// </summary>
-    /// <param name="address">The IP address to check.</param>
-    /// <param name="port">The port number to check.</param>
-    /// <returns>True if the port is open, false otherwise.</returns>
-    public static bool IsUdpPortOpen(IPAddress address, ushort port)
-        => IsPortOpen(address, port, ProtocolType.Udp);
-
-    /// <summary>
-    /// Scans a range of ports on a given IP address using the specified protocol.
+    /// Scans the specified IP address for open ports within the given range.
     /// </summary>
     /// <param name="address">The IP address to scan.</param>
-    /// <param name="from">The starting port number.</param>
-    /// <param name="to">The ending port number.</param>
-    /// <param name="protocolType">The protocol to use (TCP or UDP).</param>
-    /// <returns>A list of open ports within the specified range.</returns>
-    public static async Task<List<ushort>> Scan(IPAddress address, ushort from, ushort to, ProtocolType protocolType)
+    /// <param name="from">The starting port for the scan (inclusive). Default is 1.</param>
+    /// <param name="to">The ending port for the scan (inclusive). Default is 65535.</param>
+    /// <param name="timeout">The timeout for each port check. Default is 2 seconds.</param>
+    /// <param name="protocolType">The protocol type to use for scanning (TCP/UDP). Default is TCP.</param>
+    /// <param name="maxDegreeOfParallelism">The maximum number of concurrent tasks for the scan. If not provided, it defaults to the number of processor cores.</param>
+    /// <returns>A list of open ports found during the scan.</returns>
+    public static async Task<List<ushort>> Scan(IPAddress address, ushort? from = null, ushort? to = null,
+        TimeSpan? timeout = null, ProtocolType protocolType = ProtocolType.Tcp, int? maxDegreeOfParallelism = null)
     {
-        var openPorts = new List<ushort>();
-        var tasks = new List<Task>();
+        from ??= 1;
+        to ??= 65535;
 
-        for (var port = from; port <= to; port++)
+        var availablePorts = new List<ushort>();
+        var allPorts = Enumerable.Range(from.Value, to.Value - from.Value + 1).ToList();
+
+        maxDegreeOfParallelism ??= Environment.ProcessorCount;
+
+        await Task.Run(() =>
         {
-            var port1 = port;
-            tasks.Add(Task.Run(() =>
-            {
-                if (!IsPortOpen(address, port1, protocolType)) return;
-                lock (openPorts)
+            Parallel.ForEach(allPorts, new ParallelOptions { MaxDegreeOfParallelism = maxDegreeOfParallelism.Value },
+                port =>
                 {
-                    openPorts.Add(port1);
-                }
-            }));
-        }
+                    if (!PortInfo.IsPortOpen((ushort)port, address, protocolType, timeout)) return;
+                    lock (availablePorts)
+                    {
+                        availablePorts.Add((ushort)port);
+                    }
+                });
+        });
 
-        await Task.WhenAll(tasks);
-        return openPorts;
+        return availablePorts;
     }
 }

@@ -20,4 +20,20 @@ public static class IntPtrExtension
     {
         return (int)((IntPtr.Size <= 4) ? ptr.ToInt32() : ptr.ToInt64());
     }
+
+    /// <summary>
+    /// Converts the value of the specified <see cref="System.IntPtr"/> to a 64-bit unsigned integer.
+    /// </summary>
+    /// <param name="ptr">The pointer to convert.</param>
+    /// <returns>
+    /// A 64-bit signed integer that represents the value of the pointer.
+    /// </returns>
+    /// <remarks>
+    /// This method safely converts the value of the specified <see cref="System.IntPtr"/> 
+    /// to a 64-bit unsigned integer, considering the platform architecture (x86 or x64).
+    /// </remarks>
+    public static ulong ToSafeUint64(this IntPtr ptr)
+    {
+        return Convert.ToUInt64((IntPtr.Size <= 4) ? ptr.ToInt32() : ptr.ToInt64());
+    }
 }

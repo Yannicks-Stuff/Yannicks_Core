@@ -92,7 +92,7 @@ namespace Yannick.Network.Protocol.TCP
         /// <summary>
         /// Triggered when data is available to read from a user.
         /// </summary>
-        public event Action<User> OnAvailable;
+        public event Action<User>? OnAvailable;
 
         /// <summary>
         /// Starts the server synchronously.
@@ -254,12 +254,12 @@ namespace Yannick.Network.Protocol.TCP
             /// <summary>
             /// Triggered when data is received.
             /// </summary>
-            public event Action<byte[]> OnReceive;
+            public event Action<byte[]>? OnReceive;
 
             /// <summary>
             /// Triggered when data is available to read
             /// </summary>
-            public event Action OnAvailable;
+            public event Action? OnAvailable;
 
             private void HeartTick()
             {
