@@ -312,4 +312,69 @@ public static partial class User32
         IntPtr hMenu,
         IntPtr hInstance,
         IntPtr lpParam);
+
+    /// <summary>
+    /// Creates an overlapped, pop-up, or child window with an extended window style.
+    /// </summary>
+    /// <param name="dwExStyle">The extended window style of the window being created.</param>
+    /// <param name="lpClassName">className.</param>
+    /// <param name="lpWindowName">The window name.</param>
+    /// <param name="dwStyle">The style of the window being created.</param>
+    /// <param name="x">The initial horizontal position of the window.</param>
+    /// <param name="y">The initial vertical position of the window.</param>
+    /// <param name="nWidth">The width of the window.</param>
+    /// <param name="nHeight">The height of the window.</param>
+    /// <param name="hWndParent">A handle to the parent or owner window of the window being created.</param>
+    /// <param name="hMenu">A handle to a menu, or specifies a child-window identifier depending on the window style.</param>
+    /// <param name="hInstance">A handle to the instance of the module to be associated with the window.</param>
+    /// <param name="lpParam">A pointer to a value to be passed to the window through the CREATESTRUCT structure.</param>
+    /// <returns>If the function succeeds, the return value is a handle to the new window.</returns>
+    [DllImport(Dll, SetLastError = true, EntryPoint = "CreateWindowEx")]
+    public static extern IntPtr CreateWindowEx(
+        WindowStylesEx dwExStyle,
+        string lpClassName,
+        string lpWindowName,
+        WindowStyles dwStyle,
+        int x,
+        int y,
+        int nWidth,
+        int nHeight,
+        IntPtr hWndParent,
+        IntPtr hMenu,
+        IntPtr hInstance,
+        IntPtr lpParam);
+
+    /// <summary>
+    /// Changes the parent window of the specified child window.
+    /// </summary>
+    /// <param name="hWndChild">A handle to the child window.</param>
+    /// <param name="hWndNewParent">A handle to the new parent window. If this parameter is NULL, the desktop window becomes the new parent window.</param>
+    /// <returns>If the function succeeds, the return value is a handle to the previous parent window. If the function fails, the return value is NULL.</returns>
+    /// <remarks>
+    /// The SetParent function changes the parent window of the specified child window, but it does not change the owner window. An application can change the owner window by calling the SetWindowLong function.
+    /// For more information, see the native SetParent function documentation: https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setparent
+    /// </remarks>
+    [DllImport(Dll, SetLastError = true)]
+    public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+
+    /// <summary>
+    /// Retrieves a handle to the top-level window whose class name and window name match the specified strings.
+    /// This function does not search child windows.
+    /// </summary>
+    /// <param name="lpClassName">
+    /// The class name or a class atom created by a previous call to the RegisterClass or RegisterClassEx function.
+    /// If lpClassName is NULL, it finds any window whose title matches the lpWindowName parameter.
+    /// </param>
+    /// <param name="lpWindowName">
+    /// The window name (the window's title). If this parameter is NULL, all window names match.
+    /// </param>
+    /// <returns>
+    /// If the function succeeds, the return value is a handle to the window that has the specified class name and window name.
+    /// If the function fails, the return value is NULL. To get extended error information, call GetLastError.
+    /// </returns>
+    /// <remarks>
+    /// The FindWindow function does not find child windows.
+    /// </remarks>
+    [DllImport(Dll, SetLastError = true)]
+    public static extern IntPtr FindWindow([Optional] string? lpClassName, [Optional] string? lpWindowName);
 }

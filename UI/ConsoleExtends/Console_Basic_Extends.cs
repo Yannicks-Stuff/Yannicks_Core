@@ -262,6 +262,7 @@ public partial class Console
         maxTrys = maxTrys < uint.MaxValue ? maxTrys + 1 : maxTrys;
 
         var txt = "";
+        var realTxt = "";
         var sX = CursorLeft;
         var sXR = CursorLeft;
         var sY = CursorTop;
@@ -282,7 +283,7 @@ public partial class Console
 
             if (onKeyInput != null)
             {
-                var (skip, addTxt, foreground) = onKeyInput(key, txt);
+                var (skip, addTxt, foreground) = onKeyInput(key, realTxt);
 
                 if (addTxt != null)
                     foreach (var t in addTxt)
@@ -306,7 +307,7 @@ public partial class Console
                 if (onUserInput == null)
                     break;
 
-                if (onUserInput.Invoke(txt))
+                if (onUserInput.Invoke(realTxt))
                 {
                     if (msgOnSuccess == null)
                         break;
@@ -324,6 +325,7 @@ public partial class Console
                 {
                     maxTrys--;
                     txt = "";
+                    realTxt = "";
 
                     if (msgOnError == null)
                         continue;
@@ -343,6 +345,7 @@ public partial class Console
                             continue;
 
                         txt = txt.Remove(cursorPosition - 1, 1);
+                        realTxt = realTxt.Remove(cursorPosition - 1, 1);
 
                         CursorLeft -= 1;
 
@@ -358,6 +361,7 @@ public partial class Console
                     {
                         var cursorPosition = CursorLeft - sX;
                         txt = txt.Insert(cursorPosition, "    ");
+                        realTxt = realTxt.Insert(cursorPosition, "    ");
 
                         if (txt.Length > maxWidth)
                         {
@@ -403,7 +407,7 @@ public partial class Console
 
         CursorVisible = s;
 
-        return maxTrys == 0 ? defaultVal : txt;
+        return maxTrys == 0 ? defaultVal : realTxt;
 
         void ClearLine(bool isOnExit = false)
         {
@@ -411,7 +415,6 @@ public partial class Console
             CursorTop = sY;
             Write(new string(' ', Convert.ToInt32(maxWidth!.Value) + (Math.Min(sX, sXR) - Math.Min(sXR, sX))), cF, cB);
             CursorLeft = isOnExit ? sXR : sX;
-            ;
         }
 
         string NewText(char key)
@@ -445,6 +448,8 @@ public partial class Console
 
             var t = NewText(k);
             txt = txt.Insert(cursorPosition, t);
+            realTxt = realTxt.Insert(cursorPosition, k.ToString());
+
 
             if (txt.Length <= maxWidth)
             {
@@ -462,6 +467,7 @@ public partial class Console
         void DrawError()
         {
             txt = "";
+            realTxt = "";
 
             if (msgOnError == null)
                 return;

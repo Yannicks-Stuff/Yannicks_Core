@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Yannicks Firma")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("0.1.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("0.1+1723eabe273d23f982c306de050446feb1f82a74")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("0.1")]
 [assembly: System.Reflection.AssemblyProductAttribute("Core9")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Core9")]
 [assembly: System.Reflection.AssemblyVersionAttribute("0.1.0.0")]

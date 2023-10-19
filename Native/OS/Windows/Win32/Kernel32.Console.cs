@@ -22,10 +22,19 @@ public static partial class Kernel32
     public static extern bool SetConsoleMode(IntPtr hConsoleHandle, int dwMode);
 
 
-    [DllImport("kernel32.dll", SetLastError = true)]
+    [DllImport(DLL, SetLastError = true)]
     public static extern bool GetConsoleScreenBufferInfoEx(IntPtr hConsoleOutput,
         ref CONSOLE_SCREEN_BUFFER_INFOEX csbie);
 
+    [DllImport(DLL, SetLastError = true)]
+    public static extern bool SetConsoleDisplayMode(
+        IntPtr consoleOutput,
+        uint flags,
+        IntPtr newScreenBufferDimensions
+    );
+
+    [DllImport(DLL, SetLastError = true)]
+    public static extern IntPtr GetConsoleWindow();
 
     [StructLayout(LayoutKind.Sequential)]
     public struct CONSOLE_SCREEN_BUFFER_INFOEX

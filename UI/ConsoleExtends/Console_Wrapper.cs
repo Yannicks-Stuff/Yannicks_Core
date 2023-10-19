@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Runtime.Versioning;
 using System.Text;
@@ -145,6 +146,37 @@ public partial class Console
 
 
     public static void Clear() => global::System.Console.Clear();
+    public static void Clear24() => Fill(0, 0, WindowWidth, WindowHeight, ' ', ForegroundColor24, BackgroundColor24);
+
+
+    public static void Fill(int startX = 0, int startY = 0, int width = 0, int height = 0, char character = '*',
+        Color? foregroundColor = null, Color? backgroundColor = null)
+    {
+        var sA = CursorVisible;
+        CursorVisible = false;
+        var (xC, yC) = Cursor;
+
+        startX = Math.Max(0, startX);
+        startY = Math.Max(0, startY);
+        width = Math.Max(0, width);
+        width = Math.Min(width, WindowWidth - startX);
+        height = Math.Max(0, height);
+        height = Math.Min(height, WindowHeight - startY);
+
+
+        for (var y = startY; y < startY + height; y++)
+        {
+            for (var x = startX; x < startX + width; x++)
+            {
+                SetCursorPosition(x, y);
+                Write(character.ToString(), foregroundColor, backgroundColor);
+            }
+        }
+
+        SetCursorPosition(xC, yC);
+        CursorVisible = sA;
+    }
+
 
     public static void Beep()
     {

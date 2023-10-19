@@ -126,6 +126,9 @@ public partial class Console
 
     public static void SetColor(Color fb, Color bg)
     {
+        if (!OperatingSystem.IsWindows())
+            return;
+
         if (colorsConsole.ContainsKey(fb))
             ForegroundColor = colorsConsole[fb];
         else
@@ -334,12 +337,12 @@ public partial class Console
     {
         if (foreground.HasValue)
         {
-            Console.Write(GetTrueColorAnsiCode(foreground.Value));
+            Write(GetTrueColorAnsiCode(foreground.Value));
         }
 
         if (background.HasValue)
         {
-            Console.Write(GetTrueColorAnsiCode(background.Value, true));
+            Write(GetTrueColorAnsiCode(background.Value, true));
         }
     }
 
@@ -527,7 +530,7 @@ public partial class Console
 
         public Formatter StopUseStyle(AnsiGraphicMode style)
         {
-            Console.WriteStyleStop(style);
+            WriteStyleStop(style);
             return this;
         }
 
@@ -537,18 +540,17 @@ public partial class Console
             return this;
         }
 
-        public Formatter Write(string txt, Color fb, Color bg, TimeSpan? waitBetweenChars = null)
+        public Formatter Write(string txt, Color fb, Color? bg = null, TimeSpan? waitBetweenChars = null)
         {
             if (waitBetweenChars == null)
                 Console.Write(txt, fb, bg);
             else
                 foreach (var c in txt.ToCharArray())
                 {
-                    System.Console.Write(c);
+                    Console.Write(c.ToString(), fb, bg);
                     Thread.Sleep(waitBetweenChars.Value);
                 }
 
-            Console.WriteColor(fb, bg);
             return this;
         }
 
