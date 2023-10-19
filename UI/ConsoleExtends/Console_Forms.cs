@@ -92,11 +92,16 @@ public partial class Console
 
         public class TextItem : Item
         {
+            public TextItem(ItemChar[] text)
+            {
+                Text = text;
+            }
+
             public ItemChar[] Text { get; set; }
             public uint VisibleTextLength { get; protected set; }
 
 
-            public void Draw()
+            public override void Draw()
             {
                 var absolutePosition = CalculateAbsolutePosition();
                 SetCursorPosition((int)absolutePosition.X, (int)absolutePosition.Y);

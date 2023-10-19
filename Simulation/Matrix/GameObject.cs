@@ -43,7 +43,7 @@ public abstract class GameObject : object, IEquatable<GameObject>
 
     public Kelvin Temperature { get; protected set; }
     public Vector3 Position { get; init; }
-    public Chunk Chunk { get; init; }
+    public Chunk? Chunk { get; init; }
     public Litre Volume { get; init; }
     public Guid ID => Server.CreateNewObjectID(this);
     public bool IsStatic { get; init; }

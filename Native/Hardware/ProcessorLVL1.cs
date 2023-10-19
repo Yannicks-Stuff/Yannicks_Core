@@ -105,16 +105,16 @@ namespace Yannick.Native.Hardware
             if (MaxFunction == 0)
             {
                 ApicId = default;
-                BrandString = default;
+                BrandString = string.Empty;
                 CoreId = default;
                 Family = default;
-                Flags = default;
+                Flags = new List<CPU_FLAG>();
                 Manufacturer = default;
-                ManufacturerName = default;
+                ManufacturerName = string.Empty;
                 Model = default;
                 Stepping = default;
                 ThreadId = default;
-                Name = default;
+                Name = string.Empty;
                 ProcessorId = default;
                 return;
             }

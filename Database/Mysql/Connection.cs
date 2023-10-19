@@ -49,6 +49,7 @@ public sealed class Connection : IDisposable, IAsyncDisposable
             { Server = domain, Port = port };
     }
 
+
     /// <summary>
     /// Asynchronously releases all resources used by the <see cref="Connection"/> object.
     /// </summary>

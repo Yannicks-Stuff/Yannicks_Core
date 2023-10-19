@@ -32,7 +32,7 @@ namespace Yannick.Native.Hardware
 
         public static uint MaxFunction { get; private set; }
         public static Vendor Manufacturer { get; private set; }
-        public static string ManufacturerName { get; private set; }
+        public static string? ManufacturerName { get; private set; }
 
         private static void CPU_LVL_0()
         {

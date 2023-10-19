@@ -125,7 +125,7 @@ public class Memory
                     var isMatch = true;
                     for (var j = 0; j < pattern.Length; j++)
                     {
-                        if (!mask[j].HasValue || mask[j].Value == block[i + j]) continue;
+                        if (!mask[j].HasValue || mask[j]!.Value == block[i + j]) continue;
                         isMatch = false;
                         break;
                     }

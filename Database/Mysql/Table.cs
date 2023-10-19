@@ -81,6 +81,183 @@ public sealed class Table
 
         return false;
     }
+/*
+    #region Optimizer
+
+    [Flags]
+    public enum OptimisationFlags
+    {
+        None = 0,
+        OptimizeTable = 1,
+        UpdateStatistics = 4,
+        ClearTableCache = 8,
+        ConvertToInnoDB = 16,
+        ConvertToMyISAM = 32,
+        CheckTable = 64,
+        RepairTable = 128,
+        CompressTable = 512
+    }
+
+    public static void Optimise(Table tb, OptimisationFlags flags)
+    {
+        if (tb.Database == null || tb._connection == null || (flags.HasFlag(OptimisationFlags.ConvertToInnoDB) &&
+                                                              flags.HasFlag(OptimisationFlags.ConvertToMyISAM)))
+            return;
+
+        var con = (Connection)tb;
+
+        if (flags.HasFlag(OptimisationFlags.ConvertToInnoDB))
+            con.UpdateSelect($"ALTER TABLE `{tb.Database.Name}`.`{tb.Name}` ENGINE=INNODB");
+
+        if (flags.HasFlag(OptimisationFlags.ConvertToMyISAM))
+            con.UpdateSelect($"ALTER TABLE `{tb.Database.Name}`.`{tb.Name}` ENGINE=MYISAM");
+
+        if (flags.HasFlag(OptimisationFlags.CompressTable))
+            con.UpdateSelect($"ALTER TABLE `{tb.Database.Name}`.`{tb.Name}` ROW_FORMAT=COMPRESSED");
+    }
+
+    #endregion*/
+
+
+    #region ANALYZE
+
+    public int Analyze() => Check(this);
+
+    public static int Analyze(Table table)
+    {
+        if (table._connection == null || table.Database == null)
+            return -1;
+
+        var con = (Connection)table;
+
+        return con.UpdateSelect($"ANALYZE TABLE `{table.Database.Name}`.`{table.Name}`");
+    }
+
+    public async Task<int> AnalyzeAsync(CancellationToken token = default) => await AnalyzeAsync(this, token);
+
+    public static async Task<int> AnalyzeAsync(Table table, CancellationToken token = default)
+    {
+        if (table._connection == null || table.Database == null)
+            return -1;
+
+        var con = (Connection)table;
+
+        return await con.UpdateSelectAsync($"ANALYZE TABLE `{table.Database.Name}`.`{table.Name}`", token);
+    }
+
+    #endregion
+
+    #region CHECK
+
+    public int Check() => Check(this);
+
+    public static int Check(Table table)
+    {
+        if (table._connection == null || table.Database == null)
+            return -1;
+
+        var con = (Connection)table;
+
+        return con.UpdateSelect($"CHECK TABLE `{table.Database.Name}`.`{table.Name}`");
+    }
+
+    public async Task<int> CheckAsync(CancellationToken token = default) => await CheckAsync(this, token);
+
+    public static async Task<int> CheckAsync(Table table, CancellationToken token = default)
+    {
+        if (table._connection == null || table.Database == null)
+            return -1;
+
+        var con = (Connection)table;
+
+        return await con.UpdateSelectAsync($"CHECK TABLE `{table.Database.Name}`.`{table.Name}`", token);
+    }
+
+    #endregion
+
+    #region OPTIMIZE
+
+    public int Optimize() => Optimize(this);
+
+    public static int Optimize(Table table)
+    {
+        if (table._connection == null || table.Database == null)
+            return -1;
+
+        var con = (Connection)table;
+
+        return con.UpdateSelect($"OPTIMIZE TABLE `{table.Database.Name}`.`{table.Name}`");
+    }
+
+    public async Task<int> OptimizeAsync(CancellationToken token = default) => await OptimizeAsync(this, token);
+
+    public static async Task<int> OptimizeAsync(Table table, CancellationToken token = default)
+    {
+        if (table._connection == null || table.Database == null)
+            return -1;
+
+        var con = (Connection)table;
+
+        return await con.UpdateSelectAsync($"OPTIMIZE TABLE `{table.Database.Name}`.`{table.Name}`", token);
+    }
+
+    #endregion
+
+    #region FLUSH
+
+    public int Flush() => Flush(this);
+
+    public static int Flush(Table table)
+    {
+        if (table._connection == null || table.Database == null)
+            return -1;
+
+        var con = (Connection)table;
+
+        return con.UpdateSelect($"FLUSH TABLE `{table.Database.Name}`.`{table.Name}`");
+    }
+
+    public async Task<int> FlushAsync(CancellationToken token = default) => await FlushAsync(this, token);
+
+    public static async Task<int> FlushAsync(Table table, CancellationToken token = default)
+    {
+        if (table._connection == null || table.Database == null)
+            return -1;
+
+        var con = (Connection)table;
+
+        return await con.UpdateSelectAsync($"FLUSH TABLE `{table.Database.Name}`.`{table.Name}`", token);
+    }
+
+    #endregion
+
+    #region REPAIR
+
+    public int Repair() => Repair(this);
+
+    public static int Repair(Table table)
+    {
+        if (table._connection == null || table.Database == null)
+            return -1;
+
+        var con = (Connection)table;
+
+        return con.UpdateSelect($"REPAIR TABLE `{table.Database.Name}`.`{table.Name}`");
+    }
+
+    public async Task<int> RepairAsync(CancellationToken token = default) => await RepairAsync(this, token);
+
+    public static async Task<int> RepairAsync(Table table, CancellationToken token = default)
+    {
+        if (table._connection == null || table.Database == null)
+            return -1;
+
+        var con = (Connection)table;
+
+        return await con.UpdateSelectAsync($"REPAIR TABLE `{table.Database.Name}`.`{table.Name}`", token);
+    }
+
+    #endregion
 
     #region ALTER
 
@@ -342,6 +519,10 @@ public sealed class Table
             return -1;
 
         return await _connection.UpdateSelectAsync($"TRUNCATE TABLE `{Database}`.`{this}`;", token);
+    }
+
+    public static void Optimise(string db, string tb)
+    {
     }
 
     #endregion
