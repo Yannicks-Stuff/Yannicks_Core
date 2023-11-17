@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using System.Net.Sockets;
 
 namespace Yannick.Network;

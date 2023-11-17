@@ -24,9 +24,7 @@ public abstract class PageResult
         {
             Version = version,
             Status = Status,
-            Header = new Dictionary<string, List<string>>
-            {
-            },
+            Header = new Dictionary<string, List<string>>(),
             Content = data
         };
     }

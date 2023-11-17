@@ -1,11 +1,10 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using Yannick.Native.OS.Windows.Win32;
 using static Yannick.Native.OS.Windows.Win32.Kernel32;
 
 namespace Yannick.Native.OS.Windows;
 
-public class Memory
+public class Memory : IDisposable
 {
     public enum DataType
     {
@@ -21,19 +20,28 @@ public class Memory
         ULong
     }
 
-    private List<IntPtr> _currentAddresses = new();
+    private readonly IntPtr _processHandle;
 
-
-    private IntPtr _processHandle;
+    private List<IntPtr> _currentAddresses;
 
     public Memory(string processName)
     {
-        _processHandle = Memory.GetProcessHandle(processName);
+        _currentAddresses = new List<IntPtr>();
+        _processHandle = GetProcessHandle(processName);
         if (_processHandle == IntPtr.Zero)
         {
             throw new Exception($"Could not open process {processName}");
         }
     }
+
+    public Memory(Process process)
+    {
+        _currentAddresses = new List<IntPtr>();
+        _processHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION,
+            false, process.Id);
+    }
+
+    public void Dispose() => CloseHandle(_processHandle);
 
     public object Read(IntPtr address, DataType dataType)
     {
@@ -82,10 +90,10 @@ public class Memory
                 data = BitConverter.GetBytes((ushort)value);
                 break;
             case DataType.Byte:
-                data = new byte[] { (byte)value };
+                data = new[] { (byte)value };
                 break;
             case DataType.SByte:
-                data = new byte[] { (byte)(sbyte)value };
+                data = new[] { (byte)(sbyte)value };
                 break;
             case DataType.Float:
                 data = BitConverter.GetBytes((float)value);
@@ -105,7 +113,6 @@ public class Memory
 
         WriteMemory(_processHandle, address, data);
     }
-
 
     public IntPtr FindPattern(byte[] pattern, byte?[] mask)
     {
@@ -234,7 +241,5 @@ public class Memory
     }
 
     public static void WriteMemory(IntPtr processHandle, IntPtr address, byte[] data)
-    {
-        WriteProcessMemory(processHandle, address, data, (uint)data.Length, out _);
-    }
+        => WriteProcessMemory(processHandle, address, data, (uint)data.Length, out _);
 }

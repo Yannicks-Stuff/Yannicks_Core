@@ -1,8 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Drawing;
-using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
-using Yannick.Native;
 
 namespace Yannick.UI;
 
@@ -55,7 +53,7 @@ public partial class Console
 
     private static Animation? _animation;
 
-    private static bool _activeAnimation = false;
+    private static bool _activeAnimation;
 
 
     public static (int, int) Cursor => (CursorTop, CursorLeft);
@@ -92,10 +90,10 @@ public partial class Console
     /// <param name="bg">The color to set for the console's background. If null, the current color will be maintained.</param>
     public static void SetColor(ConsoleColor? fb = null, ConsoleColor? bg = null)
     {
-        global::System.Console.ForegroundColor = fb ?? global::System.Console.ForegroundColor;
-        global::System.Console.BackgroundColor = bg ?? global::System.Console.BackgroundColor;
-        _foregroundColor24 = consoleColors[global::System.Console.ForegroundColor];
-        _backgroundColor24 = consoleColors[global::System.Console.BackgroundColor];
+        System.Console.ForegroundColor = fb ?? System.Console.ForegroundColor;
+        System.Console.BackgroundColor = bg ?? System.Console.BackgroundColor;
+        _foregroundColor24 = consoleColors[System.Console.ForegroundColor];
+        _backgroundColor24 = consoleColors[System.Console.BackgroundColor];
     }
 
     /// <summary>
@@ -118,14 +116,14 @@ public partial class Console
     public static void WriteLineCenter(string text)
     {
         WriteCenter(text);
-        global::System.Console.WriteLine();
+        System.Console.WriteLine();
     }
 
     public static string ReadLine(ConsoleColor foreground)
     {
         var fb = ForegroundColor;
         ForegroundColor = foreground;
-        var rs = global::System.Console.ReadLine();
+        var rs = System.Console.ReadLine();
         ForegroundColor = fb;
         return rs ?? string.Empty;
     }
@@ -195,7 +193,7 @@ public partial class Console
 
         foreach (var cy in y.SkipLast(1))
         {
-            ClearLine(cy, false);
+            ClearLine(cy);
         }
 
         ClearLine(y[^1], setNewCordsOnLastEntry);
@@ -244,7 +242,7 @@ public partial class Console
             mask == null &&
             wait == null &&
             defaultVal == null)
-            return global::System.Console.ReadLine();
+            return System.Console.ReadLine();
 
 
         var s = CursorVisible;
@@ -291,15 +289,14 @@ public partial class Console
 
                 if (skip == OnReadLineStatus.EXIT)
                     break;
-                else
-                    switch (skip)
-                    {
-                        case OnReadLineStatus.SKIP:
-                            continue;
-                        case OnReadLineStatus.ERROR:
-                            DrawError();
-                            continue;
-                    }
+                switch (skip)
+                {
+                    case OnReadLineStatus.SKIP:
+                        continue;
+                    case OnReadLineStatus.ERROR:
+                        DrawError();
+                        continue;
+                }
             }
 
             if (key.Key == ConsoleKey.Enter)
@@ -321,17 +318,15 @@ public partial class Console
 
                     break;
                 }
-                else
-                {
-                    maxTrys--;
-                    txt = "";
-                    realTxt = "";
 
-                    if (msgOnError == null)
-                        continue;
+                maxTrys--;
+                txt = "";
+                realTxt = "";
 
-                    DrawError();
-                }
+                if (msgOnError == null)
+                    continue;
+
+                DrawError();
             }
             else
                 switch (key.Key)

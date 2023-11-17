@@ -11,7 +11,7 @@ public partial class Console
             public Vector2 Position { get; set; } = new(0, 0);
 
             public Vector2 Dimension { get; set; } = new(WindowWidth, WindowHeight);
-            public Item? Parent { get; set; } = null;
+            public Item? Parent { get; set; }
             public ConsoleColor Foreground { get; set; } = ForegroundColor;
             public ConsoleColor Background { get; set; } = BackgroundColor;
             public Vector2 VirtualPosition { get; protected set; } = new(0, 0);
@@ -59,7 +59,7 @@ public partial class Console
             {
                 if (ReferenceEquals(null, obj)) return false;
                 if (ReferenceEquals(this, obj)) return true;
-                return obj.GetType() == this.GetType() && Equals((Item)obj);
+                return obj.GetType() == GetType() && Equals((Item)obj);
             }
 
             public override int GetHashCode()
@@ -248,9 +248,9 @@ public partial class Console
 
             private void RecalculateDimensions()
             {
-                float totalAvailableWidth = Dimension.X;
+                var totalAvailableWidth = Dimension.X;
                 float totalPercentageWidth = 0;
-                float totalAvailableHeight = Dimension.Y;
+                var totalAvailableHeight = Dimension.Y;
                 float totalPercentageHeight = 0;
 
                 // Zuerst berechnen wir die absolute Größe für alle Kinder
@@ -270,7 +270,7 @@ public partial class Console
                 // Wenn die Kinder in Summe breiter oder höher sind als der Container, dann begrenzen wir sie
                 if (Orientation == LayoutOrientation.Horizontal && totalAvailableWidth < 0)
                 {
-                    float scale = Dimension.X / (Dimension.X - totalAvailableWidth);
+                    var scale = Dimension.X / (Dimension.X - totalAvailableWidth);
                     foreach (var child in Children)
                     {
                         if (Widths[child].Unit == SizeUnit.Absolute)
@@ -282,7 +282,7 @@ public partial class Console
                 }
                 else if (Orientation == LayoutOrientation.Vertical && totalAvailableHeight < 0)
                 {
-                    float scale = Dimension.Y / (Dimension.Y - totalAvailableHeight);
+                    var scale = Dimension.Y / (Dimension.Y - totalAvailableHeight);
                     foreach (var child in Children)
                     {
                         if (Heights[child].Unit == SizeUnit.Absolute)

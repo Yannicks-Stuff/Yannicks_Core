@@ -1,11 +1,8 @@
-using System.Net;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using Yannick.Extensions.GenericExtensions.ArrayExtensions;
 using Yannick.Native.OS.Windows.Win32;
 using Yannick.Network;
-using Yannick.Network.Protocol;
-using IPAddress = Yannick.Network.IPAddress;
 using static Yannick.Native.OS.Windows.Lang.Constants;
 
 namespace Yannick.Native.OS.Windows.Network.Protocol;
@@ -130,7 +127,7 @@ public sealed class ARP
         {
             Index = interfaceIndex,
             PhysAddrLen = 6,
-            PhysAddr = macAddress.Address.Add<byte>(RESERVED, RESERVED),
+            PhysAddr = macAddress.Address.Add(RESERVED, RESERVED),
             Addr = ipAddress,
             Type = 4,
             Age = 0

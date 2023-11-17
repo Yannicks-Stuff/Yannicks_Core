@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using Yannick.Native.OS.Windows.Win32;
 using Yannick.Network;
@@ -94,7 +95,7 @@ public static class ICMP4
         var icmpHandle = Iphlpapi.IcmpCreateFile();
         if (icmpHandle == IntPtr.Zero)
         {
-            throw new System.ComponentModel.Win32Exception(Marshal.GetLastWin32Error());
+            throw new Win32Exception(Marshal.GetLastWin32Error());
         }
 
         try
@@ -106,7 +107,7 @@ public static class ICMP4
             var lastError = Marshal.GetLastWin32Error();
             if (result == 0 && lastError != 0)
             {
-                throw new System.ComponentModel.Win32Exception(lastError);
+                throw new Win32Exception(lastError);
             }
 
             var echoReply = Marshal.PtrToStructure<Iphlpapi.IcmpEchoReply>(replyBuffer);

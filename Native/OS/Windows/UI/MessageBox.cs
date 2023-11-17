@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using Yannick.Native.OS.Windows.Win32;
 
 namespace Yannick.Native.OS.Windows.UI;
 
@@ -189,7 +190,7 @@ public static class MessageBox
         DefaultButton defaultButton = DefaultButton.BUTTON1,
         DialogBoxType dialogBoxType = DialogBoxType.APPLMODAL, ExtraOptions? options = null)
     {
-        var rs = Win32.User32.MessageBox(Process.GetCurrentProcess().MainWindowHandle, text, title,
+        var rs = User32.MessageBox(Process.GetCurrentProcess().MainWindowHandle, text, title,
             ((uint)style | (uint)icon) |
             (uint)defaultButton | (uint)dialogBoxType |
             (options == null ? 0u : (uint)options));

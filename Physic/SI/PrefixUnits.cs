@@ -1,6 +1,6 @@
 namespace Yannick.Physic.SI;
 
-using Unit = Physic.SI.Converter;
+using Unit = Converter;
 
 /// <summary>
 /// Represents the SI unit system, providing a common interface for different SI prefixes.

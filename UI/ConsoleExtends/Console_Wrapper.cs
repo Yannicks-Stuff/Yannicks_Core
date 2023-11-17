@@ -15,124 +15,124 @@ public partial class Console
 {
     public static ConsoleColor BackgroundColor
     {
-        get => global::System.Console.BackgroundColor;
+        get => System.Console.BackgroundColor;
         set => SetColor(null, value);
     }
 
     public static ConsoleColor ForegroundColor
     {
-        get => global::System.Console.ForegroundColor;
+        get => System.Console.ForegroundColor;
         set => SetColor(value);
     }
 
 
     public static int BufferHeight
     {
-        get => global::System.Console.BufferHeight;
-        [SupportedOSPlatform("windows")] set { global::System.Console.BufferHeight = value; }
+        get => System.Console.BufferHeight;
+        [SupportedOSPlatform("windows")] set { System.Console.BufferHeight = value; }
     }
 
     public static int BufferWidth
     {
-        get => global::System.Console.BufferHeight;
-        [SupportedOSPlatform("windows")] set => global::System.Console.BufferHeight = value;
+        get => System.Console.BufferHeight;
+        [SupportedOSPlatform("windows")] set => System.Console.BufferHeight = value;
     }
 
-    [SupportedOSPlatform("windows")] public static bool CapsLock => global::System.Console.CapsLock;
+    [SupportedOSPlatform("windows")] public static bool CapsLock => System.Console.CapsLock;
 
     public static int CursorLeft
     {
-        get => global::System.Console.CursorLeft;
-        set => global::System.Console.CursorLeft = value;
+        get => System.Console.CursorLeft;
+        set => System.Console.CursorLeft = value;
     }
 
     public static int CursorSize
     {
-        get => global::System.Console.CursorSize;
-        [SupportedOSPlatform("windows")] set => global::System.Console.CursorSize = value;
+        get => System.Console.CursorSize;
+        [SupportedOSPlatform("windows")] set => System.Console.CursorSize = value;
     }
 
     public static int CursorTop
     {
-        get => global::System.Console.CursorTop;
-        set => global::System.Console.CursorTop = value;
+        get => System.Console.CursorTop;
+        set => System.Console.CursorTop = value;
     }
 
     public static bool CursorVisible
     {
-        [SupportedOSPlatform("windows")] get => global::System.Console.CursorVisible;
-        set => global::System.Console.CursorVisible = value;
+        [SupportedOSPlatform("windows")] get => System.Console.CursorVisible;
+        set => System.Console.CursorVisible = value;
     }
 
-    public static TextWriter Error => global::System.Console.Error;
+    public static TextWriter Error => System.Console.Error;
 
 
-    public static TextReader In => global::System.Console.In;
+    public static TextReader In => System.Console.In;
 
     public static Encoding InputEncoding
     {
-        get => global::System.Console.InputEncoding;
-        set => global::System.Console.InputEncoding = value;
+        get => System.Console.InputEncoding;
+        set => System.Console.InputEncoding = value;
     }
 
 
-    public static bool IsErrorRedirected => global::System.Console.IsErrorRedirected;
+    public static bool IsErrorRedirected => System.Console.IsErrorRedirected;
 
-    public static bool IsInputRedirected => global::System.Console.IsInputRedirected;
+    public static bool IsInputRedirected => System.Console.IsInputRedirected;
 
-    public static bool IsOutputRedirected => global::System.Console.IsOutputRedirected;
+    public static bool IsOutputRedirected => System.Console.IsOutputRedirected;
 
-    public static bool KeyAvailable => global::System.Console.KeyAvailable;
+    public static bool KeyAvailable => System.Console.KeyAvailable;
 
-    public static int LargestWindowHeight => global::System.Console.LargestWindowHeight;
+    public static int LargestWindowHeight => System.Console.LargestWindowHeight;
 
-    public static int LargestWindowWidth => global::System.Console.LargestWindowWidth;
+    public static int LargestWindowWidth => System.Console.LargestWindowWidth;
 
-    [SupportedOSPlatform("windows")] public static bool NumberLock => global::System.Console.NumberLock;
+    [SupportedOSPlatform("windows")] public static bool NumberLock => System.Console.NumberLock;
 
-    public static TextWriter Out => global::System.Console.Out;
+    public static TextWriter Out => System.Console.Out;
 
     public static Encoding OutputEncoding
     {
-        get => global::System.Console.InputEncoding;
-        set => global::System.Console.InputEncoding = value;
+        get => System.Console.InputEncoding;
+        set => System.Console.InputEncoding = value;
     }
 
     public static string Title
     {
-        [SupportedOSPlatform("windows")] get => global::System.Console.Title;
+        [SupportedOSPlatform("windows")] get => System.Console.Title;
         [MethodImpl(MethodImplOptions.Synchronized)]
-        set => global::System.Console.Title = value;
+        set => System.Console.Title = value;
     }
 
     public static bool TreatControlCAsInput
     {
-        get => global::System.Console.TreatControlCAsInput;
-        set => global::System.Console.TreatControlCAsInput = value;
+        get => System.Console.TreatControlCAsInput;
+        set => System.Console.TreatControlCAsInput = value;
     }
 
     public static int WindowHeight
     {
-        get => global::System.Console.WindowHeight;
-        set => global::System.Console.WindowHeight = value;
+        get => System.Console.WindowHeight;
+        set => System.Console.WindowHeight = value;
     }
 
     public static int WindowLeft
     {
-        get => global::System.Console.WindowLeft;
-        [SupportedOSPlatform("windows")] set => global::System.Console.WindowLeft = value;
+        get => System.Console.WindowLeft;
+        [SupportedOSPlatform("windows")] set => System.Console.WindowLeft = value;
     }
 
     public static int WindowTop
     {
-        get => global::System.Console.WindowTop;
-        [SupportedOSPlatform("windows")] set => global::System.Console.WindowTop = value;
+        get => System.Console.WindowTop;
+        [SupportedOSPlatform("windows")] set => System.Console.WindowTop = value;
     }
 
     public static int WindowWidth
     {
-        get => global::System.Console.WindowWidth;
-        set => global::System.Console.WindowWidth = value;
+        get => System.Console.WindowWidth;
+        set => System.Console.WindowWidth = value;
     }
 
 
@@ -145,7 +145,7 @@ public partial class Console
     }
 
 
-    public static void Clear() => global::System.Console.Clear();
+    public static void Clear() => System.Console.Clear();
     public static void Clear24() => Fill(0, 0, WindowWidth, WindowHeight, ' ', ForegroundColor24, BackgroundColor24);
 
 
@@ -180,121 +180,121 @@ public partial class Console
 
     public static void Beep()
     {
-        global::System.Console.Beep();
+        System.Console.Beep();
     }
 
     [SupportedOSPlatform("windows")]
     public static void Beep(int frequency, int duration)
     {
-        global::System.Console.Beep(frequency, duration);
+        System.Console.Beep(frequency, duration);
     }
 
     [SupportedOSPlatform("windows")]
     public static void MoveBufferArea(int sourceLeft, int sourceTop, int sourceWidth, int sourceHeight,
         int targetLeft, int targetTop)
     {
-        global::System.Console.MoveBufferArea(sourceLeft, sourceTop, sourceWidth, sourceHeight, targetLeft, targetTop);
+        System.Console.MoveBufferArea(sourceLeft, sourceTop, sourceWidth, sourceHeight, targetLeft, targetTop);
     }
 
     [SupportedOSPlatform("windows")]
     public static void MoveBufferArea(int sourceLeft, int sourceTop, int sourceWidth, int sourceHeight,
         int targetLeft, int targetTop, char sourceChar, ConsoleColor sourceForeColor, ConsoleColor sourceBackColor)
     {
-        global::System.Console.MoveBufferArea(sourceLeft, sourceTop, sourceWidth, sourceHeight, targetLeft, targetTop,
+        System.Console.MoveBufferArea(sourceLeft, sourceTop, sourceWidth, sourceHeight, targetLeft, targetTop,
             sourceChar, sourceForeColor, sourceBackColor);
     }
 
     public static Stream OpenStandardError()
     {
-        return global::System.Console.OpenStandardError();
+        return System.Console.OpenStandardError();
     }
 
     public static Stream OpenStandardError(int bufferSize)
     {
-        return global::System.Console.OpenStandardError(bufferSize);
+        return System.Console.OpenStandardError(bufferSize);
     }
 
     public static Stream OpenStandardInput()
     {
-        return global::System.Console.OpenStandardInput();
+        return System.Console.OpenStandardInput();
     }
 
     public static Stream OpenStandardInput(int bufferSize)
     {
-        return global::System.Console.OpenStandardInput(bufferSize);
+        return System.Console.OpenStandardInput(bufferSize);
     }
 
     public static Stream OpenStandardOutput()
     {
-        return global::System.Console.OpenStandardOutput();
+        return System.Console.OpenStandardOutput();
     }
 
     public static Stream OpenStandardOutput(int bufferSize)
     {
-        return global::System.Console.OpenStandardOutput(bufferSize);
+        return System.Console.OpenStandardOutput(bufferSize);
     }
 
     public static int Read()
     {
-        return global::System.Console.Read();
+        return System.Console.Read();
     }
 
     public static ConsoleKeyInfo ReadKey()
     {
-        return global::System.Console.ReadKey();
+        return System.Console.ReadKey();
     }
 
     public static ConsoleKeyInfo ReadKey(bool intercept)
     {
-        return global::System.Console.ReadKey(intercept);
+        return System.Console.ReadKey(intercept);
     }
 
     public static void ResetColor()
     {
-        global::System.Console.ResetColor();
+        System.Console.ResetColor();
     }
 
     [SupportedOSPlatform("windows")]
     public static void SetBufferSize(int width, int height)
     {
-        global::System.Console.SetBufferSize(width, height);
+        System.Console.SetBufferSize(width, height);
     }
 
     public static void SetCursorPosition(int left, int top)
     {
-        global::System.Console.SetCursorPosition(left, top);
+        System.Console.SetCursorPosition(left, top);
     }
 
     public static void SetError(TextWriter newError)
     {
-        global::System.Console.SetError(newError);
+        System.Console.SetError(newError);
     }
 
     public static void SetIn(TextReader newIn)
     {
-        global::System.Console.SetIn(newIn);
+        System.Console.SetIn(newIn);
     }
 
     public static void SetOut(TextWriter newOut)
     {
-        global::System.Console.SetOut(newOut);
+        System.Console.SetOut(newOut);
     }
 
     [SupportedOSPlatform("windows")]
     public static void SetWindowPosition(int left, int top)
     {
-        global::System.Console.SetWindowPosition(left, top);
+        System.Console.SetWindowPosition(left, top);
     }
 
     public static void SetWindowSize(int width, int height)
     {
-        global::System.Console.SetWindowSize(width, height);
+        System.Console.SetWindowSize(width, height);
     }
 
 
     public static void Write(string text)
     {
-        global::System.Console.Write(text);
+        System.Console.Write(text);
     }
 
 
@@ -304,7 +304,7 @@ public partial class Console
         var oldBackgroundColor = BackgroundColor;
         ForegroundColor = foregroundColor;
         BackgroundColor = (backgroundColor ?? oldBackgroundColor);
-        global::System.Console.Write(text);
+        System.Console.Write(text);
         ForegroundColor = oldForegroundColor;
         BackgroundColor = oldBackgroundColor;
     }
@@ -316,7 +316,7 @@ public partial class Console
         var oldBackgroundColor = BackgroundColor;
         ForegroundColor = foregroundColor;
         BackgroundColor = (backgroundColor ?? oldBackgroundColor);
-        global::System.Console.Write(text);
+        System.Console.Write(text);
         ForegroundColor = oldForegroundColor;
         BackgroundColor = oldBackgroundColor;
     }
@@ -328,7 +328,7 @@ public partial class Console
         var oldBackgroundColor = BackgroundColor;
         ForegroundColor = foregroundColor;
         BackgroundColor = (backgroundColor ?? oldBackgroundColor);
-        global::System.Console.Write(text);
+        System.Console.Write(text);
         ForegroundColor = oldForegroundColor;
         BackgroundColor = oldBackgroundColor;
     }
@@ -340,7 +340,7 @@ public partial class Console
         var oldBackgroundColor = BackgroundColor;
         ForegroundColor = foregroundColor;
         BackgroundColor = (backgroundColor ?? oldBackgroundColor);
-        global::System.Console.Write(text);
+        System.Console.Write(text);
         ForegroundColor = oldForegroundColor;
         BackgroundColor = oldBackgroundColor;
     }
@@ -352,7 +352,7 @@ public partial class Console
         var oldBackgroundColor = BackgroundColor;
         ForegroundColor = foregroundColor;
         BackgroundColor = (backgroundColor ?? oldBackgroundColor);
-        global::System.Console.Write(text);
+        System.Console.Write(text);
         ForegroundColor = oldForegroundColor;
         BackgroundColor = oldBackgroundColor;
     }
@@ -364,7 +364,7 @@ public partial class Console
         var oldBackgroundColor = BackgroundColor;
         ForegroundColor = foregroundColor;
         BackgroundColor = (backgroundColor ?? oldBackgroundColor);
-        global::System.Console.Write(text);
+        System.Console.Write(text);
         ForegroundColor = oldForegroundColor;
         BackgroundColor = oldBackgroundColor;
     }
@@ -376,7 +376,7 @@ public partial class Console
         var oldBackgroundColor = BackgroundColor;
         ForegroundColor = foregroundColor;
         BackgroundColor = (backgroundColor ?? oldBackgroundColor);
-        global::System.Console.Write(text);
+        System.Console.Write(text);
         ForegroundColor = oldForegroundColor;
         BackgroundColor = oldBackgroundColor;
     }
@@ -388,7 +388,7 @@ public partial class Console
         var oldBackgroundColor = BackgroundColor;
         ForegroundColor = foregroundColor;
         BackgroundColor = (backgroundColor ?? oldBackgroundColor);
-        global::System.Console.Write(text);
+        System.Console.Write(text);
         ForegroundColor = oldForegroundColor;
         BackgroundColor = oldBackgroundColor;
     }
@@ -400,7 +400,7 @@ public partial class Console
         var oldBackgroundColor = BackgroundColor;
         ForegroundColor = foregroundColor;
         BackgroundColor = (backgroundColor ?? oldBackgroundColor);
-        global::System.Console.Write(text);
+        System.Console.Write(text);
         ForegroundColor = oldForegroundColor;
         BackgroundColor = oldBackgroundColor;
     }
@@ -412,7 +412,7 @@ public partial class Console
         var oldBackgroundColor = BackgroundColor;
         ForegroundColor = foregroundColor;
         BackgroundColor = (backgroundColor ?? oldBackgroundColor);
-        global::System.Console.Write(text);
+        System.Console.Write(text);
         ForegroundColor = oldForegroundColor;
         BackgroundColor = oldBackgroundColor;
     }
@@ -424,7 +424,7 @@ public partial class Console
         var oldBackgroundColor = BackgroundColor;
         ForegroundColor = foregroundColor;
         BackgroundColor = (backgroundColor ?? oldBackgroundColor);
-        global::System.Console.Write(text);
+        System.Console.Write(text);
         ForegroundColor = oldForegroundColor;
         BackgroundColor = oldBackgroundColor;
     }
@@ -434,11 +434,11 @@ public partial class Console
     {
         if (text == null)
         {
-            global::System.Console.WriteLine();
+            System.Console.WriteLine();
         }
         else
         {
-            global::System.Console.WriteLine(text);
+            System.Console.WriteLine(text);
         }
     }
 
@@ -448,7 +448,7 @@ public partial class Console
         var oldBackgroundColor = BackgroundColor;
         ForegroundColor = foregroundColor;
         BackgroundColor = (backgroundColor ?? oldBackgroundColor);
-        global::System.Console.WriteLine(text);
+        System.Console.WriteLine(text);
         ForegroundColor = oldForegroundColor;
         BackgroundColor = oldBackgroundColor;
     }
@@ -460,7 +460,7 @@ public partial class Console
         var oldBackgroundColor = BackgroundColor;
         ForegroundColor = foregroundColor;
         BackgroundColor = (backgroundColor ?? oldBackgroundColor);
-        global::System.Console.WriteLine(text);
+        System.Console.WriteLine(text);
         ForegroundColor = oldForegroundColor;
         BackgroundColor = oldBackgroundColor;
     }
@@ -472,7 +472,7 @@ public partial class Console
         var oldBackgroundColor = BackgroundColor;
         ForegroundColor = foregroundColor;
         BackgroundColor = (backgroundColor ?? oldBackgroundColor);
-        global::System.Console.WriteLine(text);
+        System.Console.WriteLine(text);
         ForegroundColor = oldForegroundColor;
         BackgroundColor = oldBackgroundColor;
     }
@@ -484,7 +484,7 @@ public partial class Console
         var oldBackgroundColor = BackgroundColor;
         ForegroundColor = foregroundColor;
         BackgroundColor = (backgroundColor ?? oldBackgroundColor);
-        global::System.Console.WriteLine(text);
+        System.Console.WriteLine(text);
         ForegroundColor = oldForegroundColor;
         BackgroundColor = oldBackgroundColor;
     }
@@ -496,7 +496,7 @@ public partial class Console
         var oldBackgroundColor = BackgroundColor;
         ForegroundColor = foregroundColor;
         BackgroundColor = (backgroundColor ?? oldBackgroundColor);
-        global::System.Console.WriteLine(text);
+        System.Console.WriteLine(text);
         ForegroundColor = oldForegroundColor;
         BackgroundColor = oldBackgroundColor;
     }
@@ -508,7 +508,7 @@ public partial class Console
         var oldBackgroundColor = BackgroundColor;
         ForegroundColor = foregroundColor;
         BackgroundColor = (backgroundColor ?? oldBackgroundColor);
-        global::System.Console.WriteLine(text);
+        System.Console.WriteLine(text);
         ForegroundColor = oldForegroundColor;
         BackgroundColor = oldBackgroundColor;
     }
@@ -520,7 +520,7 @@ public partial class Console
         var oldBackgroundColor = BackgroundColor;
         ForegroundColor = foregroundColor;
         BackgroundColor = (backgroundColor ?? oldBackgroundColor);
-        global::System.Console.WriteLine(text);
+        System.Console.WriteLine(text);
         ForegroundColor = oldForegroundColor;
         BackgroundColor = oldBackgroundColor;
     }
@@ -532,7 +532,7 @@ public partial class Console
         var oldBackgroundColor = BackgroundColor;
         ForegroundColor = foregroundColor;
         BackgroundColor = (backgroundColor ?? oldBackgroundColor);
-        global::System.Console.WriteLine(text);
+        System.Console.WriteLine(text);
         ForegroundColor = oldForegroundColor;
         BackgroundColor = oldBackgroundColor;
     }
@@ -544,7 +544,7 @@ public partial class Console
         var oldBackgroundColor = BackgroundColor;
         ForegroundColor = foregroundColor;
         BackgroundColor = (backgroundColor ?? oldBackgroundColor);
-        global::System.Console.WriteLine(text);
+        System.Console.WriteLine(text);
         ForegroundColor = oldForegroundColor;
         BackgroundColor = oldBackgroundColor;
     }
@@ -556,7 +556,7 @@ public partial class Console
         var oldBackgroundColor = BackgroundColor;
         ForegroundColor = foregroundColor;
         BackgroundColor = (backgroundColor ?? oldBackgroundColor);
-        global::System.Console.WriteLine(text);
+        System.Console.WriteLine(text);
         ForegroundColor = oldForegroundColor;
         BackgroundColor = oldBackgroundColor;
     }

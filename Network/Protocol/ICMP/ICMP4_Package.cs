@@ -1,5 +1,3 @@
-using System.Net;
-
 namespace Yannick.Network.Protocol.ICMP;
 
 public sealed partial class ICMP4

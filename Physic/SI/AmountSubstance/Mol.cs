@@ -1,6 +1,5 @@
 using System.Globalization;
 using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.JavaScript;
 using Yannick.Extensions.EnumExtensions;
 using Yannick.Lang.Attribute;
 using Unit = Yannick.Physic.SI.Converter;
@@ -766,46 +765,45 @@ public readonly struct Mol<T> where T : SI
 
             if (t == typeof(IYotta))
                 return IYotta.Prefix;
-            else if (t == typeof(IZetta))
+            if (t == typeof(IZetta))
                 return IZetta.Prefix;
-            else if (t == typeof(IExa))
+            if (t == typeof(IExa))
                 return IExa.Prefix;
-            else if (t == typeof(IPeta))
+            if (t == typeof(IPeta))
                 return IPeta.Prefix;
-            else if (t == typeof(ITera))
+            if (t == typeof(ITera))
                 return ITera.Prefix;
-            else if (t == typeof(IGiga))
+            if (t == typeof(IGiga))
                 return IGiga.Prefix;
-            else if (t == typeof(IMega))
+            if (t == typeof(IMega))
                 return IMega.Prefix;
-            else if (t == typeof(IKilo))
+            if (t == typeof(IKilo))
                 return IKilo.Prefix;
-            else if (t == typeof(IHecto))
+            if (t == typeof(IHecto))
                 return IHecto.Prefix;
-            else if (t == typeof(IDeca))
+            if (t == typeof(IDeca))
                 return IDeca.Prefix;
-            else if (t == typeof(INone))
+            if (t == typeof(INone))
                 return INone.Prefix;
-            else if (t == typeof(IDeci))
+            if (t == typeof(IDeci))
                 return IDeci.Prefix;
-            else if (t == typeof(ICenti))
+            if (t == typeof(ICenti))
                 return ICenti.Prefix;
-            else if (t == typeof(IMilli))
+            if (t == typeof(IMilli))
                 return IMilli.Prefix;
-            else if (t == typeof(IMicro))
+            if (t == typeof(IMicro))
                 return IMicro.Prefix;
-            else if (t == typeof(INano))
+            if (t == typeof(INano))
                 return INano.Prefix;
-            else if (t == typeof(IPico))
+            if (t == typeof(IPico))
                 return IPico.Prefix;
-            else if (t == typeof(IFemto))
+            if (t == typeof(IFemto))
                 return IFemto.Prefix;
-            else if (t == typeof(IAtto))
+            if (t == typeof(IAtto))
                 return IAtto.Prefix;
-            else if (t == typeof(IZepto))
+            if (t == typeof(IZepto))
                 return IZepto.Prefix;
-            else
-                throw new InvalidOperationException("Invalid prefix type.");
+            throw new InvalidOperationException("Invalid prefix type.");
         }
     }
 

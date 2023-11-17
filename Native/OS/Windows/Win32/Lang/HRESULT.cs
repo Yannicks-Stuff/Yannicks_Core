@@ -48,7 +48,7 @@ namespace Yannick.Native.OS.Windows.Win32.Lang
         /// <param name="value">The value of the HRESULT.</param>
         public HResult(Code value)
         {
-            this.Value = value;
+            Value = value;
         }
 
         /// <summary>
@@ -78,39 +78,39 @@ namespace Yannick.Native.OS.Windows.Win32.Lang
         /// Gets the HRESULT as a 32-bit signed integer.
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public int AsInt32 => (int)this.Value;
+        public int AsInt32 => (int)Value;
 
         /// <summary>
         /// Gets the HRESULT as a 32-bit unsigned integer.
         /// </summary>
-        public uint AsUInt32 => (uint)this.Value;
+        public uint AsUInt32 => (uint)Value;
 
         /// <summary>
         /// Gets a value indicating whether this HRESULT represents a successful operation.
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool Succeeded => this.Severity == SeverityCode.Success;
+        public bool Succeeded => Severity == SeverityCode.Success;
 
         /// <summary>
         /// Gets a value indicating whether this HRESULT represents a failured operation.
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool Failed => this.Severity == SeverityCode.Fail;
+        public bool Failed => Severity == SeverityCode.Fail;
 
         /// <summary>
         /// Gets the facility code of the HRESULT.
         /// </summary>
-        public FacilityCode Facility => (FacilityCode)(this.AsUInt32 & FacilityMask);
+        public FacilityCode Facility => (FacilityCode)(AsUInt32 & FacilityMask);
 
         /// <summary>
         /// Gets the severity of the HRESULT.
         /// </summary>
-        public SeverityCode Severity => (SeverityCode)(this.AsUInt32 & SeverityMask);
+        public SeverityCode Severity => (SeverityCode)(AsUInt32 & SeverityMask);
 
         /// <summary>
         /// Gets the facility's status code bits from the HRESULT.
         /// </summary>
-        public uint FacilityStatus => this.AsUInt32 & FacilityStatusMask;
+        public uint FacilityStatus => AsUInt32 & FacilityStatusMask;
 
         /// <summary>
         /// Converts an <see cref="int"/> into an <see cref="HResult"/>.
@@ -177,7 +177,7 @@ namespace Yannick.Native.OS.Windows.Win32.Lang
         /// </summary>
         public void ThrowOnFailure()
         {
-            Marshal.ThrowExceptionForHR(this.AsInt32);
+            Marshal.ThrowExceptionForHR(AsInt32);
         }
 
         /// <summary>
@@ -191,7 +191,7 @@ namespace Yannick.Native.OS.Windows.Win32.Lang
         /// </param>
         public void ThrowOnFailure(IntPtr errorInfo)
         {
-            Marshal.ThrowExceptionForHR(this.AsInt32, errorInfo);
+            Marshal.ThrowExceptionForHR(AsInt32, errorInfo);
         }
 
         /// <summary>
@@ -219,25 +219,25 @@ namespace Yannick.Native.OS.Windows.Win32.Lang
                                                                $"Error: {Value.Name()} | Code: {(uint)Value}");
 
         /// <inheritdoc />
-        public override int GetHashCode() => this.AsInt32;
+        public override int GetHashCode() => AsInt32;
 
         /// <inheritdoc />
-        public bool Equals(HResult other) => this.Value == other.Value;
+        public bool Equals(HResult other) => Value == other.Value;
 
         /// <inheritdoc />
         public override bool Equals(object? obj) => obj is HResult result && Equals(result);
 
         /// <inheritdoc />
-        public int CompareTo(object? obj) => ((IComparable)this.Value).CompareTo(obj);
+        public int CompareTo(object? obj) => ((IComparable)Value).CompareTo(obj);
 
         /// <inheritdoc />
-        public int CompareTo(HResult other) => this.Value.CompareTo(other.Value);
+        public int CompareTo(HResult other) => Value.CompareTo(other.Value);
 
         /// <inheritdoc />
-        public override string ToString() => this.Value.ToString();
+        public override string ToString() => Value.ToString();
 
         /// <inheritdoc />
         public string ToString(string? format, IFormatProvider? formatProvider) =>
-            this.AsUInt32.ToString(format, formatProvider);
+            AsUInt32.ToString(format, formatProvider);
     }
 }

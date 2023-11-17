@@ -1,6 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <NoWarn>$(NoWarn);CS8602</NoWarn>
+    </PropertyGroup>
+
+
+    <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
@@ -21,11 +26,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Crypto\" />
       <Folder Include="Mathematic\" />
         <Folder Include="Network\Protocol\FTP\"/>
         <Folder Include="Network\Protocol\NDP\"/>
-      <Folder Include="VM\CLR\" />
       <Folder Include="VM\CVM\" />
       <Folder Include="VM\JVM\" />
       <Folder Include="VM\YARV\" />
@@ -42,6 +45,7 @@
 
 
     <ItemGroup>
+        <PackageReference Include="BouncyCastle.NetCore" Version="2.2.1"/>
         <PackageReference Include="MySql.Data" Version="8.1.0"/>
     </ItemGroup>
 

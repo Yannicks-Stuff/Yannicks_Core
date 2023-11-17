@@ -81,7 +81,7 @@ namespace Yannick.Native.Hardware
         internal ProcessorData(int thread)
         {
             Thread = thread;
-            ulong mask = 1UL << thread;
+            var mask = 1UL << thread;
             uint threadMaskWith, coreMaskWith;
             uint eax, ebx, ecx, edx = 0;
             Processor.CpuIdex(0, 0, out eax, out ebx, out ecx, out edx, mask);
@@ -216,7 +216,7 @@ namespace Yannick.Native.Hardware
             nameBuilder.Replace("Six-Core Processor", string.Empty);
             nameBuilder.Replace("Eight-Core Processor", string.Empty);
 
-            for (int i = 0; i < 10; i++)
+            for (var i = 0; i < 10; i++)
                 nameBuilder.Replace("  ", " ");
 
             Name = nameBuilder.ToString();
@@ -232,7 +232,7 @@ namespace Yannick.Native.Hardware
             switch (Manufacturer)
             {
                 case Processor.Vendor.Intel:
-                    uint maxCoreAndThreadIdPerPackage = (Data[1, 1] >> 16) & 0xFF;
+                    var maxCoreAndThreadIdPerPackage = (Data[1, 1] >> 16) & 0xFF;
                     uint maxCoreIdPerPackage;
                     if (maxCpuid >= 4)
                         maxCoreIdPerPackage = ((Data[4, 0] >> 26) & 0x3F) + 1;
@@ -258,7 +258,7 @@ namespace Yannick.Native.Hardware
                         // cores per DIE
                         // we need this for Ryzen 5 (4 cores, 8 threads) ans Ryzen 6 (6 cores, 12 threads)
                         // Ryzen 5: [core0][core1][dummy][dummy][core2][core3] (Core0 EBX = 00080800, Core2 EBX = 08080800)
-                        uint maxCoresPerDie = (ExtData[8, 2] >> 12) & 0xF;
+                        var maxCoresPerDie = (ExtData[8, 2] >> 12) & 0xF;
                         switch (maxCoresPerDie)
                         {
                             case 0x04: // Ryzen
@@ -313,7 +313,7 @@ namespace Yannick.Native.Hardware
 
             var id2 = Processor.CpuId(0x80000000, mask);
             var nExIds_ = id2.EAX;
-            for (uint i = 0x80000000; i <= nExIds_; ++i)
+            for (var i = 0x80000000; i <= nExIds_; ++i)
             {
                 arra = Processor.CpuIDex(i, 0, mask);
                 var arr = new int[4];
@@ -639,7 +639,7 @@ namespace Yannick.Native.Hardware
             nameBuilder.Replace("Six-Core Processor", string.Empty);
             nameBuilder.Replace("Eight-Core Processor", string.Empty);
 
-            for (int i = 0; i < 10; i++)
+            for (var i = 0; i < 10; i++)
                 nameBuilder.Replace("  ", " ");
 
             Name = nameBuilder.ToString();
@@ -655,7 +655,7 @@ namespace Yannick.Native.Hardware
             switch (Manufacturer)
             {
                 case Vendor.Intel:
-                    uint maxCoreAndThreadIdPerPackage = (Data[1, 1] >> 16) & 0xFF;
+                    var maxCoreAndThreadIdPerPackage = (Data[1, 1] >> 16) & 0xFF;
                     uint maxCoreIdPerPackage;
                     if (maxCpuid >= 4)
                         maxCoreIdPerPackage = ((Data[4, 0] >> 26) & 0x3F) + 1;
@@ -681,7 +681,7 @@ namespace Yannick.Native.Hardware
                         // cores per DIE
                         // we need this for Ryzen 5 (4 cores, 8 threads) ans Ryzen 6 (6 cores, 12 threads)
                         // Ryzen 5: [core0][core1][dummy][dummy][core2][core3] (Core0 EBX = 00080800, Core2 EBX = 08080800)
-                        uint maxCoresPerDie = (ExtData[8, 2] >> 12) & 0xF;
+                        var maxCoresPerDie = (ExtData[8, 2] >> 12) & 0xF;
                         switch (maxCoresPerDie)
                         {
                             case 0x04: // Ryzen
@@ -741,10 +741,10 @@ namespace Yannick.Native.Hardware
                 if (OperatingSystem.IsLinux())
                 {
                     ulong result = 0;
-                    if (LibC.sched_getaffinity(0, (IntPtr)Marshal.SizeOf(result), ref result) != 0)
+                    if (LibC.sched_getaffinity(0, Marshal.SizeOf(result), ref result) != 0)
                         return 0;
 
-                    return LibC.sched_setaffinity(0, (IntPtr)Marshal.SizeOf(mask), ref mask) != 0 ? (ulong)0 : result;
+                    return LibC.sched_setaffinity(0, Marshal.SizeOf(mask), ref mask) != 0 ? 0 : result;
                 }
 
                 UIntPtr uIntPtrMask;

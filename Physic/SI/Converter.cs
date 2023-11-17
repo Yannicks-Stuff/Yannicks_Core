@@ -1,7 +1,8 @@
+using Yannick.Extensions.DecimalExtensions;
+
 namespace Yannick.Physic.SI;
 
-using Yannick.Extensions.DecimalExtensions;
-using Unit = Physic.SI.Converter;
+using Unit = Converter;
 
 /// <summary>
 /// Provides methods for converting between different SI prefixes.

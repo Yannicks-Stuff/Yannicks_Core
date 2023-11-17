@@ -1,4 +1,3 @@
-using System.Data.Common;
 using System.Runtime.CompilerServices;
 using MySql.Data.MySqlClient;
 using Yannick.Network;
@@ -15,7 +14,7 @@ public sealed class Connection : IDisposable, IAsyncDisposable
     /// </summary>
     public readonly MySqlConnectionStringBuilder Configuration;
 
-    private MySqlConnection? _connection = null;
+    private MySqlConnection? _connection;
     private SemaphoreSlim? _semaphoreSlim = new(1, 1);
 
     /// <summary>

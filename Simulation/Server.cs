@@ -1,5 +1,4 @@
 using System.Collections.Concurrent;
-using Yannick.Chemistry;
 using Yannick.Simulation.Matrix;
 
 namespace Yannick.Simulation;

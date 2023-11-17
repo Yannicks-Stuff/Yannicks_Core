@@ -1,5 +1,3 @@
-using System;
-
 namespace Yannick.Lang.Attribute
 {
     /// <summary>
@@ -42,7 +40,7 @@ namespace Yannick.Lang.Attribute
         /// <summary>
         /// Gets the raw suffix object.
         /// </summary>
-        public object? SuffixRaw { get; init; } = null;
+        public object? SuffixRaw { get; init; }
 
         /// <summary>
         /// Determines whether this instance and another specified <see cref="SuffixAttribute"/> object have the same value.

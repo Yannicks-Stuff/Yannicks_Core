@@ -68,6 +68,6 @@ public static class GenericArrayExtension
         if (count > int.MaxValue || source.Length + count > int.MaxValue)
             throw new ArgumentOutOfRangeException(nameof(count), "your over int max");
 
-        return Add<T>(source, Enumerable.Repeat<T>(item, (int)count).ToArray());
+        return Add(source, Enumerable.Repeat(item, (int)count).ToArray());
     }
 }

@@ -301,7 +301,7 @@ public static partial class User32
     [DllImport(Dll, SetLastError = true, EntryPoint = "CreateWindowEx")]
     public static extern IntPtr CreateWindowEx2(
         WindowStylesEx dwExStyle,
-        UInt16 lpClassName,
+        ushort lpClassName,
         string lpWindowName,
         WindowStyles dwStyle,
         int x,

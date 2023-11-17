@@ -1,4 +1,3 @@
-using Yannick.Chemistry.Mathematic;
 using Yannick.Physic.SI.Temperature;
 
 namespace Yannick.Chemistry.Atoms.Natural;

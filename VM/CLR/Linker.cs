@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
 using System.Reflection;
 
-namespace Yannick.Native;
+namespace Yannick.VM.CLR;
 
 /// <summary>
 /// Provides functionality to dynamically link methods, properties, and fields at runtime.
@@ -151,7 +151,7 @@ public class Linker
             }
         }
 
-        return new LinkedProperty<T>(propertyInfo, this.Instance);
+        return new LinkedProperty<T>(propertyInfo, Instance);
     }
 
     /// <summary>
@@ -187,8 +187,57 @@ public class Linker
             }
         }
 
-        return new LinkedField<T>(fieldInfo, this.Instance);
+        return new LinkedField<T>(fieldInfo, Instance);
     }
+
+    /// <summary>
+    /// Creates an instance of the specified type.
+    /// </summary>
+    /// <typeparam name="T1">The type of object to return. This type must be compatible with the specified type.</typeparam>
+    /// <param name="type">The type of object to create. This should be assignable to type T1.</param>
+    /// <param name="args">An array of arguments that match in number, order, and type the parameters of the constructor to invoke. If args is an empty array or null, the constructor that takes no parameters (the default constructor) is invoked.</param>
+    /// <returns>An instance of the specified type, cast to type T1.</returns>
+    public static T1? CreateInstance<T1>(Type type, params object?[]? args)
+    {
+        try
+        {
+            var instance = Activator.CreateInstance(type, args);
+
+            return (T1?)instance;
+        }
+        catch (Exception)
+        {
+            return default;
+        }
+    }
+
+    /// <summary>
+    /// Creates an instance of the type specified by the type name, optionally using the assembly name.
+    /// </summary>
+    /// <typeparam name="T1">The type of object to return. The created object must be compatible with this type.</typeparam>
+    /// <param name="typeName">The fully qualified name of the type to create.</param>
+    /// <param name="assemblyName">Optional. The name of the assembly where the type is defined.</param>
+    /// <param name="args">An array of arguments that match the parameters of the constructor to invoke, if any.</param>
+    /// <returns>An instance of the specified type, cast to type T1.</returns>
+    public static T1? CreateInstance<T1>(string typeName, string? assemblyName = null, params object?[]? args)
+    {
+        var fullTypeName = string.IsNullOrEmpty(assemblyName) ? typeName : $"{typeName}, {assemblyName}";
+
+        var type = Type.GetType(fullTypeName);
+        if (type == null)
+            throw new InvalidOperationException($"Type '{fullTypeName}' could not be found.");
+
+        try
+        {
+            var instance = Activator.CreateInstance(type, args);
+            return (T1?)instance;
+        }
+        catch (Exception)
+        {
+            return default;
+        }
+    }
+
 
     /// <summary>
     /// Represents a linked property and provides methods to get and set its value.

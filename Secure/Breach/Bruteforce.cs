@@ -1,4 +1,3 @@
-using System.Text;
 using Yannick.Lang;
 
 namespace Yannick.Secure.Breach;

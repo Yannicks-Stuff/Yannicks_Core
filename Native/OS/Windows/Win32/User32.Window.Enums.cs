@@ -1,6 +1,3 @@
-using System.Drawing;
-using System.Runtime.InteropServices;
-
 namespace Yannick.Native.OS.Windows.Win32;
 
 public static partial class User32
@@ -75,7 +72,7 @@ public static partial class User32
         MONITORINFOF_PRIMARY
     }
 
-    public enum ShowWindowCommands : int
+    public enum ShowWindowCommands
     {
         /// <summary>  
         /// Hides the window and activates another window.  
@@ -207,7 +204,7 @@ public static partial class User32
         SHOWWINDOW = 0x40
     }
 
-    [Flags()]
+    [Flags]
     public enum WindowStyles : uint
     {
         /// <summary>The window has a thin-line border.</summary>  

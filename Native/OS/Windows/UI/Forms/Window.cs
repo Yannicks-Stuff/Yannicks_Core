@@ -27,7 +27,7 @@ public sealed class Window : IDisposable
     /// <summary>
     /// Initializes a new instance of the <see cref="Window"/> class with default values.
     /// </summary>
-    public Window() : this(null, string.Empty, User32.ShowWindowCommands.Normal)
+    public Window() : this(null, string.Empty)
     {
     }
 
@@ -99,7 +99,7 @@ public sealed class Window : IDisposable
             {
                 var len = size + 1;
                 var sb = new StringBuilder(len);
-                return ((User32.GetWindowText(Handle, sb, len) > 0) ? ((object)sb).ToString() : string.Empty) ??
+                return ((User32.GetWindowText(Handle, sb, len) > 0) ? sb.ToString() : string.Empty) ??
                        string.Empty;
             }
 
@@ -227,7 +227,7 @@ public sealed class Window : IDisposable
         /// <value>
         /// The window styles for the current window, represented as a <see cref="User32.WindowStyles"/> enumeration value.
         /// </value>
-        set => this[User32.WindowLongFlags.GWL_STYLE] = new IntPtr((int)(User32.WindowStyles)value);
+        set => this[User32.WindowLongFlags.GWL_STYLE] = new IntPtr((int)value);
     }
 
     /// <summary>
@@ -249,7 +249,7 @@ public sealed class Window : IDisposable
         /// <value>
         /// The extended window styles for the current window, represented as a <see cref="User32.WindowStylesEx"/> enumeration value.
         /// </value>
-        set => this[User32.WindowLongFlags.GWL_EXSTYLE] = new IntPtr((int)(User32.WindowStylesEx)value);
+        set => this[User32.WindowLongFlags.GWL_EXSTYLE] = new IntPtr((int)value);
     }
 
     /// <summary>
@@ -349,7 +349,7 @@ public sealed class Window : IDisposable
         wcx.hIcon = icon ?? User32.LoadIcon(
             IntPtr.Zero, new IntPtr((int)User32.SystemIcons.IDI_APPLICATION));
         //wndClass.hCursor = WinAPI.LoadCursor(IntPtr.Zero, (int)IdcStandardCursor.IDC_ARROW);  
-        wcx.hCursor = cursor ?? User32.LoadCursor(IntPtr.Zero, (int)User32.IDC_ARROW);
+        wcx.hCursor = cursor ?? User32.LoadCursor(IntPtr.Zero, User32.IDC_ARROW);
         wcx.hbrBackground = background ?? Gdi32.GetStockObject(Gdi32.StockObjects.WHITE_BRUSH);
         wcx.lpszMenuName = menuName ?? "MainMenu";
         wcx.lpszClassName = className ?? "MainWClass";
@@ -467,7 +467,7 @@ public sealed class Window : IDisposable
             var midX = screenRect.Width / 2;
             var midY = screenRect.Height / 2;
             var size = Size;
-            SetPosition(midX - ((Size)(size)).Width / 2, midY - ((Size)(size)).Height / 2);
+            SetPosition(midX - size.Width / 2, midY - size.Height / 2);
         }
     }
 

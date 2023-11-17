@@ -78,20 +78,20 @@ public readonly struct Fahrenheit : ITemperature<Fahrenheit>
 
     public static bool operator ==(Fahrenheit left, Fahrenheit right) => left.m_value == right.m_value;
     public static bool operator !=(Fahrenheit left, Fahrenheit right) => left.m_value != right.m_value;
-    public static bool operator ==(Fahrenheit left, decimal right)=> left.m_value == right;
-    public static bool operator !=(Fahrenheit left, decimal right)=> left.m_value != right; 
-    
+    public static bool operator ==(Fahrenheit left, decimal right) => left.m_value == right;
+    public static bool operator !=(Fahrenheit left, decimal right) => left.m_value != right;
+
     #endregion
 
     public static implicit operator Fahrenheit(decimal b) => new(b);
-    public static implicit operator Fahrenheit(Delisle b) => new(((decimal)b.m_value + 100) * 1.2000m + 32.00m);
-    public static implicit operator Fahrenheit(Kelvin b) => new(((decimal)b.m_value - 273.15m) * 1.8000m + 32.00m);
-    public static implicit operator Fahrenheit(Celsius b) => new((decimal)b.m_value * 1.8000m + 32.00m);
-    public static implicit operator Fahrenheit(Newton b) => new((decimal)b.m_value * 5.4545m + 32.00m);
-    public static implicit operator Fahrenheit(Rankine b) => new(((decimal)b.m_value - 491.67m) + 32.00m);
-    public static implicit operator Fahrenheit(Reaumur b) => new((decimal)b.m_value * 2.2500m + 32.00m);
-    public static implicit operator Fahrenheit(Romer b) => new(((decimal)b.m_value - 7.5m) * 3.4286m + 32.00m);
-    
+    public static implicit operator Fahrenheit(Delisle b) => new((b.m_value + 100) * 1.2000m + 32.00m);
+    public static implicit operator Fahrenheit(Kelvin b) => new((b.m_value - 273.15m) * 1.8000m + 32.00m);
+    public static implicit operator Fahrenheit(Celsius b) => new(b.m_value * 1.8000m + 32.00m);
+    public static implicit operator Fahrenheit(Newton b) => new(b.m_value * 5.4545m + 32.00m);
+    public static implicit operator Fahrenheit(Rankine b) => new((b.m_value - 491.67m) + 32.00m);
+    public static implicit operator Fahrenheit(Reaumur b) => new(b.m_value * 2.2500m + 32.00m);
+    public static implicit operator Fahrenheit(Romer b) => new((b.m_value - 7.5m) * 3.4286m + 32.00m);
+
     /// <summary>Compares the current instance with another object of the same type and returns an integer that indicates whether the current instance precedes, follows, or occurs in the same position in the sort order as the other object.</summary>
     /// <param name="other">An object to compare with this instance.</param>
     /// <returns>A value that indicates the relative order of the objects being compared. The return value has these meanings:
@@ -103,7 +103,7 @@ public readonly struct Fahrenheit : ITemperature<Fahrenheit>
     /// <returns>
     /// <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.</returns>
     public bool Equals(decimal? other) => m_value.Equals(other);
-    
+
     public string ToString(string? format, IFormatProvider? formatProvider)
         => m_value.ToString(format, formatProvider);
 
@@ -131,7 +131,7 @@ public readonly struct Fahrenheit : ITemperature<Fahrenheit>
         result = new Fahrenheit(f);
         return rs;
     }
-    
+
     public Kelvin ToKelvin() => new(((m_value - 32) / 1.8000m) + 273.15m);
     public static Kelvin ToKelvin(Fahrenheit i) => i;
     public bool Equals(Fahrenheit other) => other.m_value.Equals(m_value);

@@ -1,4 +1,3 @@
-using System;
 using System.Numerics;
 using Yannick.Physic.SI.Temperature;
 

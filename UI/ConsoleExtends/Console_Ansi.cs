@@ -2,7 +2,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using Yannick.Extensions.DictionaryExtensions;
-using Yannick.Native;
+using Yannick.VM.CLR;
 
 namespace Yannick.UI;
 
@@ -132,7 +132,7 @@ public partial class Console
         if (colorsConsole.ContainsKey(fb))
             ForegroundColor = colorsConsole[fb];
         else
-            ForegroundColor = ConvertFromColor(fb, true);
+            ForegroundColor = ConvertFromColor(fb);
 
         if (colorsConsole.ContainsKey(bg))
             BackgroundColor = colorsConsole[bg];
@@ -506,13 +506,13 @@ public partial class Console
 
         public Formatter UseForeground(Color foreground)
         {
-            Console.SetColor(foreground, BackgroundColor24);
+            SetColor(foreground, BackgroundColor24);
             return this;
         }
 
         public Formatter UseBackground(Color background)
         {
-            Console.SetColor(ForegroundColor24, background);
+            SetColor(ForegroundColor24, background);
             return this;
         }
 
@@ -524,7 +524,7 @@ public partial class Console
 
         public Formatter UseStyle(AnsiGraphicMode style)
         {
-            Console.WriteStyleStart(style);
+            WriteStyleStart(style);
             return this;
         }
 
@@ -556,13 +556,13 @@ public partial class Console
 
         public Formatter MoveCursor(CursorDirection direction)
         {
-            Console.WriteMoveCursor(direction);
+            WriteMoveCursor(direction);
             return this;
         }
 
         public Formatter Erase(EraseMode mode)
         {
-            Console.WriteErase(mode);
+            WriteErase(mode);
             return this;
         }
 
@@ -576,7 +576,7 @@ public partial class Console
 
         public Formatter UseBlink()
         {
-            Console.WriteStyleStart(AnsiGraphicMode.BLINK);
+            WriteStyleStart(AnsiGraphicMode.BLINK);
             return this;
         }
 
@@ -588,7 +588,7 @@ public partial class Console
 
         public Formatter StopUseBlink()
         {
-            Console.WriteStyleStop(AnsiGraphicMode.BLINK);
+            WriteStyleStop(AnsiGraphicMode.BLINK);
             return this;
         }
 
@@ -600,7 +600,7 @@ public partial class Console
 
         public Formatter NewLine()
         {
-            Console.WriteLine();
+            WriteLine();
             return this;
         }
 
@@ -614,37 +614,37 @@ public partial class Console
 
         public Formatter UseInvertColors()
         {
-            Console.WriteStyleStart(AnsiGraphicMode.INVERT_COLORS);
+            WriteStyleStart(AnsiGraphicMode.INVERT_COLORS);
             return this;
         }
 
         public Formatter StopUseInvertColors()
         {
-            Console.WriteStyleStop(AnsiGraphicMode.INVERT_COLORS);
+            WriteStyleStop(AnsiGraphicMode.INVERT_COLORS);
             return this;
         }
 
         public Formatter UseBlinkBackground()
         {
-            Console.WriteStyleStart(AnsiGraphicMode.BLINK_BACKGROUND);
+            WriteStyleStart(AnsiGraphicMode.BLINK_BACKGROUND);
             return this;
         }
 
         public Formatter StopUseBlinkBackground()
         {
-            Console.WriteStyleStop(AnsiGraphicMode.BLINK_BACKGROUND);
+            WriteStyleStop(AnsiGraphicMode.BLINK_BACKGROUND);
             return this;
         }
 
         public Formatter UseFrame()
         {
-            Console.WriteStyleStart(AnsiGraphicMode.FRAME);
+            WriteStyleStart(AnsiGraphicMode.FRAME);
             return this;
         }
 
         public Formatter StopUseFrame()
         {
-            Console.WriteStyleStop(AnsiGraphicMode.FRAME);
+            WriteStyleStop(AnsiGraphicMode.FRAME);
             return this;
         }
 
@@ -689,7 +689,7 @@ public partial class Console
 
         public Formatter CenterText(string text)
         {
-            var consoleWidth = Console.WindowWidth;
+            var consoleWidth = WindowWidth;
             var padding = (consoleWidth - text.Length) / 2;
             Write(new string(' ', padding));
             Write(text);

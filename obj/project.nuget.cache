@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "vDY+TkFyxBASS9wWOb2K/nXHFganib2m9sMOY7iQX9J5FUfeif7ay8zW0jFMEqJxwK1wOXVP1vWwSAFicFsuDg==",
+  "dgSpecHash": "kqRrk8wlRV1BTRynLj+phxNOgwMBLseElKPnI/Cbv3++KKyQRXYnvl+tQI9ddHTMKCdz45uKl415yfHVq3oQ3A==",
   "success": true,
   "projectFilePath": "G:\\Source Code\\Bibliotheken\\CSharp\\Core\\Core9\\Core9.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Agent\\.nuget\\packages\\bouncycastle.netcore\\2.2.1\\bouncycastle.netcore.2.2.1.nupkg.sha512",
     "C:\\Users\\Agent\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512",
     "C:\\Users\\Agent\\.nuget\\packages\\k4os.compression.lz4\\1.3.5\\k4os.compression.lz4.1.3.5.nupkg.sha512",
     "C:\\Users\\Agent\\.nuget\\packages\\k4os.compression.lz4.streams\\1.3.5\\k4os.compression.lz4.streams.1.3.5.nupkg.sha512",

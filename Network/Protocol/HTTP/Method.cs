@@ -1,5 +1,3 @@
-using Yannick.Lang.Attribute;
-
 namespace Yannick.Network.Protocol.HTTP;
 
 /// <summary>

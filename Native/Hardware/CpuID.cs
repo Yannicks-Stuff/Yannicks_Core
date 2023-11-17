@@ -1,7 +1,6 @@
 using System.Collections.Specialized;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using Yannick.Extensions.IntPtrExtensions;
 
 namespace Yannick.Native.Hardware
 {
@@ -278,29 +277,25 @@ namespace Yannick.Native.Hardware
         public static bool CpuIdex(uint level, uint function, out uint eax, out uint ebx, out uint ecx, out uint edx,
             ulong mask = 0)
         {
-            unsafe
+            if (mask == 0)
             {
-                if (mask == 0)
-                {
-                    OpenCpuIdWithTIME();
-                    Cpuid!(level, function, out eax, out ebx, out ecx, out edx);
-                    CloseCpuIdWithTIME();
-                    return true;
-                }
-                else if (mask > 0 && (mask = ThreadAffinity.Set(mask)) == 0)
-                {
-                    eax = ebx = ecx = edx = 0;
-                    return false;
-                }
-                else
-                {
-                    OpenCpuIdWithTIME();
-                    Cpuid!(level, function, out eax, out ebx, out ecx, out edx);
-                    ThreadAffinity.Set(mask);
-                    CloseCpuIdWithTIME();
-                    return true;
-                }
+                OpenCpuIdWithTIME();
+                Cpuid!(level, function, out eax, out ebx, out ecx, out edx);
+                CloseCpuIdWithTIME();
+                return true;
             }
+
+            if (mask > 0 && (mask = ThreadAffinity.Set(mask)) == 0)
+            {
+                eax = ebx = ecx = edx = 0;
+                return false;
+            }
+
+            OpenCpuIdWithTIME();
+            Cpuid!(level, function, out eax, out ebx, out ecx, out edx);
+            ThreadAffinity.Set(mask);
+            CloseCpuIdWithTIME();
+            return true;
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -328,7 +323,7 @@ namespace Yannick.Native.Hardware
 
             public static implicit operator BitVector32[](Register register)
             {
-                return new BitVector32[]
+                return new[]
                 {
                     new BitVector32((int)register.EAX),
                     new BitVector32((int)register.EBX),

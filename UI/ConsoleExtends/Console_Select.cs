@@ -1,4 +1,3 @@
-using System;
 using System.Numerics;
 
 namespace Yannick.UI;
@@ -41,7 +40,7 @@ public partial class Console
                 if (actualIndex == selectedIndex)
                 {
                     BackgroundColor = design.SelectBackground;
-                    ForegroundColor = design[i, true] ?? design.SelectForeground;
+                    ForegroundColor = design[i] ?? design.SelectForeground;
                 }
                 else
                 {
@@ -162,7 +161,7 @@ public partial class Console
 
         if (isFile)
             return currentPath;
-        else if (deep < 0 || pathList.Count <= deep)
+        if (deep < 0 || pathList.Count <= deep)
             pathList.Push(currentPath);
 
         goto loop;
@@ -191,7 +190,7 @@ public partial class Console
             for (var i = 0; i < b.Length; i++)
                 option[i + a.Length, false] = ConsoleColor.White;
 
-            var s = Console.Select(option, border, true, key =>
+            var s = Select(option, border, true, key =>
             {
                 return key switch
                 {
@@ -399,7 +398,7 @@ public partial class Console
 
             for (var i = 1; i <= _size.Y; i++)
             {
-                WriteAt(shadowChar.ToString(), (int)(_x + _size.X), (int)_y + i);
+                WriteAt(shadowChar.ToString(), (int)(_x + _size.X), _y + i);
             }
 
             WriteAt(new string(shadowChar, (int)_size.X + 1), _x + 1, (int)(_y + _size.Y));

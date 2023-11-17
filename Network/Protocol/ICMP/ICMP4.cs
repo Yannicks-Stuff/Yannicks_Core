@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
-using IPAddress = Yannick.Network.IPAddress;
 
 namespace Yannick.Network.Protocol.ICMP;
 

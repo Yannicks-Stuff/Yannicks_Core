@@ -27,7 +27,7 @@ public static partial class Server
 
         private void OnClientConnect(User user)
         {
-            ((Protocol.HTTP.Server.User)user).IsDecrypted = false;
+            ((Server.User)user).IsDecrypted = false;
         }
 
         private void OnRawClientRequest(User usr)

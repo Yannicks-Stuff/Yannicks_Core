@@ -7,9 +7,9 @@ public partial class Console
     /// </summary>
     public class Animation
     {
-        private volatile bool _isRunning = false;
-        private volatile bool _isStop = false;
-        private int Lines = 0;
+        private volatile bool _isRunning;
+        private volatile bool _isStop;
+        private int Lines;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Animation"/> class with the specified animation steps.

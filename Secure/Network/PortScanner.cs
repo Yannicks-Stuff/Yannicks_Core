@@ -1,10 +1,8 @@
+using System.Net.Sockets;
 using Yannick.Network;
+using IPAddress = System.Net.IPAddress;
 
 namespace Yannick.Secure.Network;
-
-using System;
-using System.Net;
-using System.Net.Sockets;
 
 /// <summary>
 /// Provides methods for scanning network ports.

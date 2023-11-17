@@ -11,10 +11,10 @@ public sealed class Request
     public readonly IReadOnlyDictionary<string, List<string>> Header;
     public readonly Method Method;
     private readonly Server.HTTP Server;
-    private readonly Server.HTTP.User User;
+    private readonly TCP.Server.User User;
     public readonly Version Version;
 
-    internal Request(Server.HTTP server, Server.HTTP.User user, string httpMethod, string httpVersion,
+    internal Request(Server.HTTP server, TCP.Server.User user, string httpMethod, string httpVersion,
         IDictionary<string, List<string>> header,
         string fullReq)
     {

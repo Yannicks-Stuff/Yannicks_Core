@@ -1,12 +1,6 @@
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading;
-using System.Threading.Tasks;
-
 
 namespace Yannick.Network.Protocol.TCP
 {
@@ -31,7 +25,7 @@ namespace Yannick.Network.Protocol.TCP
         /// </summary>
         public readonly ushort Port;
 
-        private volatile bool _requestShutdown = false;
+        private volatile bool _requestShutdown;
 
         protected int MaxNativeQueue = 100;
         protected int MaxQueueThreads = 100;
@@ -194,8 +188,8 @@ namespace Yannick.Network.Protocol.TCP
             protected readonly Server Server;
             protected readonly Socket Socket;
 
-            private Task? _heart = null;
-            private CancellationTokenSource? _token = null;
+            private Task? _heart;
+            private CancellationTokenSource? _token;
             public int BufferSize = 1024;
 
             /// <summary>

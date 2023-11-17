@@ -1,5 +1,4 @@
 using System.Collections.Specialized;
-using System.Runtime.InteropServices;
 using Yannick.Native.Hardware.Lang;
 
 namespace Yannick.Native.Hardware
@@ -53,7 +52,7 @@ namespace Yannick.Native.Hardware
 
                 var id2 = CpuId(0x80000000);
                 var nExIds_ = id2.EAX;
-                for (uint i = 0x80000000; i <= nExIds_; ++i)
+                for (var i = 0x80000000; i <= nExIds_; ++i)
                 {
                     arra = CpuIDex(i, 0);
                     var arr = new int[4];
@@ -298,7 +297,7 @@ namespace Yannick.Native.Hardware
 
         public static IEnumerable<ProcessorData> Processoren()
         {
-            for (int i = 0; i < 64; i++)
+            for (var i = 0; i < 64; i++)
             {
                 var a = new ProcessorData(i);
                 if (a.MaxFunction == default)

@@ -53,7 +53,7 @@ public abstract class GameObject : object, IEquatable<GameObject>
 
     public IList<GameObject> Children => new List<GameObject>();
     public DateTime Age { get; protected set; } = DateTime.Now;
-    public bool Equals(GameObject? other) => !ReferenceEquals(other, null) && other.ID == this.ID;
+    public bool Equals(GameObject? other) => !ReferenceEquals(other, null) && other.ID == ID;
 
 
     /// <summary>

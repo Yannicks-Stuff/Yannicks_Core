@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     "net8.0": {
+      "BouncyCastle.NetCore/2.2.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Google.Protobuf/3.21.9": {
         "type": "package",
         "compile": {
@@ -539,6 +552,21 @@
     }
   },
   "libraries": {
+    "BouncyCastle.NetCore/2.2.1": {
+      "sha512": "yfWn8JYPc4rkeM2kcsCqFVFOvwCuuQvIieGtQWcjoWxOioeznXQB3M/GmHgbCWbJjc8ycrwGhZaZPiasifYi4A==",
+      "type": "package",
+      "path": "bouncycastle.netcore/2.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "bouncycastle.netcore.2.2.1.nupkg.sha512",
+        "bouncycastle.netcore.nuspec",
+        "lib/net45/BouncyCastle.Crypto.dll",
+        "lib/net45/BouncyCastle.Crypto.xml",
+        "lib/netstandard2.0/BouncyCastle.Crypto.dll",
+        "lib/netstandard2.0/BouncyCastle.Crypto.xml"
+      ]
+    },
     "Google.Protobuf/3.21.9": {
       "sha512": "OTpFujTgkmqMLbg3KT7F/iuKi1rg6s5FCS2M9XcVLDn40zL8wgXm37CY/F6MeOEXKjdcnXGCN/h7oyMkVydVsg==",
       "type": "package",
@@ -1774,6 +1802,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "BouncyCastle.NetCore >= 2.2.1",
       "MySql.Data >= 8.1.0"
     ]
   },
@@ -1822,6 +1851,10 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "BouncyCastle.NetCore": {
+            "target": "Package",
+            "version": "[2.2.1, )"
+          },
           "MySql.Data": {
             "target": "Package",
             "version": "[8.1.0, )"
@@ -1843,7 +1876,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100-rc.2.23502.2/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -49,7 +49,7 @@ public static class ByteArrayExtension
     /// <param name="base64FormattingOptions">Specifies whether relevant line breaks should be inserted.</param>
     /// <param name="encoding">The optional character encoding to use when converting the Base64 string to bytes and back.</param>
     /// <returns>The Base64 encoded string.</returns>
-    public static string ToBase64String(this byte[] array,
+    public static string ToBase64String(this byte[]? array,
         Base64FormattingOptions base64FormattingOptions = Base64FormattingOptions.None,
         Encoding? encoding = null)
     {
