@@ -27,6 +27,7 @@
 
     <ItemGroup>
       <Folder Include="Mathematic\" />
+        <Folder Include="Native\OS\Windows\Apps\PowerShellCommands\"/>
         <Folder Include="Network\Protocol\FTP\"/>
         <Folder Include="Network\Protocol\NDP\"/>
       <Folder Include="VM\CVM\" />

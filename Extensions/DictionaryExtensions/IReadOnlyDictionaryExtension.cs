@@ -13,4 +13,10 @@ public static class IReadOnlyDictionaryExtension
 
         return swapped;
     }
+
+    public static bool ContainsKeys<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue?> source,
+        params TKey[] keys) where TValue : notnull where TKey : notnull
+    {
+        return keys.All(source.ContainsKey);
+    }
 }

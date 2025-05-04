@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kqRrk8wlRV1BTRynLj+phxNOgwMBLseElKPnI/Cbv3++KKyQRXYnvl+tQI9ddHTMKCdz45uKl415yfHVq3oQ3A==",
+  "dgSpecHash": "NnW7izTYJDA=",
   "success": true,
-  "projectFilePath": "G:\\Source Code\\Bibliotheken\\CSharp\\Core\\Core9\\Core9.csproj",
+  "projectFilePath": "E:\\Program\\Source Code\\Bibliotheken\\CSharp\\Core\\Core9\\Core9.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Agent\\.nuget\\packages\\bouncycastle.netcore\\2.2.1\\bouncycastle.netcore.2.2.1.nupkg.sha512",
     "C:\\Users\\Agent\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512",
@@ -36,7 +36,10 @@
     "C:\\Users\\Agent\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
     "C:\\Users\\Agent\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\Agent\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
-    "C:\\Users\\Agent\\.nuget\\packages\\zstdsharp.port\\0.7.1\\zstdsharp.port.0.7.1.nupkg.sha512"
+    "C:\\Users\\Agent\\.nuget\\packages\\zstdsharp.port\\0.7.1\\zstdsharp.port.0.7.1.nupkg.sha512",
+    "C:\\Users\\Agent\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.14\\microsoft.netcore.app.ref.8.0.14.nupkg.sha512",
+    "C:\\Users\\Agent\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.14\\microsoft.windowsdesktop.app.ref.8.0.14.nupkg.sha512",
+    "C:\\Users\\Agent\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.14\\microsoft.aspnetcore.app.ref.8.0.14.nupkg.sha512"
   ],
   "logs": []
 }

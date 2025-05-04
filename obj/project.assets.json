@@ -1813,11 +1813,11 @@
   "project": {
     "version": "0.1.0",
     "restore": {
-      "projectUniqueName": "G:\\Source Code\\Bibliotheken\\CSharp\\Core\\Core9\\Core9.csproj",
+      "projectUniqueName": "E:\\Program\\Source Code\\Bibliotheken\\CSharp\\Core\\Core9\\Core9.csproj",
       "projectName": "Core9",
-      "projectPath": "G:\\Source Code\\Bibliotheken\\CSharp\\Core\\Core9\\Core9.csproj",
+      "projectPath": "E:\\Program\\Source Code\\Bibliotheken\\CSharp\\Core\\Core9\\Core9.csproj",
       "packagesPath": "C:\\Users\\Agent\\.nuget\\packages\\",
-      "outputPath": "G:\\Source Code\\Bibliotheken\\CSharp\\Core\\Core9\\obj\\",
+      "outputPath": "E:\\Program\\Source Code\\Bibliotheken\\CSharp\\Core\\Core9\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1845,7 +1845,13 @@
         "warnAsError": [
           "NU1605"
         ]
-      }
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net8.0": {
@@ -1871,12 +1877,26 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[8.0.14, 8.0.14]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[8.0.14, 8.0.14]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[8.0.14, 8.0.14]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.202/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

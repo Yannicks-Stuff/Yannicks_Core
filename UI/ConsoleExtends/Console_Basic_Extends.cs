@@ -100,22 +100,23 @@ public partial class Console
     /// Writes the specified string value to the console, centered horizontally.
     /// </summary>
     /// <param name="text">The string to write to the console.</param>
-    public static void WriteCenter(string text)
+    public static void WriteCenter(string text, Color? fb = null, Color? bg = null, AnsiGraphicMode? graphicMode = null)
     {
         var x3 = Convert.ToInt32(Math.Floor(((WindowWidth - CursorLeft + 1) - text.Length) / 2.0));
         x3 = ((x3 >= 0) ? x3 : 0);
         x3 = ((x3 <= WindowWidth) ? x3 : 0);
         SetCursorPosition(x3, CursorTop);
-        Write(text);
+        WriteFormat(text, fb, bg, graphicMode);
     }
 
     /// <summary>
     /// Writes the specified string value followed by a newline character to the console, centered horizontally.
     /// </summary>
     /// <param name="text">The string to write to the console.</param>
-    public static void WriteLineCenter(string text)
+    public static void WriteLineCenter(string text, Color? fb = null, Color? bg = null,
+        AnsiGraphicMode? graphicMode = null)
     {
-        WriteCenter(text);
+        WriteCenter(text, fb, bg, graphicMode);
         System.Console.WriteLine();
     }
 

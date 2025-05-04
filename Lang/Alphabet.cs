@@ -5,7 +5,7 @@ namespace Yannick.Lang
     /// <summary>
     /// Represents an alphabet class that provides an enumeration of characters.
     /// </summary>
-    public sealed class Alphabet : IEnumerable<char>
+    public sealed class Alphabet : IEnumerable<char>, IAsyncEnumerable<char>
     {
         public static readonly Alphabet Russian = new(new[]
         {
@@ -133,6 +133,23 @@ namespace Yannick.Lang
         /// <returns>The character at the specified offset.</returns>
         public char this[int offset] => _a[offset];
 
+        /// <summary>
+        /// Returns an enumerator that iterates asynchronously through the collection.
+        /// </summary>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used to cancel the iteration.</param>
+        /// <returns>An <see cref="IAsyncEnumerator{T}"/> that can be used to iterate through the collection.</returns>
+        public async IAsyncEnumerator<char> GetAsyncEnumerator(CancellationToken cancellationToken = default)
+        {
+            foreach (var c in _a)
+            {
+                if (cancellationToken.IsCancellationRequested)
+                    yield break;
+
+                yield return c;
+                await Task.Delay(1, cancellationToken);
+            }
+        }
+
         /// <summary>Returns an enumerator that iterates through the collection.</summary>
         /// <returns>An enumerator that can be used to iterate through the collection.</returns>
         public IEnumerator<char> GetEnumerator()
@@ -169,14 +186,45 @@ namespace Yannick.Lang
         public static implicit operator uint(Alphabet a) => a.Length;
 
         /// <summary>
-        /// Combines two alphabets.
+        /// Combines two alphabets into a new alphabet containing all characters from both alphabets.
         /// </summary>
+        /// <param name="a">The first alphabet to combine.</param>
+        /// <param name="b">The second alphabet to combine.</param>
+        /// <returns>A new alphabet containing all characters from both <paramref name="a"/> and <paramref name="b"/>.</returns>
         public static Alphabet operator +(Alphabet a, Alphabet b)
         {
             var c = new char[a.Length + b.Length];
             Array.Copy(a._a, 0, c, 0, a.Length);
             Array.Copy(b._a, 0, c, a.Length, b.Length);
             return c;
+        }
+
+        /// <summary>
+        /// Produces a new alphabet by removing characters in the second alphabet from the first alphabet.
+        /// </summary>
+        /// <param name="a">The alphabet to subtract from.</param>
+        /// <param name="b">The alphabet whose characters will be removed from <paramref name="a"/>.</param>
+        /// <returns>A new alphabet with characters from <paramref name="b"/> removed from <paramref name="a"/>.</returns>
+        public static Alphabet operator -(Alphabet a, Alphabet b)
+        {
+            return (
+                    from c in a
+                    let found = b.Any(r => r == c)
+                    where !found
+                    select c)
+                .ToArray();
+        }
+
+        /// <summary>
+        /// Implicitly converts an <see cref="Alphabet"/> instance to a byte array.
+        /// </summary>
+        /// <param name="a">The <see cref="Alphabet"/> instance to convert.</param>
+        /// <returns>A byte array representing the characters in the Alphabet.</returns>
+        public static implicit operator byte[](Alphabet a)
+        {
+            var byteArray = new byte[a._a.Length * sizeof(char)];
+            Buffer.BlockCopy(a._a, 0, byteArray, 0, byteArray.Length);
+            return byteArray;
         }
     }
 }

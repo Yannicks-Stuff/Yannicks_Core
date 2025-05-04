@@ -13,4 +13,10 @@ public static class DictionaryExtension
 
         return swapped;
     }
+
+    public static bool ContainsKeys<TKey, TValue>(this Dictionary<TKey, TValue?> source,
+        params TKey[] keys) where TValue : notnull where TKey : notnull
+    {
+        return keys.All(source.ContainsKey);
+    }
 }

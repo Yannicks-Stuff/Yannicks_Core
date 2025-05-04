@@ -15,7 +15,7 @@ public partial class Console
     /// <param name="options">The list of options for the user to select from.</param>
     /// <returns>The index of the selected option.</returns>
     public static int Select(SelectOption design, Border border, bool clearOnExit,
-        Func<ConsoleKey, int?>? returnOnKey = null, params string[] options)
+        Func<ConsoleKey, int?>? returnOnKey = null, Action<int>? onChange = null, params string[] options)
     {
         var cv = CursorVisible;
         CursorVisible = false;
@@ -54,6 +54,8 @@ public partial class Console
                 ResetColor();
             }
 
+            onChange?.Invoke(selectedIndex);
+
             var keyInfo = ReadKey(intercept: true);
             switch (keyInfo.Key)
             {
@@ -63,6 +65,8 @@ public partial class Console
                         selectedIndex--;
                         if (selectedIndex < offset)
                             offset--;
+
+                        onChange?.Invoke(selectedIndex);
                     }
 
                     break;
@@ -73,6 +77,8 @@ public partial class Console
                         selectedIndex++;
                         if (selectedIndex >= offset + visibleOptions.Length)
                             offset++;
+
+                        onChange?.Invoke(selectedIndex);
                     }
 
                     break;
@@ -121,7 +127,7 @@ public partial class Console
             size: new Vector2(length, options.Length + 2));
 
         return Select(new SelectOption(ConsoleColor.White, ConsoleColor.Black,
-            BackgroundColor, ConsoleColor.Cyan), border, true, null, options);
+            BackgroundColor, ConsoleColor.Cyan), border, true, null, null, options);
     }
 
     /// <summary>
@@ -197,7 +203,7 @@ public partial class Console
                     ConsoleKey.Backspace => -100,
                     _ => null
                 };
-            }, c!);
+            }, null, c!);
 
             if (s == -100)
             {
@@ -217,14 +223,28 @@ public partial class Console
     /// <summary>
     /// Defines the appearance options for the selection menu.
     /// </summary>
-    public readonly struct SelectOption
+    public sealed class SelectOption
     {
+        private readonly Dictionary<int, ConsoleColor> _colorForIndex;
+        private readonly Dictionary<int, ConsoleColor> _selectColorForIndex;
+
+        public SelectOption(ConsoleColor? foregroundColor = null,
+            ConsoleColor? backgroundColor = null,
+            ConsoleColor? selectForeground = null,
+            ConsoleColor? selectBackground = null)
+        {
+            Foreground = foregroundColor ?? ForegroundColor;
+            Background = backgroundColor ?? BackgroundColor;
+            SelectForeground = selectForeground ?? ConsoleColor.Gray;
+            SelectBackground = selectBackground ?? ForegroundColor;
+            _selectColorForIndex = new Dictionary<int, ConsoleColor>();
+            _colorForIndex = new Dictionary<int, ConsoleColor>();
+        }
+
         public ConsoleColor Foreground { get; init; }
         public ConsoleColor Background { get; init; }
         public ConsoleColor SelectForeground { get; init; }
         public ConsoleColor SelectBackground { get; init; }
-        private readonly Dictionary<int, ConsoleColor> _selectColorForIndex = new Dictionary<int, ConsoleColor>();
-        private readonly Dictionary<int, ConsoleColor> _colorForIndex = new Dictionary<int, ConsoleColor>();
 
         /// <summary>
         /// Set Foreground per Index
@@ -257,19 +277,6 @@ public partial class Console
                         _colorForIndex.Add(index, value.Value);
                 }
             }
-        }
-
-        public SelectOption(ConsoleColor? foregroundColor = null,
-            ConsoleColor? backgroundColor = null,
-            ConsoleColor? selectForeground = null,
-            ConsoleColor? selectBackground = null)
-        {
-            Foreground = foregroundColor ?? ForegroundColor;
-            Background = backgroundColor ?? BackgroundColor;
-            SelectForeground = selectForeground ?? ConsoleColor.Gray;
-            SelectBackground = selectBackground ?? ForegroundColor;
-            _selectColorForIndex = new Dictionary<int, ConsoleColor>();
-            _colorForIndex = new Dictionary<int, ConsoleColor>();
         }
     }
 

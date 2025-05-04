@@ -48,6 +48,11 @@ public sealed class Connection : IDisposable, IAsyncDisposable
             { Server = domain, Port = port };
     }
 
+    public Database this[string name, bool createIfNotExist = true]
+    {
+        get => createIfNotExist ? OpenDatabaseOrCreate(name) : new Database(this, name);
+        set => new Database(this, name).CreateDatabase(createIfNotExist);
+    }
 
     /// <summary>
     /// Asynchronously releases all resources used by the <see cref="Connection"/> object.
@@ -74,6 +79,8 @@ public sealed class Connection : IDisposable, IAsyncDisposable
         _semaphoreSlim = null;
         _semaphoreSlim = new SemaphoreSlim(1, 1);
     }
+
+    public static implicit operator MySqlConnection?(Connection c) => c._connection;
 
     /// <summary>
     /// Authenticates with the MySQL server using the provided user credentials.
@@ -158,7 +165,7 @@ public sealed class Connection : IDisposable, IAsyncDisposable
     /// <summary>
     /// Executes an SQL command and returns the number of affected rows.
     /// </summary>
-    /// <param name="command">The SQL command to execute.</param>
+    /// <param name="command">The SQL command to execute. </param>
     /// <returns>The number of affected rows.</returns>
     [MethodImpl(MethodImplOptions.Synchronized)]
     public int UpdateSelect(string command)
@@ -361,6 +368,30 @@ public sealed class Connection : IDisposable, IAsyncDisposable
             _semaphoreSlim.Release();
         }
     }
+
+    /// <summary>
+    /// Performs an upsert operation synchronously by first attempting an update, and if no rows are affected, inserts a new row.
+    /// </summary>
+    /// <param name="db">The name of the database.</param>
+    /// <param name="tb">The name of the table.</param>
+    /// <param name="data">The data to upsert.</param>
+    /// <param name="whereCondition">The WHERE clause to check for existing rows.</param>
+    /// <returns>The number of affected rows.</returns>
+    public int UpdateInsert(string db, string tb, string whereCondition, params KeyValuePair<string, object?>[] data)
+        => new Table(new Database(this, db), tb).UpdateInsert(whereCondition, data);
+
+    /// <summary>
+    /// Performs an upsert operation by first attempting an update, and if no rows are affected, inserts a new row.
+    /// </summary>
+    /// <param name="db">The name of the database.</param>
+    /// <param name="tb">The name of the table.</param>
+    /// <param name="data">The data to upsert.</param>
+    /// <param name="whereCondition">The WHERE clause to check for existing rows.</param>
+    /// <param name="token">The cancellation token.</param>
+    /// <returns>The number of affected rows.</returns>
+    public async Task<int> UpdateInsertAsync(CancellationToken token, string db, string tb, string whereCondition,
+        params KeyValuePair<string, object?>[] data)
+        => await new Table(new Database(this, db), tb).UpdateInsertAsync(token, whereCondition, data);
 
     /// <summary>
     /// Opens or creates a new database.

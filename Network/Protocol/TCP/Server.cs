@@ -26,6 +26,7 @@ namespace Yannick.Network.Protocol.TCP
         public readonly ushort Port;
 
         private volatile bool _requestShutdown;
+        protected bool ActiveDispose = false;
 
         protected int MaxNativeQueue = 100;
         protected int MaxQueueThreads = 100;
@@ -111,12 +112,14 @@ namespace Yannick.Network.Protocol.TCP
             }
         }
 
+        protected virtual User OnBeforeAcceptUser(User user) => user;
+
         private async void AcceptUser()
         {
             try
             {
                 var socket = await _serverSocket.AcceptAsync();
-                var user = new User(socket, this);
+                var user = OnBeforeAcceptUser(new User(socket, this));
 
                 if (_users.Count >= MaxUserCount || !_whiteList.Contains(user.EndPoint))
                 {
@@ -255,13 +258,15 @@ namespace Yannick.Network.Protocol.TCP
             /// </summary>
             public event Action? OnAvailable;
 
+            public bool IsConnectionActive() => Socket.Poll(1000, SelectMode.SelectRead);
+
             private void HeartTick()
             {
                 try
                 {
                     while (!_token?.Token.IsCancellationRequested ?? true)
                     {
-                        if (!Socket.Poll(1000, SelectMode.SelectRead))
+                        if (IsConnectionActive())
                             continue;
 
                         if (BufferSize <= 0)
